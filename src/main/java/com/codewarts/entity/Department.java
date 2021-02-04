@@ -20,9 +20,9 @@ public class Department {
     private String name;
     private String address;
     private String phone;
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<ChildGroup> childGroup;
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Staff> staff;
 
 }

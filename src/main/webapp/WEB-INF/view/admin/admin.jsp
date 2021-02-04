@@ -24,6 +24,9 @@
     </form>
 
     <h2>Список групп</h2>
+    <font color="blue">
+    <h3>${msg}</h3>
+    </font>
     <c:forEach items="${listGroups}" var="item"  >
         <form style="display:inline-block" name="test" method="get" action="/admin/${item.id}">
             <button type="submit" name="button" value="${item.id}">${item.name}</button>

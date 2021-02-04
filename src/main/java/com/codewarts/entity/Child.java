@@ -7,6 +7,9 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,14 +23,16 @@ public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String surname;
     @Column(name = "birthday_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdayDate;
-    @OneToMany (mappedBy = "child")
+    @OneToMany (mappedBy = "child", cascade = CascadeType.ALL)
     private List<Payment> payment;
-    @OneToMany (mappedBy = "child")
+    @OneToMany (mappedBy = "child", cascade = CascadeType.ALL)
     private List<Attendance> attendance;
     @ManyToOne
     @JoinColumn(name = "parent_id")

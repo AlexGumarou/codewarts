@@ -23,6 +23,6 @@ public class Parent {
     private String phoneMother;
     @Column(name = "phone_father")
     private String phoneFather;
-    @OneToMany (mappedBy = "parent")
+    @OneToMany (mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Child> child;
 }

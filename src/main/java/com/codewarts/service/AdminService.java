@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -27,8 +28,17 @@ public class AdminService {
         return adminDao.getAllDepartments();
     }
 
-    public void saveChild(int idChild, String name, String surname, int idGroup, String mother,
-                          String phoneMother, String father, String phoneFather, int idDepartment) {
-        adminDao.saveChild(idChild,name,surname,idGroup, mother, father,phoneFather,phoneMother);
+    public boolean saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, String mother,
+                          String phoneMother, String father, String phoneFather) {
+        if (date.isBefore(LocalDate.now()) && date.isAfter(LocalDate.ofYearDay(2000, 1))){
+            adminDao.saveChild(idChild, date, name,surname,idGroup, mother, father,phoneFather,phoneMother);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void deleteChild(int idChild) {
+        adminDao.deleteChild(idChild);
     }
 }

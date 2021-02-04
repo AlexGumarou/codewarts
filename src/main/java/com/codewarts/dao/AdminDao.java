@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -27,7 +28,7 @@ public class AdminDao {
         return sessionFactory.getCurrentSession().createQuery("from Department ", Department.class).list();
     }
 
-    public void saveChild(int idChild, String name, String surname, int idGroup, String mother,
+    public void saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, String mother,
                           String father, String phoneFather, String phoneMother) {
         Child child = sessionFactory.getCurrentSession().get(Child.class, idChild);
         ChildGroup childGroup = sessionFactory.getCurrentSession().get(ChildGroup.class, idGroup);
@@ -41,6 +42,12 @@ public class AdminDao {
         child.setName(name);
         child.setSurname(surname);
         child.setParent(parent);
+        child.setBirthdayDate(date);
         sessionFactory.getCurrentSession().update(child);
+    }
+
+    public void deleteChild(int idChild) {
+        Child child = sessionFactory.getCurrentSession().get(Child.class, idChild);
+        sessionFactory.getCurrentSession().delete(child);
     }
 }

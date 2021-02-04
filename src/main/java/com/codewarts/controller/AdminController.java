@@ -1,17 +1,20 @@
 package com.codewarts.controller;
 
+import com.codewarts.entity.Child;
 import com.codewarts.entity.Department;
 import com.codewarts.service.AdminService;
 import com.codewarts.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.time.LocalDate;
 
 @Controller
 public class AdminController {
@@ -51,7 +54,10 @@ public class AdminController {
     }
 
     @PostMapping(value = "/admin/child/{editChild}")
-    public String adminEditAndSave(@PathVariable(name = "editChild") int idChild, Model model,
+    public String adminEditAndSave(@PathVariable(name = "editChild") int idChild,
+                                   @ModelAttribute("child") @Valid Child child,
+                                   BindingResult result,
+                                   @RequestParam(name = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
                                    @RequestParam(value = "name") String name,
                                    @RequestParam(value = "surname") String surname,
                                    @RequestParam(value = "mother") String mother,
@@ -59,9 +65,24 @@ public class AdminController {
                                    @RequestParam(value = "father")String father,
                                    @RequestParam(value = "phoneFather") String phoneFather,
                                    @RequestParam(value = "selectGroup") int idGroup,
-                                   @RequestParam(value = "selectDepartment") int idDepartment
+                                   Model model, HttpSession session
                                    ){
-        adminService.saveChild(idChild,name,surname,idGroup, mother, phoneMother, father, phoneFather, idDepartment);
+        if (result.hasErrors()){
+            return "redirect:/admin/child/"+idChild;
+        }
+        Department department = (Department) session.getAttribute("department");
+        model.addAttribute("listGroups", teacherService.getAllGroupChild(department));
+        if (adminService.saveChild(idChild, date, name, surname, idGroup, mother, phoneMother, father, phoneFather)){
+            model.addAttribute("msg", "Данные успешно сохранены");
+        } else {
+            model.addAttribute("msg", "Даты не соответствуют допустимому интервалу");
+        }
         return "admin/admin";
+    }
+
+    @PostMapping(value = "/delete")
+    public String deleteChild(@RequestParam(value = "idChild") int idChild){
+        adminService.deleteChild(idChild);
+        return "redirect:/admin";
     }
 }

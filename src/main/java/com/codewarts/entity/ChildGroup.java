@@ -19,9 +19,9 @@ public class ChildGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-    @OneToMany (mappedBy = "childGroup")
+    @OneToMany (mappedBy = "childGroup", cascade = CascadeType.ALL)
     private List<Child> child;
-    @OneToMany (mappedBy = "childGroup")
+    @OneToMany (mappedBy = "childGroup", cascade = CascadeType.ALL)
     private List<Accounting> accounting;
     @ManyToOne
     @JoinColumn(name = "department_id")

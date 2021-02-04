@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Title</title>
@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form:form name="test" method="post" action="/admin/child/${child.id}" modelAttribute="child" >
+<form:form method="post" action="/admin/child/${child.id}" modelAttribute="child">
     <table border="0" align="center">
         <tr>
             <th></th>
@@ -22,7 +22,7 @@
             </td><td><form>
                 <input type="date" name="date" value="${child.birthdayDate}">
             </form>
-            <tr><td>Имя ребенка: </td><td><input type="text" name="name" value ="${child.name}" size="40"></td>
+        <tr><td>Имя ребенка: </td><td><input type="text" name="name" value ="${child.name}" size="40"></td>
         <tr><td>Фамилия ребенка: </td><td><input type="text" name="surname" value ="${child.surname}" size="40"></td>
         <tr><td>ФИО мамы: </td><td><input type="text" name="mother" value ="${child.parent.mother}" size="40"></td>
         <tr><td>Контактный телефон: </td><td><input type="text" name="phoneMother" value ="${child.parent.phoneMother}" size="40"></td>
@@ -38,28 +38,25 @@
                         <option value="${item.id}">${item.name}</option>
                     </c:if>
                 </c:forEach>
-            </select><br>
-
-        <tr><td>Филиал:
-        </td><td><select name="selectDepartment">
-        <c:forEach items="${listDepartments}" var="item" >
-            <c:if test="${item.name == child.childGroup.department.name}" >
-                <option selected="selected" value="${child.childGroup.department.id}">${child.childGroup.department.name}</option>
-            </c:if>
-            <c:if test="${item.name != child.childGroup.department.name}" >
-                <option value="${item.id}">${item.name}</option>
-            </c:if>
-        </c:forEach>
-        </select><br>
+    </select><br></td>
     </table>
     <br>
+
     <div align="center">
     <input type="submit" class="shine-button" size="100" value="сохранить">
     </div>
 </form:form>
 <br>
-<form name="test" method="get" action="/admin">
-    <button type="submit" name="button">на главную</button>
+<div align="center">
+<form style="display:inline-block" name="test" method="post" action="/delete">
+    <input type="hidden" name="idChild" value="${child.id}">
+    <button type="submit" name="delete">Удалить</button>
 </form>
+<br><div align="center">
+<form style="display:inline-block" name="test" method="get" action="/admin">
+    <button type="submit" name="button">к списку групп</button>
+</form>
+</div>
+</div>
 </body>
 </html>

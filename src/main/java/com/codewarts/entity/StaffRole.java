@@ -19,6 +19,6 @@ public class StaffRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String role;
-    @OneToMany(mappedBy = "staffRole")
+    @OneToMany(mappedBy = "staffRole", cascade = CascadeType.ALL)
     private List<Staff> staff;
 }

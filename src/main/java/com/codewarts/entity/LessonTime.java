@@ -19,7 +19,7 @@ public class LessonTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String type;
-    @OneToMany(mappedBy = "lessonTime")
+    @OneToMany(mappedBy = "lessonTime", cascade = CascadeType.ALL)
     private List<Accounting> accounting;
 
 }
