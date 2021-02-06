@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -39,6 +41,18 @@
                     </c:if>
                 </c:forEach>
     </select><br></td>
+        <tr><td>Даты посещений:
+        </td><td><select name="selectAttendance">
+            <c:forEach items="${listAttendance}" var="item" >
+                    <option>${item}</option>
+            </c:forEach>
+        </select><br></td>
+        <tr><td>Даты платежей:
+        </td><td><select name="selectPayments">
+            <c:forEach items="${listPayments}" var="item" >
+                <option>${item}</option>
+            </c:forEach>
+        </select><br></td>
     </table>
     <br>
 
@@ -48,7 +62,7 @@
 </form:form>
 <br>
 <div align="center">
-<form style="display:inline-block" name="test" method="post" action="/delete">
+<form style="display:inline-block" name="test" method="post" action="/admin/delete">
     <input type="hidden" name="idChild" value="${child.id}">
     <button type="submit" name="delete">Удалить</button>
 </form>

@@ -10,7 +10,9 @@
     <h2>Добро пожаловать, ${name}</h2>
         <h2>Список всех учеников группы:</h2>
         <table border="0">
-
+            <font color="blue">
+                <h3>${msg}</h3>
+            </font>
             <c:forEach items="${listChild}" var="item" >
                 <div style="display:inline-block">
                     <tr><td><h2><a href="/admin/child/${item.id}">${item.name} ${item.surname}</a></h2></td>

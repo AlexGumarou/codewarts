@@ -1,18 +1,11 @@
 package com.codewarts.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class Accounting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +33,66 @@ public class Accounting {
         this.childGroup = childGroup;
         this.staff = staff;
         this.lessonTime = lessonTime;
+        this.theme = theme;
+    }
+
+    public Accounting() {
+    }
+
+    public Accounting(int id, LocalDate date, ChildGroup childGroup, Staff staff, LessonTime lessonTime, Theme theme) {
+        this.id = id;
+        this.date = date;
+        this.childGroup = childGroup;
+        this.staff = staff;
+        this.lessonTime = lessonTime;
+        this.theme = theme;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public ChildGroup getChildGroup() {
+        return childGroup;
+    }
+
+    public void setChildGroup(ChildGroup childGroup) {
+        this.childGroup = childGroup;
+    }
+
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
+    public LessonTime getLessonTime() {
+        return lessonTime;
+    }
+
+    public void setLessonTime(LessonTime lessonTime) {
+        this.lessonTime = lessonTime;
+    }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
         this.theme = theme;
     }
 }

@@ -8,19 +8,21 @@
 <div align="center">
     <h2>Добро пожаловать, ${name}</h2><br>
 
-    <label>
+    <form name="test" method="post" action="/admin/search">
         <input style="display:inline-block" type="search" name="findChild" placeholder="Найти ребенка по фамилии">
-    </label>
-    <input type="submit" value="Найти"></p>
-
-    <form name="test" method="get" action="/admin/addChild">
-    <h2 style="display:inline-block">Добавить ребенка:</h2>
-        <button type="submit" name="button">Добавить</button>
+        <button type="submit" name="button">Найти</button>
     </form>
 
-    <form name="test" method="get" action="/admin/addStaff">
-        <h2 style="display:inline-block">Добавить персонал:</h2>
-        <button type="submit" name="button">Добавить</button>
+    <form style="display:inline-block" name="test" method="get" action="/admin/addChild">
+        <button type="submit" name="button">Добавить ребенка</button>
+    </form>
+
+    <form style="display:inline-block" name="test" method="get" action="/admin/addStaff">
+        <button type="submit" name="button">Добавить персонал</button>
+    </form>
+
+    <form style="display:inline-block" name="test" method="get" action="/admin/AddPayment">
+        <button type="submit" name="button">Добавить оплаты</button>
     </form>
 
     <h2>Список групп</h2>
