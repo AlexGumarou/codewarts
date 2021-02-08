@@ -16,7 +16,8 @@ public class ChildGroup {
     private String name;
     @OneToMany (mappedBy = "childGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Child> child;
-    @OneToMany (mappedBy = "childGroup")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany (mappedBy = "childGroup", cascade = CascadeType.ALL)
     private List<Accounting> accounting;
     @ManyToOne
     @JoinColumn(name = "department_id")
@@ -30,6 +31,11 @@ public class ChildGroup {
         this.name = name;
         this.child = child;
         this.accounting = accounting;
+        this.department = department;
+    }
+
+    public ChildGroup(String name, Department department) {
+        this.name = name;
         this.department = department;
     }
 

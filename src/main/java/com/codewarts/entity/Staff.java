@@ -1,21 +1,28 @@
 package com.codewarts.entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotEmpty(message = "Это поле не должно быть пустым")
     private String name;
+    @NotEmpty(message = "Это поле не должно быть пустым")
     private String surname;
-    @Column(name = "birthday_date")
-    private Date birthdayDate;
+    @NotEmpty(message = "Это поле не должно быть пустым")
     private String login;
+    @NotEmpty(message = "Это поле не должно быть пустым")
     private String pass;
+    @NotEmpty(message = "Это поле не должно быть пустым")
+    @Email(message = "Поле должно быть вида abc@mail.ru")
     private String email;
+    @NotEmpty(message = "Это поле не должно быть пустым")
     private String address;
+    @NotEmpty(message = "Это поле не должно быть пустым")
     private String phone;
     @Column(name = "phone_additional")
     private String phoneAdditional;
@@ -29,11 +36,10 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(int id, String name, String surname, Date birthdayDate, String login, String pass, String email, String address, String phone, String phoneAdditional, Department department, StaffRole staffRole) {
+    public Staff(int id, @NotEmpty(message = "Это поле не должно быть пустым") String name, @NotEmpty(message = "Это поле не должно быть пустым") String surname, @NotEmpty(message = "Это поле не должно быть пустым") String login, @NotEmpty(message = "Это поле не должно быть пустым") String pass, @Email(message = "Поле должно быть вида abc@mail.ru") String email, @NotEmpty(message = "Это поле не должно быть пустым") String address, @NotEmpty(message = "Это поле не должно быть пустым") String phone, String phoneAdditional, Department department, StaffRole staffRole) {
         this.id = id;
         this.name = name;
         this.surname = surname;
-        this.birthdayDate = birthdayDate;
         this.login = login;
         this.pass = pass;
         this.email = email;
@@ -66,14 +72,6 @@ public class Staff {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public Date getBirthdayDate() {
-        return birthdayDate;
-    }
-
-    public void setBirthdayDate(Date birthdayDate) {
-        this.birthdayDate = birthdayDate;
     }
 
     public String getLogin() {

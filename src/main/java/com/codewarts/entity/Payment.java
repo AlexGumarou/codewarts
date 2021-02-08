@@ -11,7 +11,7 @@ public class Payment {
     private int id;
     @Column(name = "payment_date")
     private LocalDate paymentDate;
-    private int sum;
+    private String sum;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "child_id")
     private Child child;
@@ -19,8 +19,14 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(int id, LocalDate paymentDate, int sum, Child child) {
+    public Payment(int id, LocalDate paymentDate, String sum, Child child) {
         this.id = id;
+        this.paymentDate = paymentDate;
+        this.sum = sum;
+        this.child = child;
+    }
+
+    public Payment(LocalDate paymentDate, String sum, Child child) {
         this.paymentDate = paymentDate;
         this.sum = sum;
         this.child = child;
@@ -42,11 +48,11 @@ public class Payment {
         this.paymentDate = paymentDate;
     }
 
-    public int getSum() {
+    public String getSum() {
         return sum;
     }
 
-    public void setSum(int sum) {
+    public void setSum(String sum) {
         this.sum = sum;
     }
 

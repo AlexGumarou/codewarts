@@ -19,9 +19,9 @@ public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotEmpty
+    @NotEmpty(message = "Это поле не должно быть пустым")
     private String name;
-    @NotEmpty
+    @NotEmpty(message = "Это поле не должно быть пустым")
     private String surname;
     @Column(name = "birthday_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

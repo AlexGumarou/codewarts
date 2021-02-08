@@ -18,10 +18,10 @@ INSERT INTO child_group(name, department_id) VALUES
 ('1b', '1'),
 ('1c', '1'),
 ('1d', '1'),
-('1a', '2'),
-('1b', '2'),
-('1c', '2'),
-('1d', '2');
+('2a', '2'),
+('2b', '2'),
+('2c', '2'),
+('2d', '2');
 CREATE TABLE parent(
                        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                        mother VARCHAR(250),
@@ -58,7 +58,7 @@ CREATE TABLE payment(
                         id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         payment_date DATE,
                         child_id INT,
-                        sum INT,
+                        sum VARCHAR(250),
                         FOREIGN KEY (child_id)  REFERENCES child (id));
 INSERT INTO payment(PAYMENT_DATE, CHILD_ID, SUM) VALUES
 ('2020-12-25', '1','80'),

@@ -19,6 +19,7 @@
         <tr>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         <tr><td>Дата рождения </td>
             </td><td><form>
@@ -47,12 +48,15 @@
                     <option>${item}</option>
             </c:forEach>
         </select><br></td>
-        <tr><td>Даты платежей:
-        </td><td><select name="selectPayments">
+        <form style="display:inline-block" name="test" method="post" action="/admin/edit/editPayment">
+        <tr><td>Даты платежей:</td>
+        <td><select name="idPayment" style="display:inline-block">
             <c:forEach items="${listPayments}" var="item" >
-                <option>${item}</option>
+                <option value="${item.id}">${item}</option>
             </c:forEach>
-        </select><br></td>
+        </select>
+            <button type="submit" >Редактировать оплаты</button></div>
+        </form></td>
     </table>
     <br>
 

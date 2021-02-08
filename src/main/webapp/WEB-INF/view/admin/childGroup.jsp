@@ -19,6 +19,12 @@
                 </div>
             </c:forEach>
         </table><br>
+    <form style="display:inline-block" name="test" method="post" action="/admin/edit/editGroups">
+        <button type="submit" name="button" value="${idChildGroup}">Изменить название группы</button>
+    </form>
+    <form style="display:inline-block" name="test" method="post" action="/admin/delete/group">
+        <button type="submit" name="button" value="${idChildGroup}">Удалить группу</button>
+    </form>
 
     <form name="test" method="get" action="/admin">
         <button type="submit" name="button">к списку групп</button>

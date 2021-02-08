@@ -1,11 +1,13 @@
 package com.codewarts.controller;
 
+import com.codewarts.entity.Department;
 import com.codewarts.entity.Staff;
 import com.codewarts.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 

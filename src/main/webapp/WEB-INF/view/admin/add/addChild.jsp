@@ -20,10 +20,12 @@
         </tr>
         <tr><td>Дата рождения </td>
             </td><td><form>
-                <input type="date" name="date" />
+                <input type="date" name="birthdayDate" size="40"/>
             </form>
-        <tr><td>Имя ребенка: </td><td><input type="text" name="name" size="40"></td>
-        <tr><td>Фамилия ребенка: </td><td><input type="text" name="surname" size="40"></td>
+        <tr><td>Имя ребенка: </td><td><form:input path="name" size="40"/>
+        <form:errors cssStyle="color: red" path="name" cssClass="error"/></td>
+        <tr><td>Фамилия ребенка: </td><td><form:input path="surname" size="40"/>
+        <form:errors cssStyle="color: red" path="surname" cssClass="error"/></td>
         <tr><td>ФИО мамы: </td><td><input type="text" name="mother" size="40"></td>
         <tr><td>Контактный телефон: </td><td><input type="text" name="phoneMother"  size="40"></td>
         <tr><td>ФИО папы: </td><td><input type="text" name="father"  size="40"></td>
