@@ -12,7 +12,7 @@ public class Accounting {
     private int id;
     private LocalDate date;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "child_group_id")
     private ChildGroup childGroup;
 

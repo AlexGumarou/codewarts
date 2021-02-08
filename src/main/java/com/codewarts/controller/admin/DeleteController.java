@@ -43,9 +43,10 @@ public class DeleteController {
     }
 
     @PostMapping(value = "/admin/delete/group")
-    public String deleteGroup(@RequestParam("button") int idChildGroup, Model model){
-        ChildGroup childGroup = adminService.getChildGroup(idChildGroup);
-        if (childGroup.getChild().size() == 0) {
+    public String deleteGroup(@RequestParam("button") int idChildGroup, Model model,
+                              @ModelAttribute("department") Department department){
+        List<Child> list = adminService.getAllChildByGroupAndDepartment(department,idChildGroup);
+        if (list.size() == 0) {
             adminService.deleteGroup(idChildGroup);
             model.addAttribute("msg", "Данные успешно удалены!");
         } else {

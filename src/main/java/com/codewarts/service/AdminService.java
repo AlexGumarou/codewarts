@@ -142,4 +142,10 @@ public class AdminService {
     public void deleteGroup(int idChildGroup) {
         adminDao.deleteGroup(idChildGroup);
     }
+
+    public List<Child> getAllChildByGroupAndDepartment(Department department, int childGroup) {
+        return adminDao.getAllChildByGroupAndDepartment().stream().filter(s->s.getChildGroup()
+                .getId()==childGroup && s.getChildGroup().getDepartment().getId()==department.getId())
+                .collect(Collectors.toList());
+    }
 }

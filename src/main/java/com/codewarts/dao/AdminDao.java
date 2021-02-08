@@ -158,4 +158,8 @@ public class AdminDao {
         ChildGroup childGroup = sessionFactory.getCurrentSession().get(ChildGroup.class, idChildGroup);
         sessionFactory.getCurrentSession().delete(childGroup);
     }
+
+    public List<Child> getAllChildByGroupAndDepartment() {
+        return sessionFactory.getCurrentSession().createQuery("from Child", Child.class).list();
+    }
 }
