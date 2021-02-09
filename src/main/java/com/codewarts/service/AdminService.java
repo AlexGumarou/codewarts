@@ -89,12 +89,12 @@ public class AdminService {
         }
     }
 
-    public boolean addGroup(String name, Department department) {
+    public boolean addGroup(String name, Department department, String lessonTime) {
         String regExp = "^[а-яА-ЯёЁa-zA-Z0-9]+$";
         List<ChildGroup> list = adminDao.getAllChildGroup();
         if (name.trim().matches(regExp) && list.stream().noneMatch(s->s.getName().equals(name)
                 && s.getDepartment().getId()==department.getId())) {
-            adminDao.addGroup(name, department);
+            adminDao.addGroup(name, department, lessonTime);
             return true;
         } return false;
     }

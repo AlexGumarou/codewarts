@@ -14,6 +14,7 @@ public class ChildGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String lessonTime;
     @OneToMany (mappedBy = "childGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Child> child;
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -26,16 +27,18 @@ public class ChildGroup {
     public ChildGroup() {
     }
 
-    public ChildGroup(int id, String name, List<Child> child, List<Accounting> accounting, Department department) {
+    public ChildGroup(int id, String name, String lessonTime, List<Child> child, List<Accounting> accounting, Department department) {
         this.id = id;
         this.name = name;
+        this.lessonTime = lessonTime;
         this.child = child;
         this.accounting = accounting;
         this.department = department;
     }
 
-    public ChildGroup(String name, Department department) {
+    public ChildGroup(String name, String lessonTime, Department department) {
         this.name = name;
+        this.lessonTime = lessonTime;
         this.department = department;
     }
 
@@ -53,6 +56,14 @@ public class ChildGroup {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLessonTime() {
+        return lessonTime;
+    }
+
+    public void setLessonTime(String lessonTime) {
+        this.lessonTime = lessonTime;
     }
 
     public List<Child> getChild() {

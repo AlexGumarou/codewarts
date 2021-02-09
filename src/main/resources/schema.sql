@@ -1,4 +1,3 @@
-
 CREATE TABLE department(
                            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                            name VARCHAR(250),
@@ -11,17 +10,18 @@ INSERT INTO department(name, address, phone) VALUES
 CREATE TABLE child_group(
                             id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                             name VARCHAR(250),
+                            lessonTime VARCHAR(250),
                             department_id INT,
                             FOREIGN KEY (department_id)  REFERENCES department (id));
-INSERT INTO child_group(name, department_id) VALUES
-('1a', '1'),
-('1b', '1'),
-('1c', '1'),
-('1d', '1'),
-('2a', '2'),
-('2b', '2'),
-('2c', '2'),
-('2d', '2');
+INSERT INTO child_group(name, lessonTime, department_id) VALUES
+('1a', '1 час', '1'),
+('1b', '1 час', '1'),
+('1c','1 час 20 минут', '1'),
+('1d','1 час 20 минут', '1'),
+('2a','1 час', '2'),
+('2b','1 час', '2'),
+('2c','1 час 20 минут', '2'),
+('2d','1 час 20 минут', '2');
 CREATE TABLE parent(
                        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                        mother VARCHAR(250),
@@ -118,19 +118,13 @@ CREATE TABLE staff(
                       phone_additional VARCHAR(250),
                       role_id INT,
                       department_id INT,
+                      price_per_hour INT,
                       FOREIGN KEY (department_id)  REFERENCES department (id),
                       FOREIGN KEY (role_id) REFERENCES staff_role (id));
-INSERT INTO staff (name, surname, birthday_date, login, pass, address, email, phone, role_id, department_id) VALUES
-('Настя', 'Чернявская', '1984-05-27','admin','admin','Minsk','nast@mail.ru','375295565456','2','1'),
-('Карина', 'Чернявская', '1984-05-27','teacher','teacher','Minsk','nast@mail.ru','375295565456','1','1'),
-('Света', 'Чернявская', '1984-05-27','director','director','Minsk','nast@mail.ru','375295565456','3','1');
-CREATE TABLE lesson_time
-(
-                            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                            type VARCHAR(250));
-INSERT INTO lesson_time(type)VALUES
-('1 HOUR'),
-('1 HOUR 20 MINUTES');
+INSERT INTO staff (name, surname, birthday_date, login, pass, address, email, phone, role_id, department_id, price_per_hour) VALUES
+('Настя', 'Чернявская', '1984-05-27','admin','admin','Minsk','nast@mail.ru','375295565456','2','1', '0'),
+('Карина', 'Чернявская', '1984-05-27','teacher','teacher','Minsk','nast@mail.ru','375295565456','1','1', '15'),
+('Света', 'Чернявская', '1984-05-27','director','director','Minsk','nast@mail.ru','375295565456','3','1','0');
 CREATE TABLE theme (
                        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                        name VARCHAR(250));
@@ -142,16 +136,14 @@ INSERT INTO theme(name) VALUES
 CREATE TABLE accounting(
                            id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                            staff_id INT,
-                           lesson_time_id INT,
                            child_group_id INT,
                            theme_id INT,
                            date DATE,
                            FOREIGN KEY (staff_id)  REFERENCES staff (id),
-                           FOREIGN KEY (lesson_time_id)  REFERENCES lesson_time (id),
                            FOREIGN KEY (theme_id)  REFERENCES theme (id),
                            FOREIGN KEY (child_group_id)  REFERENCES child_group (id));
-INSERT INTO accounting(staff_id, lesson_time_id, CHILD_GROUP_ID, DATE, theme_id) VALUES
-('2','1','1','2021-01-25','1'),
-('2','2','1','2021-01-26','2'),
-('2','2','1','2021-01-27','3'),
-('2','1','1','2021-01-28','4');
+INSERT INTO accounting(staff_id, CHILD_GROUP_ID, DATE, theme_id) VALUES
+('2','1','2021-01-25','1'),
+('2','2','2021-01-26','2'),
+('2','3','2021-01-27','3'),
+('2','4','2021-01-28','4');

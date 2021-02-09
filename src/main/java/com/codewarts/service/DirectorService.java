@@ -47,9 +47,9 @@ public class DirectorService {
         List<Accounting> list = directorDao.getAllHoursByTeacher(idTeacher, dateFrom, dateTo);
         double count = 0;
         for (Accounting accounting : list){
-            if (accounting.getLessonTime().getId() == 1){
+            if (accounting.getChildGroup().getLessonTime().equals("1 час")){
                 count++;
-            } else if (accounting.getLessonTime().getId() == 2){
+            } else if (accounting.getChildGroup().getLessonTime().equals("1 час 20 минут")){
                 count = count + 1.2;
             }
         } return count;
@@ -58,5 +58,9 @@ public class DirectorService {
     public int getAllQuantityByTeacher(int idTeacher, LocalDate dateFrom, LocalDate dateTo) {
         return directorDao.getAllHoursByTeacher(idTeacher, dateFrom, dateTo).stream().collect(Collectors.toList()).size();
 
+    }
+
+    public int getPricePerHourByTeacher(int idTeacher) {
+        return directorDao.getPricePerHourByTeacher(idTeacher);
     }
 }

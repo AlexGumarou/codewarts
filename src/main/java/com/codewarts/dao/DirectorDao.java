@@ -50,4 +50,9 @@ public class DirectorDao {
                 .setParameter("dateFrom", dateFrom)
                 .setParameter("dateTo", dateTo).list();
     }
+
+    public int getPricePerHourByTeacher(int idTeacher) {
+        Staff staff = sessionFactory.getCurrentSession().get(Staff.class, idTeacher);
+        return staff.getPricePerHour();
+    }
 }

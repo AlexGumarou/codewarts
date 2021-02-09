@@ -21,6 +21,10 @@
             <th></th>
         </tr>
         <tr><td>Название группы: </td><td><input type="text" name="name"  size="40" required></td>
+        <tr><td>Время урока: </td><td><select name="lessonTime">
+                <option value="1 час">1 час</option>
+                <option value="1 час 20 минут">1 час 20 минут</option>
+            </select><br></td>
     </table>
     <br>
 

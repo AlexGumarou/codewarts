@@ -104,8 +104,8 @@ public class AdminDao {
         sessionFactory.getCurrentSession().saveOrUpdate(new Payment(date,sum,child));
     }
 
-    public void addGroup(String name, Department department) {
-        sessionFactory.getCurrentSession().saveOrUpdate(new ChildGroup(name, department));
+    public void addGroup(String name, Department department, String lessonTime) {
+        sessionFactory.getCurrentSession().saveOrUpdate(new ChildGroup(name, lessonTime, department));
     }
 
     public List<ChildGroup> getAllChildGroup() {

@@ -21,30 +21,24 @@ public class Accounting {
     private Staff staff;
 
     @ManyToOne
-    @JoinColumn(name = "lesson_time_id")
-    private LessonTime lessonTime;
-
-    @ManyToOne
     @JoinColumn(name = "theme_id")
     private Theme theme;
 
-    public Accounting(LocalDate date, ChildGroup childGroup, Staff staff, LessonTime lessonTime, Theme theme) {
+    public Accounting(LocalDate date, ChildGroup childGroup, Staff staff, Theme theme) {
         this.date = date;
         this.childGroup = childGroup;
         this.staff = staff;
-        this.lessonTime = lessonTime;
         this.theme = theme;
     }
 
     public Accounting() {
     }
 
-    public Accounting(int id, LocalDate date, ChildGroup childGroup, Staff staff, LessonTime lessonTime, Theme theme) {
+    public Accounting(int id, LocalDate date, ChildGroup childGroup, Staff staff, Theme theme) {
         this.id = id;
         this.date = date;
         this.childGroup = childGroup;
         this.staff = staff;
-        this.lessonTime = lessonTime;
         this.theme = theme;
     }
 
@@ -78,14 +72,6 @@ public class Accounting {
 
     public void setStaff(Staff staff) {
         this.staff = staff;
-    }
-
-    public LessonTime getLessonTime() {
-        return lessonTime;
-    }
-
-    public void setLessonTime(LessonTime lessonTime) {
-        this.lessonTime = lessonTime;
     }
 
     public Theme getTheme() {

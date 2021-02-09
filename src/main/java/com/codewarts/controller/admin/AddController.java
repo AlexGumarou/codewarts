@@ -100,8 +100,8 @@ public class AddController {
 
     @PostMapping(value = "/admin/addGroup")
     public String makeNewGroupPost(Model model, @ModelAttribute("department") Department department,
-                                   @RequestParam("name")String name){
-        if (adminService.addGroup(name,department)){
+                                   @RequestParam("name")String name, @RequestParam("lessonTime") String lessonTime){
+        if (adminService.addGroup(name,department, lessonTime)){
             model.addAttribute("msg", "Группа успешно добавлена");
         } else {
             model.addAttribute("msg", "Имя группы должно содержать только буквы и цифры" + "<br>" +

@@ -67,7 +67,8 @@ public class DirectorController {
                                     @ModelAttribute("department") Department department){
         double hours = directorService.getAllHoursByTeacher(idTeacher, dateFrom, dateTo);
         int quantity = directorService.getAllQuantityByTeacher(idTeacher, dateFrom, dateTo);
-        double sum = hours * 15;
+        int price = directorService.getPricePerHourByTeacher(idTeacher);
+        double sum = hours * price;
         model.addAttribute("resultmsg", "Отработано занятий: " + quantity + "<br>" +
                 "Сумма к оплате равна: " + (int)sum + " рублей");
         model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
