@@ -50,11 +50,4 @@ public class MainController {
         } else model.addAttribute("msg", msg);
         return "index";
     }
-
-    @GetMapping(value = "/director")
-    public String directorPage(){
-        return "director/director";
-    }
-
-
 }

@@ -26,10 +26,6 @@ public class AdminService {
         return adminDao.getChildById(editChild);
     }
 
-    public List<Department> getAllDepartments(){
-        return adminDao.getAllDepartments();
-    }
-
     public List<ChildGroup> getAllGroupChild(Department department){
         return adminDao.getAllGroupChild().stream().filter(s->s.getDepartment().getId()==(department.getId()))
                 .collect(Collectors.toList());
@@ -78,19 +74,6 @@ public class AdminService {
         return adminDao.getAllPaymentsByChild(idChild);
     }
 
-    public List<StaffRole> getAllStaffRoles(){
-        return adminDao.getAllStaffRoles();
-    }
-
-    public boolean addStaff(Staff staff, int idRole, int idDepartment) {
-        if (adminDao.getAllStaff().stream().anyMatch(s->s.getLogin().equals(staff.getLogin()) &&
-                s.getPass().equals(staff.getPass()))){
-            return false;
-        }
-        adminDao.addStaff(staff, idRole, idDepartment);
-        return true;
-    }
-
     public List<Child> getAllChild (Department department){
         return adminDao.getAllChild().stream().filter(s->s.getChildGroup().getDepartment().getId()==department.getId())
                 .collect(Collectors.toList());
@@ -104,7 +87,6 @@ public class AdminService {
         } catch (NumberFormatException | IllegalFormatException e){
             return false;
         }
-
     }
 
     public boolean addGroup(String name, Department department) {

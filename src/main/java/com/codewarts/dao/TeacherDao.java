@@ -39,6 +39,7 @@ public class TeacherDao {
     public void saveTeacherAttendance(Staff staff, Integer group_id, LocalDate date, String theme) {
         LessonTime lessonTime;
         //ниже устаналивается сколько длится занятие для каждых групп (в данный момент только 2 тарификации (час и 1,2)
+        //по коду для группы с id 1 устанавливается 1 час, для остальных 1,2
         if (group_id == 1) {
             lessonTime = sessionFactory.getCurrentSession().get(LessonTime.class, 1);
         } else {

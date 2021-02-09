@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-public class AdminControllerMain {
+public class AdminController {
     private AdminService adminService;
     private TeacherService teacherService;
 

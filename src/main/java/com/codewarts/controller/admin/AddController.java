@@ -70,29 +70,6 @@ public class AddController {
         return "admin/admin";
     }
 
-    @GetMapping(value = "/admin/addStaff")
-    public String addStaffGet(HttpSession session, Staff staff, Model model){
-        session.setAttribute("listRoles", adminService.getAllStaffRoles());
-        session.setAttribute("listDepartment", adminService.getAllDepartments());
-        return "admin/add/addstaff";
-    }
-
-    @PostMapping(value = "/admin/addStaff")
-    public String addStaffPost(Model model, HttpSession session,
-                               @ModelAttribute("staff") @Valid Staff staff,
-                               BindingResult result, @RequestParam("role") int idRole,
-                               @RequestParam("dep") int idDepartment){
-        if (result.hasErrors()){
-            return "admin/add/addstaff";
-        }
-        if (adminService.addStaff(staff, idRole, idDepartment)){
-            model.addAttribute("msg", "Персонал успешно добавлен");
-        } else {
-            model.addAttribute("msg", "Пользователь с таким логином уже существует");
-        }
-        return "admin/admin";
-    }
-
     @GetMapping(value = "/admin/addPayment")
     public String addPaymentGet(Model model, @ModelAttribute("department") Department department){
         model.addAttribute("now", LocalDate.now());

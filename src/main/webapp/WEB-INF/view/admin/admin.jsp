@@ -17,10 +17,6 @@
         <button type="submit" name="button">Добавить ребенка</button>
     </form>
 
-    <form style="display:inline-block" name="test" method="get" action="/admin/addStaff">
-        <button type="submit" >Добавить персонал</button>
-    </form>
-
     <form style="display:inline-block" name="test" method="get" action="/admin/addPayment">
         <button type="submit" >Добавить оплаты</button>
     </form>

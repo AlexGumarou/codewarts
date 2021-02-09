@@ -21,10 +21,6 @@ public class AdminDao {
         return sessionFactory.getCurrentSession().get(Child.class, editChild);
     }
 
-    public List<Department> getAllDepartments() {
-        return sessionFactory.getCurrentSession().createQuery("from Department ", Department.class).list();
-    }
-
     public void saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, String mother,
                           String father, String phoneFather, String phoneMother) {
         Child child = sessionFactory.getCurrentSession().get(Child.class, idChild);
@@ -95,24 +91,8 @@ public class AdminDao {
         return child.getPayment();
     }
 
-    public List<StaffRole> getAllStaffRoles() {
-        return sessionFactory.getCurrentSession().createQuery("from StaffRole", StaffRole.class).list();
-    }
-
-    public void addStaff(Staff staff, int idRole, int idDepartment) {
-        StaffRole staffRole = sessionFactory.getCurrentSession().get(StaffRole.class, idRole);
-        Department department = sessionFactory.getCurrentSession().get(Department.class, idDepartment);
-        staff.setStaffRole(staffRole);
-        staff.setDepartment(department);
-        sessionFactory.getCurrentSession().saveOrUpdate(staff);
-    }
-
     public List<ChildGroup> getAllGroupChild() {
         return sessionFactory.getCurrentSession().createQuery("from ChildGroup", ChildGroup.class).list();
-    }
-
-    public List<Staff> getAllStaff() {
-        return sessionFactory.getCurrentSession().createQuery("from Staff", Staff.class).list();
     }
 
     public List<Child> getAllChild() {

@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form:form method="post" action="/admin/addStaff" modelAttribute="staff">
+<form:form method="post" action="/director/addStaff" modelAttribute="staff">
     <table border="0" align="center">
         <tr>
             <th></th>
@@ -55,7 +55,7 @@
 <br>
 <div align="center">
     <br><div align="center">
-    <form style="display:inline-block" name="test" method="get" action="/admin">
+    <form style="display:inline-block" name="test" method="get" action="/director">
         <button type="submit" name="button">к списку групп</button>
     </form>
 </div>
