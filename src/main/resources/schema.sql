@@ -118,7 +118,7 @@ CREATE TABLE staff(
                       phone_additional VARCHAR(250),
                       role_id INT,
                       department_id INT,
-                      price_per_hour INT,
+                      price_per_hour VARCHAR(250),
                       FOREIGN KEY (department_id)  REFERENCES department (id),
                       FOREIGN KEY (role_id) REFERENCES staff_role (id));
 INSERT INTO staff (name, surname, birthday_date, login, pass, address, email, phone, role_id, department_id, price_per_hour) VALUES

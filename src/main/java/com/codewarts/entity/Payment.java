@@ -2,7 +2,6 @@ package com.codewarts.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class Payment {

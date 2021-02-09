@@ -37,24 +37,26 @@ public class DirectorController {
     }
 
     @GetMapping(value = "/director/addStaff")
-    public String addStaffGet(HttpSession session, Staff staff, Model model){
+    public String addStaffGet(HttpSession session, Staff staff){
         session.setAttribute("listRoles", directorService.getAllStaffRoles());
         session.setAttribute("listDepartment", directorService.getAllDepartments());
-        return "director/addstaff";
+        return "director/addStaff";
     }
 
     @PostMapping(value = "/director/addStaff")
     public String addStaffPost(Model model, @ModelAttribute("staff") @Valid Staff staff,
                                BindingResult result, @RequestParam("role") int idRole,
-                               @RequestParam("dep") int idDepartment){
+                               @RequestParam("dep") int idDepartment,
+                               @ModelAttribute("department") Department department){
         if (result.hasErrors()){
-            return "director/addstaff";
+            return "director/addStaff";
         }
         if (directorService.addStaff(staff, idRole, idDepartment)){
             model.addAttribute("msg", "Персонал успешно добавлен");
         } else {
             model.addAttribute("msg", "Пользователь с таким логином уже существует");
         }
+        model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
         return "director/director";
     }
 
@@ -62,15 +64,48 @@ public class DirectorController {
     public String teacherAccounting(@RequestParam("ListTeacher") int idTeacher,
                                     @RequestParam(value = "dateFirst", defaultValue = "")
                                     @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
-                                    @RequestParam(value = "dateLast")
+                                    @RequestParam(value = "dateLast", defaultValue = "")
                                     @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo, Model model,
                                     @ModelAttribute("department") Department department){
-        double hours = directorService.getAllHoursByTeacher(idTeacher, dateFrom, dateTo);
-        int quantity = directorService.getAllQuantityByTeacher(idTeacher, dateFrom, dateTo);
-        int price = directorService.getPricePerHourByTeacher(idTeacher);
-        double sum = hours * price;
-        model.addAttribute("resultmsg", "Отработано занятий: " + quantity + "<br>" +
-                "Сумма к оплате равна: " + (int)sum + " рублей");
+        if (dateFrom==null || dateTo == null){
+            model.addAttribute("resultMsg", "Введены не все данные");
+        } else {
+            double hours = directorService.getAllHoursByTeacher(idTeacher, dateFrom, dateTo);
+            int quantity = directorService.getAllQuantityByTeacher(idTeacher, dateFrom, dateTo);
+            int price = directorService.getPricePerHourByTeacher(idTeacher);
+            double sum = hours * price;
+            model.addAttribute("resultMsg", "За период с " + dateFrom + " и по " + dateTo +
+                    " отработано занятий: " + quantity + "<br>" + "Сумма к оплате: " + (int) sum + " рублей");
+        }
+        model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
+        return "director/director";
+    }
+
+    @PostMapping(value = "/director/payments")
+    public String payments(@RequestParam(value = "dateFirst", defaultValue = "")
+                           @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
+                           @RequestParam(value = "dateLast", defaultValue = "")
+                           @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo, Model model,
+                           @ModelAttribute("department") Department department){
+        if (dateFrom==null || dateTo == null) {
+            model.addAttribute("resultMsg", "Введены не все данные");
+        } else {
+            model.addAttribute("resultMsg", "За период с " + dateFrom + " и по " + dateTo + " получено платежей: "
+                    + directorService.getAllPayments(dateFrom, dateTo));
+        }
+        model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
+        return "director/director";
+    }
+
+    @PostMapping(value = "/director/teacherPrice")
+    public String teacherPriceNewValue(@RequestParam("ListTeacher") int idTeacher,
+                                       @RequestParam("sum") String pricePerHour,
+                                       @ModelAttribute("department") Department department, Model model){
+        if (directorService.changePricePerHour(idTeacher,pricePerHour)){
+            model.addAttribute("resultMsg", "Данные сохранены");
+        } else {
+            model.addAttribute("resultMsg", "Неверный формат суммы!");
+        }
         model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
         return "director/director";
     }

@@ -6,10 +6,7 @@ import com.codewarts.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,30 +19,36 @@ public class TeacherController {
         this.teacherService = teacherService;
     }
 
+    @ModelAttribute(name = "department")
+    public Department getDepartment(HttpSession session){
+        return (Department) session.getAttribute("department");
+    }
+
     @GetMapping("/teacher")
-    public String teacherPage(Model model, HttpSession session){
-        Department department = (Department) session.getAttribute("department");
+    public String teacherPage(Model model, @ModelAttribute("department") Department department){
         model.addAttribute("listGroups", teacherService.getAllGroupChild(department));
-        model.addAttribute("msg", "Список групп");
         return "teacher/teacher";
     }
 
     @PostMapping("/teacher")
     public String teacherPagePost(Model model, HttpSession session, @RequestParam("themeName") String theme,
-                                  @RequestParam(value = "child", defaultValue = "") String[] child){
+                                  @RequestParam(value = "child", defaultValue = "") String[] child,
+                                  @ModelAttribute("department") Department department){
         Integer group_id = (Integer) session.getAttribute("childGroup");
         if (teacherService.checkDoubleClick(group_id)) {
-            model.addAttribute("msg", "НЕЛЬЗЯ дважды отмечать одну и ту же группу" + "<br>" +
-                    "или не отмечен ни один ребенок!");
+            model.addAttribute("msg", "НЕЛЬЗЯ дважды отмечать одну и ту же группу");
         } else {
             Staff staff = (Staff) session.getAttribute("staff");
             if (child.length != 0) {
                 teacherService.saveChildAttendance(child);
                 teacherService.saveTeacherAttendance(staff, group_id, theme);
                 model.addAttribute("msg", "Данные о посещении учеников внесены");
+            } else {
+                model.addAttribute("msg", "Не отмечен ни один ребенок!");
             }
         }
-        return "teacher/attendance";
+        model.addAttribute("listGroups", teacherService.getAllGroupChild(department));
+        return "teacher/teacher";
     }
 
     @GetMapping("/teacher/{childGroup}")

@@ -7,6 +7,7 @@
 <body>
 <div align="center">
     <h2>Добро пожаловать, ${name}</h2><br>
+    <h2 style="color: blue">${msg}</h2>
     <h2>Список групп</h2>
     <c:forEach items="${listGroups}" var="item"  >
             <form style="display:inline-block" name="test" method="get" action="/teacher/${item.id}">

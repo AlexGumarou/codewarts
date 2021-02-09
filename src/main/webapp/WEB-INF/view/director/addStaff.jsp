@@ -33,6 +33,7 @@
         <tr><td>Контактный телефон: </td><td><form:input path="phone" size="40"/>
             <form:errors cssStyle="color: red" path="phone" cssClass="error"/></td>
         <tr><td>Контактный телефон (доп):</td><td><form:input path="phoneAdditional" size="40"/></td>
+        <tr><td>Стоимость за 1 час (для учителей):</td><td><form:input path="pricePerHour" size="40"/></td>
         <tr><td>Кого вы хотите добавить (роль):
         </td><td><select name="role">
             <c:forEach items="${listRoles}" var="item" >

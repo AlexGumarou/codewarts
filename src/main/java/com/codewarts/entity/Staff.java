@@ -27,7 +27,7 @@ public class Staff {
     @Column(name = "phone_additional")
     private String phoneAdditional;
     @Column(name = "price_per_hour")
-    private int pricePerHour;
+    private String pricePerHour;
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
@@ -38,7 +38,7 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(int id, @NotEmpty(message = "Это поле не должно быть пустым") String name, @NotEmpty(message = "Это поле не должно быть пустым") String surname, @NotEmpty(message = "Это поле не должно быть пустым") String login, @NotEmpty(message = "Это поле не должно быть пустым") String pass, @NotEmpty(message = "Это поле не должно быть пустым") @Email(message = "Поле должно быть вида abc@mail.ru") String email, @NotEmpty(message = "Это поле не должно быть пустым") String address, @NotEmpty(message = "Это поле не должно быть пустым") String phone, String phoneAdditional, int pricePerHour, Department department, StaffRole staffRole) {
+    public Staff(int id, @NotEmpty(message = "Это поле не должно быть пустым") String name, @NotEmpty(message = "Это поле не должно быть пустым") String surname, @NotEmpty(message = "Это поле не должно быть пустым") String login, @NotEmpty(message = "Это поле не должно быть пустым") String pass, @NotEmpty(message = "Это поле не должно быть пустым") @Email(message = "Поле должно быть вида abc@mail.ru") String email, @NotEmpty(message = "Это поле не должно быть пустым") String address, @NotEmpty(message = "Это поле не должно быть пустым") String phone, String phoneAdditional, String pricePerHour, Department department, StaffRole staffRole) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -141,11 +141,11 @@ public class Staff {
         this.staffRole = staffRole;
     }
 
-    public int getPricePerHour() {
+    public String getPricePerHour() {
         return pricePerHour;
     }
 
-    public void setPricePerHour(int pricePerHour) {
+    public void setPricePerHour(String pricePerHour) {
         this.pricePerHour = pricePerHour;
     }
 }

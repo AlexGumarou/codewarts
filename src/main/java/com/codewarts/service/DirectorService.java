@@ -1,15 +1,13 @@
 package com.codewarts.service;
 
 import com.codewarts.dao.DirectorDao;
-import com.codewarts.entity.Accounting;
-import com.codewarts.entity.Department;
-import com.codewarts.entity.Staff;
-import com.codewarts.entity.StaffRole;
+import com.codewarts.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,12 +29,17 @@ public class DirectorService {
     }
 
     public boolean addStaff(Staff staff, int idRole, int idDepartment) {
-        if (directorDao.getAllStaff().stream().anyMatch(s->s.getLogin().equals(staff.getLogin()) &&
-                s.getPass().equals(staff.getPass()))){
+        try {
+            Integer.parseInt(staff.getPricePerHour());
+            if (directorDao.getAllStaff().stream().anyMatch(s->s.getLogin().equals(staff.getLogin()) &&
+                    s.getPass().equals(staff.getPass()))){
+                return false;
+            }
+            directorDao.addStaff(staff, idRole, idDepartment);
+            return true;
+        } catch (NumberFormatException | IllegalFormatException e){
             return false;
         }
-        directorDao.addStaff(staff, idRole, idDepartment);
-        return true;
     }
 
     public List<Staff> getAllTeachers(Department department) {
@@ -61,6 +64,24 @@ public class DirectorService {
     }
 
     public int getPricePerHourByTeacher(int idTeacher) {
-        return directorDao.getPricePerHourByTeacher(idTeacher);
+        return Integer.parseInt(directorDao.getPricePerHourByTeacher(idTeacher));
+    }
+
+    public int getAllPayments(LocalDate dateFrom, LocalDate dateTo) {
+       return directorDao.getAllPayments(dateFrom, dateTo).stream().mapToInt(s-> Integer.parseInt(s.getSum())).sum();
+    }
+
+    public boolean changePricePerHour(int idTeacher, String pricePerHour) {
+        try{
+            int price = Integer.parseInt(pricePerHour);
+            if (price > 0) {
+                directorDao.changePricePerHour(idTeacher, pricePerHour);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (NumberFormatException | IllegalFormatException e){
+            return false;
+        }
     }
 }

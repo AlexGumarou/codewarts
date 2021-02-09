@@ -1,9 +1,6 @@
 package com.codewarts.dao;
 
-import com.codewarts.entity.Accounting;
-import com.codewarts.entity.Department;
-import com.codewarts.entity.Staff;
-import com.codewarts.entity.StaffRole;
+import com.codewarts.entity.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,8 +48,22 @@ public class DirectorDao {
                 .setParameter("dateTo", dateTo).list();
     }
 
-    public int getPricePerHourByTeacher(int idTeacher) {
+    public String getPricePerHourByTeacher(int idTeacher) {
         Staff staff = sessionFactory.getCurrentSession().get(Staff.class, idTeacher);
         return staff.getPricePerHour();
+    }
+
+    public List<Payment> getAllPayments(LocalDate dateFrom, LocalDate dateTo) {
+        return sessionFactory.getCurrentSession().createQuery("from Payment p where p.paymentDate between :dateFrom and :dateTo")
+                .setParameter("dateFrom", dateFrom)
+                .setParameter("dateTo", dateTo)
+                .list();
+
+    }
+
+    public void changePricePerHour(int idTeacher, String pricePerHour) {
+        Staff staff = sessionFactory.getCurrentSession().get(Staff.class, idTeacher);
+        staff.setPricePerHour(pricePerHour);
+        sessionFactory.getCurrentSession().saveOrUpdate(staff);
     }
 }

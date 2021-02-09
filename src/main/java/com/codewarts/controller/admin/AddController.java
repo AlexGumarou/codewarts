@@ -3,7 +3,6 @@ package com.codewarts.controller.admin;
 import com.codewarts.entity.Child;
 import com.codewarts.entity.ChildGroup;
 import com.codewarts.entity.Department;
-import com.codewarts.entity.Staff;
 import com.codewarts.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -85,11 +84,10 @@ public class AddController {
                                 @ModelAttribute("listGroups") List<ChildGroup> groupList){
         if (adminService.addPayment(date, sum, idChild)){
             model.addAttribute("msg", "Оплата успешно внесена");
-            model.addAttribute("listGroups", groupList);
         } else {
             model.addAttribute("msg", "Неверный формат суммы");
-            model.addAttribute("listGroups", groupList);
         }
+        model.addAttribute("listGroups", groupList);
         return "admin/admin";
     }
 
