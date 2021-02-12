@@ -18,21 +18,12 @@ public class MainService {
         this.mainDao = mainDao;
     }
 
-    public boolean checkLoginPass(String login, String pass){
-        return mainDao.checkLoginPass(login, pass);
-    }
-
     public List<Staff> getAllStaff() {
         return mainDao.getAllStaff();
     }
 
-    public Staff getStaff(String login, String pass) {
-        List<Staff> list = getAllStaff();
-        for (Staff staff : list){
-            if (staff.getLogin().equals(login) && staff.getPass().equals(pass)){
-                return staff;
-            }
-        } return null;
+    public Staff getStaff(String login) {
+        return getAllStaff().stream().filter(s->login.equals(s.getLogin())).findFirst().orElse(null);
     }
 
 }

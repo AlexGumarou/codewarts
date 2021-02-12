@@ -72,7 +72,7 @@ public class DirectorService {
     }
 
     public boolean changePricePerHour(int idTeacher, String pricePerHour) {
-        try{
+        try {
             int price = Integer.parseInt(pricePerHour);
             if (price > 0) {
                 directorDao.changePricePerHour(idTeacher, pricePerHour);

@@ -58,7 +58,6 @@ public class DirectorDao {
                 .setParameter("dateFrom", dateFrom)
                 .setParameter("dateTo", dateTo)
                 .list();
-
     }
 
     public void changePricePerHour(int idTeacher, String pricePerHour) {

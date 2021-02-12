@@ -15,13 +15,13 @@ public class SecurityService implements UserDetailsService {
     private MainDao mainDao;
 
     @Autowired
-    public void setMainDao(MainDao mainDao) {
+    public void setSecurityDao(MainDao mainDao) {
         this.mainDao = mainDao;
     }
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Staff staff = mainDao.getStaffByLogin(name);
+        Staff staff = mainDao.getAllStaff().stream().filter(s->name.equals(s.getLogin())).findFirst().orElse(null);
         if (staff == null) {
             throw new UsernameNotFoundException("User not found");
         }

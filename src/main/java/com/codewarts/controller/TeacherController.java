@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@PreAuthorize("hasRole('TEACHER')")
+//@PreAuthorize("hasRole('TEACHER')")
 public class TeacherController {
     private TeacherService teacherService;
     @Autowired

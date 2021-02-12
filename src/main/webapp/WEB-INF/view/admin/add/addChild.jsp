@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<form:form method="post" action="/admin/addChild" modelAttribute="child">
+<form:form method="post" action="/admin/addChild" modelAttribute="child" >
     <table border="0" align="center">
         <tr>
             <th></th>

@@ -9,7 +9,7 @@
 <body>
 <div align="center">
     ${msg}
-    <form action="/loginpage" method="post">
+    <form action="/login" method="post">
         <input type="text" placeholder="login" name="login"><br>
         <input type="text" placeholder="pass" name="pass"><br>
         <input type="submit" value="button" name="button"><br>
