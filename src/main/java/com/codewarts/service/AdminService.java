@@ -130,4 +130,13 @@ public class AdminService {
                 .getId()==childGroup && s.getChildGroup().getDepartment().getId()==department.getId())
                 .collect(Collectors.toList());
     }
+
+    public Staff getStaffByName(String name) {
+        List<Staff> list = adminDao.getAllStaff();
+        for (Staff staff : list){
+            if (staff.getLogin().equals(name)){
+                return staff;
+            }
+        } return null;
+    }
 }

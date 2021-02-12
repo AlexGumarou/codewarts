@@ -4,6 +4,7 @@ import com.codewarts.entity.Department;
 import com.codewarts.entity.Staff;
 import com.codewarts.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 @Controller
-
+@PreAuthorize("hasRole('TEACHER')")
 public class TeacherController {
     private TeacherService teacherService;
     @Autowired

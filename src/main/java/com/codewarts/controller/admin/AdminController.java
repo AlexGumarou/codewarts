@@ -2,17 +2,23 @@ package com.codewarts.controller.admin;
 
 import com.codewarts.entity.Child;
 import com.codewarts.entity.Department;
+import com.codewarts.entity.Staff;
 import com.codewarts.service.AdminService;
 import com.codewarts.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
+//@PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
     private AdminService adminService;
     private TeacherService teacherService;
@@ -23,14 +29,15 @@ public class AdminController {
         this.teacherService = teacherService;
     }
 
-    @ModelAttribute(name = "department")
-    public Department getDepartment(HttpSession session){
-        return (Department) session.getAttribute("department");
-    }
-
     @GetMapping(value = "/admin")
-    public String adminPage(Model model, @ModelAttribute("department") Department department){
-        model.addAttribute("listGroups", adminService.getAllGroupChild(department));
+    public String adminPage(Model model, HttpSession session, Principal principal){
+        String name = principal.getName();
+        Staff staff = adminService.getStaffByName(name);
+        session.setAttribute("staff", staff);
+        session.setAttribute("name", staff.getName());
+        session.setAttribute("department", staff.getDepartment());
+        model.addAttribute("listGroups",
+                adminService.getAllGroupChild((Department) session.getAttribute("department")));
         return "admin/admin";
     }
 
@@ -49,8 +56,9 @@ public class AdminController {
 
     @PostMapping(value = "/admin/search")
     public String searchChildBySurname(@RequestParam(value = "findChild") String findChild, Model model,
-                                       @ModelAttribute("department") Department department){
-        List<Child> list = adminService.findChildBySurname(findChild, department);
+                                       HttpSession session){
+        List<Child> list =
+                adminService.findChildBySurname(findChild, (Department) session.getAttribute("department"));
         if (list.isEmpty()){
             model.addAttribute("msg", "Не найдено ни одного ребенка с такой фамилией");
         } else {

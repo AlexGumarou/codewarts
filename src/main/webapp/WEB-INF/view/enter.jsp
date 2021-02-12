@@ -8,12 +8,7 @@
 </head>
 <body>
 <div align="center">
-    ${msg}
-    <form action="/loginpage" method="post">
-        <input type="text" placeholder="login" name="login"><br>
-        <input type="text" placeholder="pass" name="pass"><br>
-        <input type="submit" value="button" name="button"><br>
-    </form>
+<h2>ПОЛУЧИЛОСЬ</h2>
 </div>
 </body>
 </html>

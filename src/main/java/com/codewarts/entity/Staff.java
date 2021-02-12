@@ -1,11 +1,18 @@
 package com.codewarts.entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-public class Staff {
+public class Staff implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -34,7 +41,8 @@ public class Staff {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private StaffRole staffRole;
-
+    @Transient
+    private boolean isActive = true;
     public Staff() {
     }
 
@@ -147,5 +155,57 @@ public class Staff {
 
     public void setPricePerHour(String pricePerHour) {
         this.pricePerHour = pricePerHour;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(staffRole.getRole()));
+        return list;
+    }
+
+    @Override
+    public String getPassword() {
+        return pass;
+    }
+
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return isActive;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return isActive;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isActive;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive;
+    }
+
+    public static UserDetails fromUser(Staff staff){
+        return new org.springframework.security.core.userdetails.User(
+                staff.getLogin(), staff.getPass(),
+                staff.isActive(),
+                staff.isActive(),
+                staff.isActive(),
+                staff.isActive(),
+                staff.getAuthorities()
+        );
     }
 }

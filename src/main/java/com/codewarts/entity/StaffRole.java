@@ -2,13 +2,14 @@ package com.codewarts.entity;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "staff_role")
-public class StaffRole {
+public class StaffRole implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -48,5 +49,10 @@ public class StaffRole {
 
     public void setStaff(List<Staff> staff) {
         this.staff = staff;
+    }
+
+    @Override
+    public String getAuthority() {
+        return getRole();
     }
 }

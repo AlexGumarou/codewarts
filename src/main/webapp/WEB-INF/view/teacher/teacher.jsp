@@ -15,7 +15,7 @@
             </form>
     </c:forEach>
 
-    <form name="test" method="get" action="/login">
+    <form name="test" method="POST" action="/logout">
         <button type="submit" name="button">выход из программы</button>
     </form>
 </div>

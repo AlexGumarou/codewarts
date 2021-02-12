@@ -67,7 +67,7 @@
 </table>
     <h2 style="color: blue">${resultMsg}</h2>
 
-<form name="test" method="get" action="/login">
+<form name="test" method="POST" action="/logout">
     <button type="submit" name="button">выход из программы</button>
 </form>
 </div>

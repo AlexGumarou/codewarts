@@ -142,4 +142,8 @@ public class AdminDao {
     public List<Child> getAllChildByGroupAndDepartment() {
         return sessionFactory.getCurrentSession().createQuery("from Child", Child.class).list();
     }
+
+    public List<Staff> getAllStaff() {
+        return sessionFactory.getCurrentSession().createQuery("from Staff", Staff.class).list();
+    }
 }

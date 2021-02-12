@@ -122,9 +122,9 @@ CREATE TABLE staff(
                       FOREIGN KEY (department_id)  REFERENCES department (id),
                       FOREIGN KEY (role_id) REFERENCES staff_role (id));
 INSERT INTO staff (name, surname, birthday_date, login, pass, address, email, phone, role_id, department_id, price_per_hour) VALUES
-('Настя', 'Чернявская', '1984-05-27','admin','admin','Minsk','nast@mail.ru','375295565456','2','1', '0'),
-('Карина', 'Чернявская', '1984-05-27','teacher','teacher','Minsk','nast@mail.ru','375295565456','1','1', '15'),
-('Света', 'Чернявская', '1984-05-27','director','director','Minsk','nast@mail.ru','375295565456','3','1','0');
+('Настя', 'Чернявская', '1984-05-27','admin','$2y$12$vDvCJgUlo8c3neK72dtOXu.53drY50U68DOsuSa.YJeb8S6K6JM0C','Minsk','nast@mail.ru','375295565456','2','1', '0'),
+('Карина', 'Чернявская', '1984-05-27','teacher','$2y$12$yjKEuhEMPDm8JDvY1Xtd/uCCmcLXnTMlgLYRWHsPBzV0IRM8AK.Vq','Minsk','nast@mail.ru','375295565456','1','1', '15'),
+('Света', 'Чернявская', '1984-05-27','director','$2y$12$bLJ4XvnK/qhRA.YjMgUMGO.JJPwvzNNRLYU6E7NEHRqjEtDaMs6Gi','Minsk','nast@mail.ru','375295565456','3','1','0');
 CREATE TABLE theme (
                        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                        name VARCHAR(250));
