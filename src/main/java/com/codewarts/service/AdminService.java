@@ -49,8 +49,11 @@ public class AdminService {
     }
 
     public List<Child> findChildBySurname(String findChild, Department department) {
-        return adminDao.findChildBySurname(findChild).stream().filter(s->s.getChildGroup().getDepartment().getId() ==
-                (department.getId())).collect(Collectors.toList());
+        String surnameChild = findChild.substring(0, 1).toUpperCase() + findChild.substring(1).toLowerCase();
+        return adminDao.findChildBySurname(surnameChild)
+                .stream()
+                .filter(s->s.getChildGroup().getDepartment().getId() == (department.getId()))
+                .collect(Collectors.toList());
     }
 
     public boolean addChild(LocalDate date, String name, String surname, String mother, String father, String phoneMother,
@@ -75,7 +78,9 @@ public class AdminService {
     }
 
     public List<Child> getAllChild (Department department){
-        return adminDao.getAllChild().stream().filter(s->s.getChildGroup().getDepartment().getId()==department.getId())
+        return adminDao.getAllChild()
+                .stream()
+                .filter(s->s.getChildGroup().getDepartment().getId()==department.getId())
                 .collect(Collectors.toList());
     }
 
@@ -126,17 +131,10 @@ public class AdminService {
     }
 
     public List<Child> getAllChildByGroupAndDepartment(Department department, int childGroup) {
-        return adminDao.getAllChildByGroupAndDepartment().stream().filter(s->s.getChildGroup()
-                .getId()==childGroup && s.getChildGroup().getDepartment().getId()==department.getId())
+        return adminDao.getAllChildByGroupAndDepartment()
+                .stream()
+                .filter(s->s.getChildGroup().getId()==childGroup &&
+                        s.getChildGroup().getDepartment().getId()==department.getId())
                 .collect(Collectors.toList());
-    }
-
-    public Staff getStaffByName(String name) {
-        List<Staff> list = adminDao.getAllStaff();
-        for (Staff staff : list){
-            if (staff.getLogin().equals(name)){
-                return staff;
-            }
-        } return null;
     }
 }

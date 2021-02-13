@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
-
 public class MainController {
     private MainService service;
 

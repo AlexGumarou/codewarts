@@ -19,7 +19,6 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 
 @Controller
-//@PreAuthorize("hasRole('DIRECTOR')")
 public class DirectorController {
     private DirectorService directorService;
     @Autowired

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class AdminController {
     private AdminService adminService;
     private TeacherService teacherService;
@@ -53,7 +52,7 @@ public class AdminController {
 
     @PostMapping(value = "/admin/search")
     public String searchChildBySurname(@RequestParam(value = "findChild") String findChild, Model model,
-                                       @ModelAttribute("department") Department department, HttpSession session){
+                                       @ModelAttribute("department") Department department){
         List<Child> list =
                 adminService.findChildBySurname(findChild, department);
         if (list.isEmpty()){

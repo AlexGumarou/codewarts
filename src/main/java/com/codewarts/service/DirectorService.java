@@ -3,21 +3,29 @@ package com.codewarts.service;
 import com.codewarts.dao.DirectorDao;
 import com.codewarts.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.IllegalFormatException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
 public class DirectorService {
     private DirectorDao directorDao;
+    private PasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     public void setDirectorDao(DirectorDao directorDao) {
         this.directorDao = directorDao;
+    }
+
+    @Autowired
+    public void setBCryptPasswordEncoder(PasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public List<StaffRole> getAllStaffRoles(){
@@ -29,10 +37,10 @@ public class DirectorService {
     }
 
     public boolean addStaff(Staff staff, int idRole, int idDepartment) {
+        staff.setPass(bCryptPasswordEncoder.encode(staff.getPassword()));
         try {
             Integer.parseInt(staff.getPricePerHour());
-            if (directorDao.getAllStaff().stream().anyMatch(s->s.getLogin().equals(staff.getLogin()) &&
-                    s.getPass().equals(staff.getPass()))){
+            if (directorDao.getAllStaff().stream().anyMatch(s->s.getLogin().equals(staff.getLogin()))){
                 return false;
             }
             directorDao.addStaff(staff, idRole, idDepartment);
@@ -59,8 +67,7 @@ public class DirectorService {
     }
 
     public int getAllQuantityByTeacher(int idTeacher, LocalDate dateFrom, LocalDate dateTo) {
-        return directorDao.getAllHoursByTeacher(idTeacher, dateFrom, dateTo).stream().collect(Collectors.toList()).size();
-
+        return new ArrayList<>(directorDao.getAllHoursByTeacher(idTeacher, dateFrom, dateTo)).size();
     }
 
     public int getPricePerHourByTeacher(int idTeacher) {

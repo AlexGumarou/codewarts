@@ -70,9 +70,14 @@ public class EditController {
     }
 
     @PostMapping(value = "/admin/edit/editPayment")
-    public String editPaymentPage(Model model, @RequestParam("idPayment") int idPayment){
-        model.addAttribute("paymentToEdit", adminService.getAllPaymentsByChildAndPayment(idPayment));
-        return "admin/edit/editPayment";
+    public String editPaymentPage(Model model, @RequestParam(value = "idPayment", defaultValue = "0") int idPayment){
+        if (idPayment != 0) {
+            model.addAttribute("paymentToEdit", adminService.getAllPaymentsByChildAndPayment(idPayment));
+            return "admin/edit/editPayment";
+        } else {
+            model.addAttribute("msg", "У данного ребенка нет оплат для редактирования");
+            return "admin/admin";
+        }
     }
 
     @PostMapping(value = "/admin/edit/editPaymentSave")
