@@ -35,14 +35,18 @@ public class Staff implements UserDetails {
     private String phoneAdditional;
     @Column(name = "price_per_hour")
     private String pricePerHour;
+
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private StaffRole staffRole;
+
     @Transient
     private final boolean isActive = true;
+
     public Staff() {
     }
 

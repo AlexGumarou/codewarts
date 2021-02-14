@@ -1,10 +1,10 @@
 package com.codewarts.entity;
 
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import java.util.List;
 
 @Entity
@@ -18,7 +18,9 @@ public class Parent {
     private String phoneMother;
     @Column(name = "phone_father")
     private String phoneFather;
+
     @OneToMany (mappedBy = "parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Child> child;
 
     public Parent(String mother, String father, String phoneMother, String phoneFather) {

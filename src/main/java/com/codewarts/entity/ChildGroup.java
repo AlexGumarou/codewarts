@@ -1,11 +1,12 @@
 package com.codewarts.entity;
 
 
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
@@ -16,11 +17,15 @@ public class ChildGroup {
     private int id;
     private String name;
     private String lessonTime;
+
     @OneToMany (mappedBy = "childGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Child> child;
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany (mappedBy = "childGroup", cascade = CascadeType.ALL)
+
+    @OneToMany (mappedBy = "childGroup", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Accounting> accounting;
+
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;

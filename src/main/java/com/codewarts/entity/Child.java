@@ -8,8 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,16 +24,20 @@ public class Child {
     @Column(name = "birthday_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdayDate;
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany (mappedBy = "child", cascade = CascadeType.ALL)
+
+    @OneToMany (mappedBy = "child", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Payment> payment;
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany (mappedBy = "child", cascade = CascadeType.ALL)
+
+    @OneToMany (mappedBy = "child", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Attendance> attendance;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_id")
     private Parent parent;
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne
     @JoinColumn(name = "child_group_id")
     private ChildGroup childGroup;
 

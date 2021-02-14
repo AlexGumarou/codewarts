@@ -1,5 +1,7 @@
 package com.codewarts.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +13,8 @@ public class StaffRole implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String role;
-    @OneToMany(mappedBy = "staffRole", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "staffRole", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Staff> staff;
 
     public StaffRole() {

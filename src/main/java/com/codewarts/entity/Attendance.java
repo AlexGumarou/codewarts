@@ -1,7 +1,5 @@
 package com.codewarts.entity;
 
-import org.hibernate.annotations.BatchSize;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -11,6 +9,7 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDate date;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "child_id")
     private Child child;

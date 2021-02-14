@@ -1,5 +1,8 @@
 package com.codewarts.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,9 +14,13 @@ public class Department {
     private String name;
     private String address;
     private String phone;
+
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<ChildGroup> childGroup;
+
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Staff> staff;
 
     public Department() {

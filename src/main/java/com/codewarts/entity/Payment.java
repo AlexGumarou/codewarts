@@ -1,7 +1,5 @@
 package com.codewarts.entity;
 
-import org.hibernate.annotations.BatchSize;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -13,6 +11,7 @@ public class Payment {
     @Column(name = "payment_date")
     private LocalDate paymentDate;
     private String sum;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "child_id")
     private Child child;
