@@ -57,7 +57,7 @@
 <div align="center">
     <br><div align="center">
     <form style="display:inline-block" name="test" method="get" action="/director">
-        <button type="submit" name="button">к списку групп</button>
+        <button type="submit">на главную</button>
     </form>
 </div>
 </div>

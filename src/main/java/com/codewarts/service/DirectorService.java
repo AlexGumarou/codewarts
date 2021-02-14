@@ -39,8 +39,10 @@ public class DirectorService {
     public boolean addStaff(Staff staff, int idRole, int idDepartment) {
         staff.setPass(bCryptPasswordEncoder.encode(staff.getPassword()));
         try {
-            Integer.parseInt(staff.getPricePerHour());
-            if (directorDao.getAllStaff().stream().anyMatch(s->s.getLogin().equals(staff.getLogin()))){
+            if (!staff.getPricePerHour().equals("")) {
+                Integer.parseInt(staff.getPricePerHour());
+            }
+            if (directorDao.getAllStaff().stream().anyMatch(s->s.getLogin().trim().equals(staff.getLogin().trim()))){
                 return false;
             }
             directorDao.addStaff(staff, idRole, idDepartment);

@@ -51,7 +51,7 @@ button:focus {
     -webkit-transition: all .2s ease;
     transition: all .2s ease;
 }
-
+/*это настройки кнопки*/
 .ghost-round {
     cursor: pointer;
     background: none;
@@ -61,13 +61,13 @@ button:focus {
     -webkit-align-self: flex-end;
     -ms-flex-item-align: end;
     align-self: flex-end;
-    font-size: 19px;
+    font-size: 10px;
     font-size: 1.2rem;
     font-family: roboto;
     font-weight: 300;
-    line-height: 2.5em;
+    line-height: 1.5em;
     margin-top: auto;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
     -webkit-transition: all .2s ease;
     transition: all .2s ease;
 }
@@ -78,11 +78,12 @@ button:focus {
     -webkit-transition: all .2s ease;
     transition: all .2s ease;
 }
-
+/*это настройки поля для ввода*/
 .input-line {
     background: none;
     margin-bottom: 10px;
     line-height: 2.4em;
+    text-align: center;
     color: #fff;
     font-family: roboto;
     font-weight: 300;
@@ -100,7 +101,7 @@ button:focus {
 }
 
 .input-fields {
-    margin-top: 25px;
+    margin-top: 5px;
 }
 
 .container {
@@ -121,8 +122,8 @@ button:focus {
 }
 
 .content {
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 75px;
+    padding-right: 75px;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -132,17 +133,25 @@ button:focus {
     flex-flow: column;
     z-index: 5;
 }
-
+/*это настройки текста*/
 .welcome {
     font-weight: 200;
-    margin-top: 75px;
+    margin-top: 25px;
     text-align: center;
-    font-size: 40px;
-    font-size: 2.5rem;
+    font-size: 20px;
+    font-size: 2.0rem;
     letter-spacing: 0px;
     letter-spacing: 0.05rem;
 }
-
+.welcome2 {
+    font-weight: 200;
+    margin-top: 25px;
+    text-align: center;
+    font-size: 20px;
+    font-size: 1.5rem;
+    letter-spacing: 0px;
+    letter-spacing: 0.05rem;
+}
 .subtitle {
     text-align: center;
     line-height: 1em;
@@ -154,14 +163,14 @@ button:focus {
 .menu {
     background: rgba(0, 0, 0, 0.2);
     width: 100%;
-    height: 50px;
+    height: 100px;
 }
-
+/*это настройки окна*/
 .window {
     z-index: 100;
     color: #fff;
     font-family: roboto;
-    position: relative;
+    position: center;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -171,8 +180,8 @@ button:focus {
     flex-flow: column;
     box-shadow: 0px 15px 50px 10px rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
-    height: 560px;
-    width: 360px;
+    height: 700px;
+    width: 450px;
     background: #fff;
 }
 
@@ -181,9 +190,9 @@ button:focus {
     background: linear-gradient(#8CA6DB, #B993D6);
     opacity: 0.85;
     filter: alpha(opacity=85);
-    height: 560px;
+    height: 700px;
     position: absolute;
-    width: 360px;
+    width: 450px;
     z-index: 1;
 }
 

@@ -4,7 +4,6 @@ import com.codewarts.entity.Department;
 import com.codewarts.entity.Staff;
 import com.codewarts.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +50,7 @@ public class TeacherController {
         return "teacher/teacher";
     }
 
-    @GetMapping("/teacher/{childGroup}")
+    @PostMapping("/teacher/{childGroup}")
     public String getChildByGroup(@PathVariable(name = "childGroup") int childGroup, Model model, HttpSession session){
         Department department = (Department) session.getAttribute("department");
         session.setAttribute("childGroup", childGroup);

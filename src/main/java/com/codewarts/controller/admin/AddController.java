@@ -64,7 +64,7 @@ public class AddController {
             model.addAttribute("listGroups", groupList);
             model.addAttribute("msg", "Данные успешно добавлены!");
         } else {
-            model.addAttribute("msg", "Поле дата не заполнена");
+            model.addAttribute("msg", "Введены некорректные данные");
         }
         return "admin/admin";
     }

@@ -27,7 +27,7 @@
     </form>
 
     <form name="test" method="get" action="/admin">
-        <button type="submit" name="button">к списку групп</button>
+        <button type="submit">на главную</button>
     </form>
 </div>
 </body>

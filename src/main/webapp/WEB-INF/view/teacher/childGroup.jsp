@@ -45,7 +45,7 @@
         <button type="submit" name="button">Save</button>
     </form>
     <form name="test" method="get" action="/teacher">
-        <button type="submit" name="button">к списку групп</button>
+        <button type="submit" >к списку групп</button>
     </form>
 </div>
 </div>

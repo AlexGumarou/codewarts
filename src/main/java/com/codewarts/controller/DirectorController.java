@@ -41,7 +41,7 @@ public class DirectorController {
     public String addStaffGet(HttpSession session, Staff staff){
         session.setAttribute("listRoles", directorService.getAllStaffRoles());
         session.setAttribute("listDepartment", directorService.getAllDepartments());
-        return "director/addStaff";
+        return "director/addStaf";
     }
 
     @PostMapping(value = "/director/addStaff")
@@ -50,7 +50,7 @@ public class DirectorController {
                                @RequestParam("dep") int idDepartment,
                                @ModelAttribute("department") Department department){
         if (result.hasErrors()){
-            return "director/addStaff";
+            return "director/addStaf";
         }
         if (directorService.addStaff(staff, idRole, idDepartment)){
             model.addAttribute("msg", "Персонал успешно добавлен");

@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class AdminService {
-
     private AdminDao adminDao;
 
     @Autowired
@@ -49,17 +48,20 @@ public class AdminService {
     }
 
     public List<Child> findChildBySurname(String findChild, Department department) {
-        String surnameChild = findChild.substring(0, 1).toUpperCase() + findChild.substring(1).toLowerCase();
-        return adminDao.findChildBySurname(surnameChild)
-                .stream()
-                .filter(s->s.getChildGroup().getDepartment().getId() == (department.getId()))
-                .collect(Collectors.toList());
+        if (!findChild.trim().equals("")){
+            String surnameChild = findChild.substring(0, 1).toUpperCase() + findChild.substring(1).toLowerCase();
+            return adminDao.findChildBySurname(surnameChild)
+                    .stream()
+                    .filter(s->s.getChildGroup().getDepartment().getId() == (department.getId()))
+                    .collect(Collectors.toList());
+        } return null;
     }
 
     public boolean addChild(LocalDate date, String name, String surname, String mother, String father, String phoneMother,
                          String phoneFather, int idGroup) {
-        if((date == null || date.isBefore(LocalDate.now()) && date.isAfter(LocalDate.ofYearDay(2000, 1)))
-                || !name.trim().equals("") || !surname.trim().equals("")){
+        String regExp = "^[а-яА-ЯёЁa-zA-Z]+$";
+        if((name.matches(regExp) && surname.matches(regExp) && (date == null || date.isBefore(LocalDate.now())
+                && date.isAfter(LocalDate.ofYearDay(2000, 1))))){
             if (mother.equals("") && father.equals("") && phoneMother.equals("") && phoneFather.equals("")) {
                 adminDao.addChild(date,name, surname, idGroup);
             } else {

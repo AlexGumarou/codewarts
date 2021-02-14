@@ -14,7 +14,7 @@
     <h2 style="color: blue">${msg}</h2>
     <h2>Список групп</h2>
     <c:forEach items="${listGroups}" var="item"  >
-            <form style="display:inline-block" name="test" method="get" action="/teacher/${item.id}">
+            <form style="display:inline-block" name="test" method="post" action="/teacher/${item.id}">
                 <button type="submit" name="button" value="${item.id}">${item.name}</button>
             </form>
     </c:forEach>
