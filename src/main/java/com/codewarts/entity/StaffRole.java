@@ -1,9 +1,6 @@
 package com.codewarts.entity;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,7 +11,6 @@ public class StaffRole implements GrantedAuthority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String role;
-    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "staffRole", cascade = CascadeType.ALL)
     private List<Staff> staff;
 

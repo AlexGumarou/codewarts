@@ -16,6 +16,6 @@ public class MainDao {
     }
 
     public List<Staff> getAllStaff() {
-        return sessionFactory.getCurrentSession().createQuery("from Staff", Staff.class).list();
+        return sessionFactory.getCurrentSession().createQuery("from Staff", Staff.class).getResultList();
     }
 }

@@ -1,5 +1,6 @@
 package com.codewarts.entity;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 

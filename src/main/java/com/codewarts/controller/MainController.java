@@ -37,8 +37,7 @@ public class MainController {
 
 
     @GetMapping(value = "/")
-    public String loginPagePost(Model model, Principal principal,
-                                HttpSession session){
+    public String loginPagePost(Model model, Principal principal, HttpSession session){
         if (principal == null){
             return "index";
         }

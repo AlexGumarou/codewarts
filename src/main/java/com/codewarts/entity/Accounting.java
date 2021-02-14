@@ -1,11 +1,12 @@
 package com.codewarts.entity;
 
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-
 public class Accounting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

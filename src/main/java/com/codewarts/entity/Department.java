@@ -1,8 +1,5 @@
 package com.codewarts.entity;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -15,10 +12,8 @@ public class Department {
     private String address;
     private String phone;
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
     private List<ChildGroup> childGroup;
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Staff> staff;
 
     public Department() {

@@ -42,7 +42,7 @@ public class Staff implements UserDetails {
     @JoinColumn(name = "role_id")
     private StaffRole staffRole;
     @Transient
-    private boolean isActive = true;
+    private final boolean isActive = true;
     public Staff() {
     }
 
