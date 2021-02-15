@@ -8,12 +8,13 @@
 </head>
 <body>
 <div class='bold-line'></div>
-<div class='container'>
-    <div class='window'>
-        <div class='overlay'>
-            <div class='content'>
+    <div class='container'>
+        <div class='window'>
+            <div class='overlay'>
+                <div class='content'>
                 <br><br>
                 <h2 class='welcome'>Список всех учеников группы:</h2><br>
+                    <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                     <table border="0">
                         <c:forEach items="${listChild}" var="item" >
                             <form name="test" method="get" action="/admin/child/${item.id}">
@@ -30,10 +31,10 @@
                 <form name="test" method="get" action="/admin">
                     <button class='ghost-round full-width' type="submit">на главную</button>
                 </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>

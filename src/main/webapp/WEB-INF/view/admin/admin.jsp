@@ -11,20 +11,24 @@
         <div class='overlay'>
             <div class='content'>
                 <div align="center">
-                    <br><tr><h2 class='welcome'>Добро пожаловать, ${name}</h2>
+                    <br><h2 class='welcome'>Добро пожаловать, ${name}</h2>
+                    <c:forEach items="${listBirthday}" var="item" >
+                    <h3 class='welcome2' style="color: aqua" ><em>${item.birthdayDate} день рождения у
+                            ${item.name} ${item.surname}</em></h3>
+                    </c:forEach>
                     <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                     <form name="test" method="post" action="/admin/search">
                         <input class='input-line full-width'  type="search" name="findChild" placeholder="Найти ребенка по фамилии">
                         <button class='ghost-round full-width' type="submit" name="button">Найти</button>
                     </form>
                     <form name="test" method="get" action="/admin/addChild">
-                        <button class='ghost-round full-width' type="submit" name="button">Добавить ребенка</button>
+                        <button class='ghost-round full-width' type="submit">Добавить ребенка</button>
                     </form>
                     <form name="test" method="get" action="/admin/addPayment">
-                        <button class='ghost-round full-width' type="submit" >Добавить оплаты</button>
+                        <button class='ghost-round full-width' type="submit">Добавить оплаты</button>
                     </form>
                     <form name="test" method="get" action="/admin/addGroup">
-                        <button class='ghost-round full-width' type="submit" >Добавить группу</button>
+                        <button class='ghost-round full-width' type="submit">Добавить группу</button>
                     </form>
                     <h3 class='welcome'>Список групп</h3>
                     <c:forEach items="${listGroups}" var="item"  >

@@ -4,24 +4,26 @@
 <html>
 <head>
     <title>Title</title>
+    <link href = "/css/style_admin.css" type="text/css" rel = "stylesheet"/>
 </head>
 <body>
-<div align="center">
-    <font color="blue">
-    <h2>${msg}</h2>
-    </font>
-    <table border="0">
-
-        <c:forEach items="${listFind}" var="item" >
-            <div style="display:inline-block">
-                <tr><td><h2><a href="/admin/child/${item.id}">${item.name} ${item.surname}</a></h2></td>
+<div class='bold-line'></div>
+<div class='container'>
+    <div class='window'>
+        <div class='overlay'>
+            <div class='content'><br>
+                <h2 class='welcome'>${msg}</h2>
+                <c:forEach items="${listFind}" var="item" >
+                    <form name="test" method="get" action="/admin/child/${item.id}">
+                        <button class='ghost-round full-width' type="submit">${item.name} ${item.surname}</button>
+                    </form>
+                </c:forEach><br><br>
+                <form name="test" method="get" action="/admin">
+                    <button class='ghost-round full-width' type="submit">на главную</button>
+                </form>
             </div>
-        </c:forEach>
-    </table><br>
-
-    <form name="test" method="get" action="/admin">
-        <button type="submit">на главную</button>
-    </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

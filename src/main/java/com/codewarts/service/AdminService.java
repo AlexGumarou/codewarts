@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -138,5 +139,28 @@ public class AdminService {
                 .filter(s->s.getChildGroup().getId()==childGroup &&
                         s.getChildGroup().getDepartment().getId()==department.getId())
                 .collect(Collectors.toList());
+    }
+
+    public List<Child> getAllChildBirthday(Department department) {
+        LocalDate date = LocalDate.now();
+        int monthNow = date.getMonthValue();
+        int dayNow = date.getDayOfMonth();
+        List<Child> listFilter = new ArrayList<>();
+        List<Child> list = adminDao.getAllChildByGroupAndDepartment().stream()
+                .filter(s->s.getChildGroup().getDepartment().getId() == department.getId()).collect(Collectors.toList());
+        for(Child child : list){
+            if (child.getBirthdayDate().getMonthValue() == monthNow){
+                if ((child.getBirthdayDate().getDayOfMonth() - dayNow) <=3 &&
+                        (child.getBirthdayDate().getDayOfMonth() - dayNow) >= 0){
+                    listFilter.add(child);
+                }
+            } else {
+                if (child.getBirthdayDate().getMonthValue() - monthNow == 1){
+                    if ((dayNow - child.getBirthdayDate().getDayOfMonth()) > 27){
+                        listFilter.add(child);
+                    }
+                }
+            }
+        } return listFilter;
     }
 }

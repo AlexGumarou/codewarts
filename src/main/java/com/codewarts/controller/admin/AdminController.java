@@ -26,7 +26,8 @@ public class AdminController {
     }
 
     @GetMapping(value = "/admin")
-    public String adminPage(Model model, HttpSession session, @ModelAttribute("department") Department department){
+    public String adminPage(Model model, @ModelAttribute("department") Department department){
+        model.addAttribute("listBirthday", adminService.getAllChildBirthday(department));
         model.addAttribute("listGroups", adminService.getAllGroupChild(department));
         return "admin/admin";
     }
@@ -36,9 +37,12 @@ public class AdminController {
         Department department = (Department) session.getAttribute("department");
         session.setAttribute("childGroup", childGroup);
         List<Child> list = adminService.getAllChildByGroupAndDepartment(department,childGroup);
-        if (list.isEmpty()){ model.addAttribute("msg", "В данной группе нет ни одного ученика"); }
-        model.addAttribute("listChild", list);
-        model.addAttribute("idChildGroup", childGroup);
+        if (list.isEmpty()){
+            model.addAttribute("msg", "В данной группе нет ни одного ученика");
+        } else {
+            model.addAttribute("listChild", list);
+            model.addAttribute("idChildGroup", childGroup);
+        }
         return "admin/childGroup";
     }
 
