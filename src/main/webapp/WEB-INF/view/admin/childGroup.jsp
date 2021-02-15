@@ -4,31 +4,36 @@
 <html>
 <head>
     <title>Title</title>
+    <link href = "/css/style_admin.css" type="text/css" rel = "stylesheet"/>
 </head>
 <body>
-<div align="center">
-    <h2>Добро пожаловать, ${name}</h2>
-        <h2>Список всех учеников группы:</h2>
-        <table border="0">
-            <font color="blue">
-                <h3>${msg}</h3>
-            </font>
-            <c:forEach items="${listChild}" var="item" >
-                <div style="display:inline-block">
-                    <tr><td><h2><a href="/admin/child/${item.id}">${item.name} ${item.surname}</a></h2></td>
-                </div>
-            </c:forEach>
-        </table><br>
-    <form style="display:inline-block" name="test" method="post" action="/admin/edit/editGroups">
-        <button type="submit" name="button" value="${idChildGroup}">Изменить название группы</button>
-    </form>
-    <form style="display:inline-block" name="test" method="post" action="/admin/delete/group">
-        <button type="submit" name="button" value="${idChildGroup}">Удалить группу</button>
-    </form>
-
-    <form name="test" method="get" action="/admin">
-        <button type="submit">на главную</button>
-    </form>
+<div class='bold-line'></div>
+<div class='container'>
+    <div class='window'>
+        <div class='overlay'>
+            <div class='content'>
+                <br><br>
+                <h2 class='welcome'>Список всех учеников группы:</h2><br>
+                    <table border="0">
+                        <c:forEach items="${listChild}" var="item" >
+                            <form name="test" method="get" action="/admin/child/${item.id}">
+                                <button class='ghost-round full-width' type="submit">${item.name} ${item.surname}</button>
+                            </form>
+                        </c:forEach>
+                    </table><br><br><br><br><br>
+                <form style="display:inline-block" name="test" method="post" action="/admin/edit/editGroups">
+                    <button class='ghost-round full-width' type="submit" name="button" value="${idChildGroup}">Изменить название группы</button>
+                </form>
+                <form style="display:inline-block" name="test" method="post" action="/admin/delete/group">
+                    <button class='ghost-round full-width' type="submit" name="button" value="${idChildGroup}">Удалить группу</button>
+                </form>
+                <form name="test" method="get" action="/admin">
+                    <button class='ghost-round full-width' type="submit">на главную</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 </body>
 </html>
