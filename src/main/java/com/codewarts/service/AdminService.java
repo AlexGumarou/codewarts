@@ -149,15 +149,17 @@ public class AdminService {
         List<Child> list = adminDao.getAllChildByGroupAndDepartment().stream()
                 .filter(s->s.getChildGroup().getDepartment().getId() == department.getId()).collect(Collectors.toList());
         for(Child child : list){
-            if (child.getBirthdayDate().getMonthValue() == monthNow){
-                if ((child.getBirthdayDate().getDayOfMonth() - dayNow) <=3 &&
-                        (child.getBirthdayDate().getDayOfMonth() - dayNow) >= 0){
-                    listFilter.add(child);
-                }
-            } else {
-                if (child.getBirthdayDate().getMonthValue() - monthNow == 1){
-                    if ((dayNow - child.getBirthdayDate().getDayOfMonth()) > 27){
+            if (child.getBirthdayDate() != null){
+                if (child.getBirthdayDate().getMonthValue() == monthNow){
+                    if ((child.getBirthdayDate().getDayOfMonth() - dayNow) <=3 &&
+                            (child.getBirthdayDate().getDayOfMonth() - dayNow) >= 0){
                         listFilter.add(child);
+                    }
+                } else {
+                    if (child.getBirthdayDate().getMonthValue() - monthNow == 1){
+                        if ((dayNow - child.getBirthdayDate().getDayOfMonth()) > 27){
+                            listFilter.add(child);
+                        }
                     }
                 }
             }

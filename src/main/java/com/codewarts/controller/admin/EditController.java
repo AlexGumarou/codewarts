@@ -99,9 +99,9 @@ public class EditController {
     }
 
     @PostMapping(value = "/admin/edit/editGroupSave")
-    public String editGroupsSave(@RequestParam("id") int idChildGroup,
-                                 @RequestParam("name") String name, Model model,
-                                 @ModelAttribute("department") Department department){
+    public String editGroupsSave(@ModelAttribute("department") Department department,
+                                 @RequestParam("idGroup") int idChildGroup,
+                                 @RequestParam("nameGroup") String name, Model model) {
         adminService.saveChildGroup(idChildGroup, name);
         model.addAttribute("msg", "Данные успешно сохранены");
         model.addAttribute("listGroups", adminService.getAllGroupChild(department));

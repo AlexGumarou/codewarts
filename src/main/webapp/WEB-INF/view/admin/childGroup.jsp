@@ -22,10 +22,10 @@
                             </form>
                         </c:forEach>
                     </table><br><br><br><br><br>
-                <form style="display:inline-block" name="test" method="post" action="/admin/edit/editGroups">
+                <form name="test" method="post" action="/admin/edit/editGroups">
                     <button class='ghost-round full-width' type="submit" name="button" value="${idChildGroup}">Изменить название группы</button>
                 </form>
-                <form style="display:inline-block" name="test" method="post" action="/admin/delete/group">
+                <form name="test" method="post" action="/admin/delete/group">
                     <button class='ghost-round full-width' type="submit" name="button" value="${idChildGroup}">Удалить группу</button>
                 </form>
                 <form name="test" method="get" action="/admin">

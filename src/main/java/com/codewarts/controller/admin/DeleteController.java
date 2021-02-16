@@ -52,6 +52,7 @@ public class DeleteController {
         } else {
             model.addAttribute("msg", "Невозможно! Сначала нужно удалить всех учеников из группы");
         }
+        model.addAttribute("listGroups", adminService.getAllGroupChild(department));
         return "admin/admin";
     }
 }

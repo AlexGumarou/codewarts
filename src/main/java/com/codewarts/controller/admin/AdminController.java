@@ -41,8 +41,8 @@ public class AdminController {
             model.addAttribute("msg", "В данной группе нет ни одного ученика");
         } else {
             model.addAttribute("listChild", list);
-            model.addAttribute("idChildGroup", childGroup);
         }
+        model.addAttribute("idChildGroup", childGroup);
         return "admin/childGroup";
     }
 

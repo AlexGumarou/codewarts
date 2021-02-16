@@ -25,16 +25,10 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping(value = "/error")
-    public String errorLoginPage(){
-        return "error";
-    }
-
     @PostMapping(value = "/logout")
     public String logout(){
         return "index";
     }
-
 
     @GetMapping(value = "/")
     public String loginPagePost(Model model, Principal principal, HttpSession session){
