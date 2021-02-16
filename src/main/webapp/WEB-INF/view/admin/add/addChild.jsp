@@ -27,7 +27,7 @@
                             </c:forEach>
                         </select><br><br><br>
                         <div align="center">
-                            <input class='ghost-round full-width' type="submit" class="shine-button" size="100" value="добавить">
+                            <input class='ghost-round full-width' type="submit" size="100" value="добавить">
                         </div>
                     </form:form>
                             <div align="center">

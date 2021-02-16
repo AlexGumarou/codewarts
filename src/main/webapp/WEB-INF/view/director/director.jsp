@@ -3,73 +3,34 @@
 <html>
 <head>
     <title>Title</title>
+    <link href = "/css/style_admin.css" type="text/css" rel = "stylesheet"/>
 </head>
 <body>
-<div align="center">
-    <h2>Добро пожаловать, ${name}</h2>
-    <h3 style="color: blue">${msg}</h3>
-    <form style="display:inline-block" name="test" method="get" action="/director/addStaff">
-        <button type="submit" >Добавить персонал</button>
-    </form>
-
-
-<table border="1">
-    <tr>
-        <th><h2>Данные по отработанному <br>времени:</h2></th>
-        <th><h2>Данные по платежам <br> учеников:</h2></th>
-        <th><h2>Установить стоимость <br>часа:</h2></th>
-    </tr>
-    <tr><td>
-        <form style="display:inline-block" name="test" method="post" action="/director/teacherData">
-            <div align="center">
-            <h3>Выберите учителя:</h3>
-            <select name="ListTeacher">
-                <c:forEach items="${ListTeacher}" var="item" >
-                    <option value="${item.id}">${item.name} ${item.surname}</option>
-                </c:forEach>
-            </select>
-            <br><br>
-            C:<input style="display:inline-block" type="date" name="dateFirst" size="40"/>
-            По:<input style="display:inline-block" type="date" name="dateLast" size="40"/>
-            <br><br>
-            <button type="submit" >Найти</button>
+<div class='container'>
+    <div class='window'>
+        <div class='overlay'>
+            <div class='content'><br>
+                <h2 class='welcome'>Добро пожаловать, ${name}</h2>
+                <h2 class='welcome2' style="color: aqua"><em>${msg}</em></h2>
+                <h2 class='welcome2' style="color: aqua"><em>${resultMsg}</em></h2><br>
+                <form  name="test" method="get" action="/director/addStaff">
+                    <button class='ghost-round full-width' type="submit" >добавить персонал</button>
+                </form>
+                <form  name="test" method="get" action="/director/teacherData">
+                    <button class='ghost-round full-width' type="submit" >данные по отработанному времени</button>
+                </form>
+                <form  name="test" method="get" action="/director/payments">
+                    <button class='ghost-round full-width' type="submit" >данные по платежам учеников</button>
+                </form>
+                <form  name="test" method="get" action="/director/teacherPrice">
+                    <button class='ghost-round full-width' type="submit" >установить стоимость часа</button>
+                </form><br><br>
+                <form name="test" method="POST" action="/logout">
+                    <button class='ghost-round full-width' type="submit" name="button">выход из программы</button>
+                </form>
             </div>
-        </form>
-    </td>
-    <td>
-        <form style="display:inline-block" name="test" method="post" action="/director/payments">
-            <div align="center">
-                <h3>Выберите период</h3>
-                <br><br>
-                C:<input style="display:inline-block" type="date" name="dateFirst" size="40"/>
-                По:<input style="display:inline-block" type="date" name="dateLast" size="40"/>
-                <br><br>
-                <button type="submit" >Найти</button>
-            </div>
-        </form>
-    </td>
-    <td>
-        <form style="display:inline-block" name="test" method="post" action="/director/teacherPrice">
-            <div align="center">
-                <h3>Выберите учителя:</h3>
-                <select name="ListTeacher">
-                    <c:forEach items="${ListTeacher}" var="item" >
-                        <option value="${item.id}">${item.name} ${item.surname}</option>
-                    </c:forEach>
-                </select>
-                <br>
-                <h3>Установить сумму за 1 час:</h3>
-                <input type="text" name="sum" size="10">
-                <button type="submit" >Сохранить</button>
-            </div>
-        </form>
-    </td></tr>
-</table>
-    <h2 style="color: blue">${resultMsg}</h2>
-
-<form name="test" method="POST" action="/logout">
-    <button type="submit" name="button">выход из программы</button>
-</form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

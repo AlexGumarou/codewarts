@@ -127,6 +127,7 @@ CREATE TABLE staff(
 INSERT INTO staff (name, surname, birthday_date, login, pass, address, email, phone, role_id, department_id, price_per_hour) VALUES
 ('Анастасия', 'Чернявская', '1984-05-27','admin','$2y$12$vDvCJgUlo8c3neK72dtOXu.53drY50U68DOsuSa.YJeb8S6K6JM0C','Minsk','nast@mail.ru','375295565456','2','1', '0'),
 ('Карина', 'Корнеева', '1984-05-27','teacher','$2y$12$yjKEuhEMPDm8JDvY1Xtd/uCCmcLXnTMlgLYRWHsPBzV0IRM8AK.Vq','Minsk','nast@mail.ru','375295565456','1','1', '15'),
+('Ирина', 'Петровна', '1984-05-27','tea','$2y$12$/KzkPM8hsXBJvgCUCUPeteNl7Kd6jMtHsKcnXiR0pHZTHa1cLvX4q','Minsk','nast@mail.ru','375295565456','1','1', '15'),
 ('Светлана', 'Булатская', '1984-05-27','director','$2y$12$bLJ4XvnK/qhRA.YjMgUMGO.JJPwvzNNRLYU6E7NEHRqjEtDaMs6Gi','Minsk','nast@mail.ru','375295565456','3','1','0');
 CREATE TABLE theme (
                        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

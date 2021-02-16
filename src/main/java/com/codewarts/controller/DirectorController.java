@@ -61,6 +61,12 @@ public class DirectorController {
         return "director/director";
     }
 
+    @GetMapping(value = "/director/teacherData")
+    public String teacherAccountingGet(Model model, @ModelAttribute("department") Department department){
+        model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
+        return "director/teacherData";
+    }
+
     @PostMapping(value = "/director/teacherData")
     public String teacherAccounting(@RequestParam("ListTeacher") int idTeacher,
                                     @RequestParam(value = "dateFirst", defaultValue = "")
@@ -82,6 +88,11 @@ public class DirectorController {
         return "director/director";
     }
 
+    @GetMapping(value = "/director/payments")
+    public String paymentsGet(){
+        return "director/payments";
+    }
+
     @PostMapping(value = "/director/payments")
     public String payments(@RequestParam(value = "dateFirst", defaultValue = "")
                            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
@@ -96,6 +107,12 @@ public class DirectorController {
         }
         model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
         return "director/director";
+    }
+
+    @GetMapping(value = "/director/teacherPrice")
+    public String teacherPriceNewValueGet(Model model, @ModelAttribute("department") Department department){
+        model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
+        return "director/teacherPrice";
     }
 
     @PostMapping(value = "/director/teacherPrice")
