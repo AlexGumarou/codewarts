@@ -47,8 +47,7 @@ public class DirectorController {
     @PostMapping(value = "/director/addStaff")
     public String addStaffPost(Model model, @ModelAttribute("staff") @Valid Staff staff,
                                BindingResult result, @RequestParam("role") int idRole,
-                               @RequestParam("dep") int idDepartment,
-                               @ModelAttribute("department") Department department){
+                               @RequestParam("dep") int idDepartment){
         if (result.hasErrors()){
             return "director/addStaf";
         }
@@ -57,7 +56,6 @@ public class DirectorController {
         } else {
             model.addAttribute("msg", "Пользователь с таким логином уже существует");
         }
-        model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
         return "director/director";
     }
 

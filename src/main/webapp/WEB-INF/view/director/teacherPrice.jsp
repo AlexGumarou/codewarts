@@ -21,6 +21,9 @@
                         <input type="text" placeholder="введите сумму" name="sum" class='input-line full-width' required></input><br>
                     <button class='ghost-round full-width' type="submit" >сохранить</button>
                 </form>
+                <form name="test" method="get" action="/director">
+                    <button class='ghost-round full-width' type="submit">на главную</button>
+                </form>
             </div>
         </div>
     </div>

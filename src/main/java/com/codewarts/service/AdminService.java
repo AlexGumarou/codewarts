@@ -125,8 +125,11 @@ public class AdminService {
         return adminDao.getChildGroup(idChildGroup);
     }
 
-    public void saveChildGroup(int idChildGroup, String name) {
-        adminDao.saveChildGroup(idChildGroup, name);
+    public boolean saveChildGroup(int idChildGroup, String name) {
+        if (!name.trim().equals("")){
+            adminDao.saveChildGroup(idChildGroup, name);
+            return true;
+        } return false;
     }
 
     public void deleteGroup(int idChildGroup) {

@@ -102,8 +102,11 @@ public class EditController {
     public String editGroupsSave(@ModelAttribute("department") Department department,
                                  @RequestParam("idGroup") int idChildGroup,
                                  @RequestParam("nameGroup") String name, Model model) {
-        adminService.saveChildGroup(idChildGroup, name);
-        model.addAttribute("msg", "Данные успешно сохранены");
+        if (adminService.saveChildGroup(idChildGroup, name)){
+            model.addAttribute("msg", "Данные успешно сохранены");
+        } else {
+            model.addAttribute("msg", "Неверный формат вводных данных");
+        }
         model.addAttribute("listGroups", adminService.getAllGroupChild(department));
         return "admin/admin";
     }
