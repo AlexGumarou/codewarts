@@ -54,19 +54,17 @@ public class AddController {
                                @RequestParam(value = "phoneMother") String phoneMother,
                                @RequestParam(value = "father")String father,
                                @RequestParam(value = "phoneFather") String phoneFather,
-                               @RequestParam(value = "selectGroup") int idGroup,
-                               @ModelAttribute("listGroups") List<ChildGroup> groupList){
+                               @RequestParam(value = "selectGroup") int idGroup){
         if (result.hasErrors()){
             return "admin/add/addChild";
         }
         if (adminService.addChild(date, child.getName(), child.getSurname(), mother, father, phoneMother,
                 phoneFather, idGroup)){
-            model.addAttribute("listGroups", groupList);
             model.addAttribute("msg", "Данные успешно добавлены!");
         } else {
             model.addAttribute("msg", "Введены некорректные данные");
         }
-        return "admin/admin";
+        return "admin/add/addChild";
     }
 
     @GetMapping(value = "/admin/addPayment")
@@ -81,14 +79,15 @@ public class AddController {
     @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
                                 @RequestParam(value = "sum") String sum,
                                 @RequestParam(value = "listChild") int idChild,
-                                @ModelAttribute("listGroups") List<ChildGroup> groupList){
+                                @ModelAttribute("department") Department department){
         if (adminService.addPayment(date, sum, idChild)){
             model.addAttribute("msg", "Оплата успешно внесена");
         } else {
             model.addAttribute("msg", "Неверный формат суммы");
         }
-        model.addAttribute("listGroups", groupList);
-        return "admin/admin";
+        model.addAttribute("now", LocalDate.now());
+        model.addAttribute("listChild", adminService.getAllChild(department));
+        return "admin/add/addPayment";
     }
 
     @GetMapping(value = "/admin/addGroup")
@@ -99,13 +98,12 @@ public class AddController {
     @PostMapping(value = "/admin/addGroup")
     public String makeNewGroupPost(Model model, @ModelAttribute("department") Department department,
                                    @RequestParam("name")String name, @RequestParam("lessonTime") String lessonTime){
-        if (adminService.addGroup(name,department, lessonTime)){
+        if (adminService.addGroup(name, department, lessonTime)){
             model.addAttribute("msg", "Группа успешно добавлена");
         } else {
             model.addAttribute("msg", "Имя группы должно содержать только буквы и цифры" + "<br>" +
                     "Либо такая группа уже существует");
         }
-        model.addAttribute("listGroups", adminService.getAllGroupChild(department));
-        return "admin/admin";
+        return "admin/add/addGroup";
     }
 }

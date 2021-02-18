@@ -21,7 +21,8 @@ public class TeacherService {
     }
 
     public List<ChildGroup> getAllGroupChild(Department department){
-        return teacherDao.getAllGroupChild().stream().filter(s->s.getDepartment().getId()==(department.getId()))
+        return teacherDao.getAllGroupChild().stream().filter(s->s.getDepartment().getId()==(department.getId()) &&
+                !s.getChild().isEmpty())
                 .collect(Collectors.toList());
     }
 

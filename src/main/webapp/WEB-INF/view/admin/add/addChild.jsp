@@ -26,9 +26,11 @@
                                 <option value="${item.id}">${item.name}</option>
                             </c:forEach>
                         </select><br><br><br>
+                        <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                         <div align="center">
                             <input class='ghost-round full-width' type="submit" size="100" value="добавить">
                         </div>
+
                     </form:form>
                             <div align="center">
                                 <form name="test" method="get" action="/admin">

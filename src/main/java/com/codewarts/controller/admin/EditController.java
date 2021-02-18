@@ -92,7 +92,7 @@ public class EditController {
         return "admin/admin";
     }
 
-    @PostMapping(value = "/admin/edit/editGroups")
+    @RequestMapping(value = "/admin/edit/editGroups")
     public String editGroups(@RequestParam("button") int idChildGroup, Model model){
         model.addAttribute("childGroup", adminService.getChildGroup(idChildGroup));
         return "admin/edit/editGroup";
@@ -107,7 +107,7 @@ public class EditController {
         } else {
             model.addAttribute("msg", "Неверный формат вводных данных");
         }
-        model.addAttribute("listGroups", adminService.getAllGroupChild(department));
-        return "admin/admin";
+        model.addAttribute("childGroup", adminService.getChildGroup(idChildGroup));
+        return "admin/edit/editGroup";
     }
 }

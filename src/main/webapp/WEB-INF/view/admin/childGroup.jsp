@@ -14,7 +14,7 @@
                 <div class='content'>
                 <br><br>
                 <h2 class='welcome'>Список всех учеников группы:</h2><br>
-                    <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
+
                     <table border="0">
                         <c:forEach items="${listChild}" var="item" >
                             <form name="test" method="get" action="/admin/child/${item.id}">
@@ -22,6 +22,7 @@
                             </form>
                         </c:forEach>
                     </table><br><br><br><br><br>
+                    <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                 <form name="test" method="post" action="/admin/edit/editGroups">
                     <button class='ghost-round full-width' type="submit" name="button" value="${idChildGroup}">Изменить название группы</button>
                 </form>

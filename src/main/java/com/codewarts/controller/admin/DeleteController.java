@@ -34,12 +34,9 @@ public class DeleteController {
     }
 
     @PostMapping(value = "/admin/delete")
-    public String deleteChild(@RequestParam(value = "idChild") int idChild,
-                              @ModelAttribute("listGroups") List<ChildGroup> groupList, Model model){
-        model.addAttribute("listGroups", groupList);
+    public String deleteChild(@RequestParam(value = "idChild") int idChild){
         adminService.deleteChild(idChild);
-        model.addAttribute("msg", "Данные успешно удалены!");
-        return "admin/admin";
+        return "redirect:/admin";
     }
 
     @PostMapping(value = "/admin/delete/group")

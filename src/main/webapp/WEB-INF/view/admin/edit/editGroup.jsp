@@ -14,7 +14,11 @@
                     <h2 class='welcome'>Выберите новое название группы:</h2>
                     <input class='input-line full-width' type="text" size="40" name="nameGroup" value="${childGroup.name}" required>
                     <input type="hidden" name="idGroup" value="${childGroup.id}"><br><br>
+                    <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                     <input class='ghost-round full-width' type="submit" name="button" value="изменить">
+                </form>
+                <form name="test" method="get" action="/admin">
+                    <button class='ghost-round full-width' type="submit">на главную</button>
                 </form>
             </div>
         </div>

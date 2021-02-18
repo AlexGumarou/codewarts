@@ -26,6 +26,7 @@
                             <option value="1 час"><spring:message code="app.addGroup.one.hour"/></option>
                             <option value="1 час 20 минут"><spring:message code="app.addGroup.one.hour.twenty.minutes"/></option>
                         </select><br>
+                        <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                         <spring:message code="app.save" var="save"></spring:message>
                         <input class='ghost-round full-width' type="submit" class="shine-button" size="100" value="${save}">
                     </form:form><br>

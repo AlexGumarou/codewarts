@@ -126,7 +126,8 @@ public class AdminService {
     }
 
     public boolean saveChildGroup(int idChildGroup, String name) {
-        if (!name.trim().equals("")){
+        String regExp = "^[а-яА-ЯёЁa-zA-Z0-9]+$";
+        if (!name.trim().equals("") && name.trim().matches(regExp)){
             adminDao.saveChildGroup(idChildGroup, name);
             return true;
         } return false;
