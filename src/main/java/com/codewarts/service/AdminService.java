@@ -27,7 +27,7 @@ public class AdminService {
     }
 
     public List<ChildGroup> getAllGroupChild(Department department){
-        return adminDao.getAllGroupChild().stream().filter(s->s.getDepartment().getId()==(department.getId()))
+        return adminDao.getAllChildGroup().stream().filter(s->s.getDepartment().getId()==(department.getId()))
                 .collect(Collectors.toList());
     }
 
@@ -122,7 +122,7 @@ public class AdminService {
     }
 
     public ChildGroup getChildGroup(int idChildGroup) {
-        return adminDao.getChildGroup(idChildGroup);
+        return adminDao.getChildGroupById(idChildGroup);
     }
 
     public boolean saveChildGroup(int idChildGroup, String name) {
@@ -137,7 +137,7 @@ public class AdminService {
     }
 
     public List<Child> getAllChildByGroupAndDepartment(Department department, int childGroup) {
-        return adminDao.getAllChildByGroupAndDepartment()
+        return adminDao.getAllChild()
                 .stream()
                 .filter(s->s.getChildGroup().getId()==childGroup &&
                         s.getChildGroup().getDepartment().getId()==department.getId())
@@ -149,7 +149,7 @@ public class AdminService {
         int monthNow = date.getMonthValue();
         int dayNow = date.getDayOfMonth();
         List<Child> listFilter = new ArrayList<>();
-        List<Child> list = adminDao.getAllChildByGroupAndDepartment().stream()
+        List<Child> list = adminDao.getAllChild().stream()
                 .filter(s->s.getChildGroup().getDepartment().getId() == department.getId()).collect(Collectors.toList());
         for(Child child : list){
             if (child.getBirthdayDate() != null){

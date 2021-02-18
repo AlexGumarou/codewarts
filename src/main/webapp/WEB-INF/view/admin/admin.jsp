@@ -6,6 +6,7 @@
     <link href = "/css/style_admin.css" type="text/css" rel = "stylesheet"/>
 </head>
 <body>
+
 <div class='container'>
     <div class='window'>
         <div class='overlay'>

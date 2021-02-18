@@ -21,6 +21,33 @@ public class AdminDao {
         return sessionFactory.getCurrentSession().get(Child.class, editChild);
     }
 
+    public List<Child> getAllChild() {
+        return sessionFactory.getCurrentSession().createQuery("from Child ", Child.class).list();
+    }
+
+    public List<Attendance> getAllAttendanceByChild(int idChild) {
+        Child child = sessionFactory.getCurrentSession().get(Child.class,idChild);
+        return child.getAttendance();
+    }
+
+    public List<Payment> getAllPaymentsByChild(int idChild) {
+        Child child = sessionFactory.getCurrentSession().get(Child.class,idChild);
+        return child.getPayment();
+    }
+
+    public List<ChildGroup> getAllChildGroup() {
+        return sessionFactory.getCurrentSession().createQuery("from ChildGroup", ChildGroup.class).list();
+    }
+
+    public ChildGroup getChildGroupById(int idChildGroup) {
+        return sessionFactory.getCurrentSession().get(ChildGroup.class, idChildGroup);
+    }
+
+    public List<Payment> getAllPaymentsByChildAndPayment(int idPayment) {
+        return sessionFactory.getCurrentSession().createQuery("from Payment p where p.id = :id")
+                .setParameter("id", idPayment).list();
+    }
+
     public void saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, String mother,
                           String father, String phoneFather, String phoneMother) {
         Child child = sessionFactory.getCurrentSession().get(Child.class, idChild);
@@ -43,7 +70,6 @@ public class AdminDao {
         sessionFactory.getCurrentSession().saveOrUpdate(parent);
         child.setParent(parent);
         sessionFactory.getCurrentSession().saveOrUpdate(child);
-
     }
 
     public void saveChild(int idChild, LocalDate date, String name, String surname, int idGroup) {
@@ -56,14 +82,17 @@ public class AdminDao {
         sessionFactory.getCurrentSession().saveOrUpdate(child);
     }
 
-    public void deleteChild(int idChild) {
-        Child child = sessionFactory.getCurrentSession().get(Child.class, idChild);
-        sessionFactory.getCurrentSession().remove(child);
+    public void savePayment(int idPayment, LocalDate date, String sum) {
+        Payment payment = sessionFactory.getCurrentSession().get(Payment.class, idPayment);
+        payment.setPaymentDate(date);
+        payment.setSum(sum);
+        sessionFactory.getCurrentSession().saveOrUpdate(payment);
     }
 
-    public List<Child> findChildBySurname(String findChild) {
-        return sessionFactory.getCurrentSession().createQuery("from Child ch where ch.surname = :surname")
-                .setParameter("surname", findChild).list();
+    public void saveChildGroup(int idChildGroup, String name) {
+        ChildGroup childGroup = sessionFactory.getCurrentSession().get(ChildGroup.class, idChildGroup);
+        childGroup.setName(name);
+        sessionFactory.getCurrentSession().saveOrUpdate(childGroup);
     }
 
     public void addChild(LocalDate date, String name, String surname, String mother, String father, String phoneMother,
@@ -81,24 +110,6 @@ public class AdminDao {
         sessionFactory.getCurrentSession().saveOrUpdate(child);
     }
 
-    public List<Attendance> getAllAttendanceByChild(int idChild) {
-        Child child = sessionFactory.getCurrentSession().get(Child.class,idChild);
-        return child.getAttendance();
-    }
-
-    public List<Payment> getAllPaymentsByChild(int idChild) {
-        Child child = sessionFactory.getCurrentSession().get(Child.class,idChild);
-        return child.getPayment();
-    }
-
-    public List<ChildGroup> getAllGroupChild() {
-        return sessionFactory.getCurrentSession().createQuery("from ChildGroup", ChildGroup.class).list();
-    }
-
-    public List<Child> getAllChild() {
-        return sessionFactory.getCurrentSession().createQuery("from Child ", Child.class).list();
-    }
-
     public void addPayment(LocalDate date, String sum, int idChild) {
         Child child = sessionFactory.getCurrentSession().get(Child.class, idChild);
         sessionFactory.getCurrentSession().saveOrUpdate(new Payment(date,sum,child));
@@ -108,30 +119,9 @@ public class AdminDao {
         sessionFactory.getCurrentSession().saveOrUpdate(new ChildGroup(name, lessonTime, department));
     }
 
-    public List<ChildGroup> getAllChildGroup() {
-        return sessionFactory.getCurrentSession().createQuery("from ChildGroup", ChildGroup.class).list();
-    }
-
-    public List<Payment> getAllPaymentsByChildAndPayment(int idPayment) {
-        return sessionFactory.getCurrentSession().createQuery("from Payment p where p.id = :id")
-                .setParameter("id", idPayment).list();
-    }
-
-    public void savePayment(int idPayment, LocalDate date, String sum) {
-        Payment payment = sessionFactory.getCurrentSession().get(Payment.class, idPayment);
-        payment.setPaymentDate(date);
-        payment.setSum(sum);
-        sessionFactory.getCurrentSession().saveOrUpdate(payment);
-    }
-
-    public ChildGroup getChildGroup(int idChildGroup) {
-        return sessionFactory.getCurrentSession().get(ChildGroup.class, idChildGroup);
-    }
-
-    public void saveChildGroup(int idChildGroup, String name) {
-        ChildGroup childGroup = sessionFactory.getCurrentSession().get(ChildGroup.class, idChildGroup);
-        childGroup.setName(name);
-        sessionFactory.getCurrentSession().saveOrUpdate(childGroup);
+    public List<Child> findChildBySurname(String findChild) {
+        return sessionFactory.getCurrentSession().createQuery("from Child ch where ch.surname = :surname")
+                .setParameter("surname", findChild).list();
     }
 
     public void deleteGroup(int idChildGroup) {
@@ -139,7 +129,8 @@ public class AdminDao {
         sessionFactory.getCurrentSession().delete(childGroup);
     }
 
-    public List<Child> getAllChildByGroupAndDepartment() {
-        return sessionFactory.getCurrentSession().createQuery("from Child", Child.class).list();
+    public void deleteChild(int idChild) {
+        Child child = sessionFactory.getCurrentSession().get(Child.class, idChild);
+        sessionFactory.getCurrentSession().remove(child);
     }
 }
