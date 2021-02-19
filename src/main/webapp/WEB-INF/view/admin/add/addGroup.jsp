@@ -7,11 +7,6 @@
 <head>
     <title><spring:message code="app.addGroup.title"/></title>
     <link href = "/css/style_admin.css" type="text/css" rel = "stylesheet"/>
-    <style>
-        .img-right {
-            transform: rotate(90deg);
-        }
-    </style>
 </head>
 <body>
 <div class='container'>
@@ -41,6 +36,5 @@
     <a href="?lang=ru"><img src="/img/rus.png"  width="50" height="30" border="1"></a>
     </div>
         </div>
-    </div>
 </body>
 </html>

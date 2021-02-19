@@ -92,7 +92,7 @@ public class EditController {
         return "admin/admin";
     }
 
-    @RequestMapping(value = "/admin/edit/editGroups")
+    @GetMapping(value = "/admin/edit/editGroups")
     public String editGroups(@RequestParam("button") int idChildGroup, Model model){
         model.addAttribute("childGroup", adminService.getChildGroup(idChildGroup));
         return "admin/edit/editGroup";

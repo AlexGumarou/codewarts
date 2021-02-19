@@ -32,7 +32,7 @@ public class AdminController {
         return "admin/admin";
     }
 
-    @PostMapping("/admin/{childGroup}")
+    @RequestMapping("/admin/{childGroup}")
     public String getChildByGroup(@PathVariable(name = "childGroup") int childGroup, Model model, HttpSession session){
         Department department = (Department) session.getAttribute("department");
         session.setAttribute("childGroup", childGroup);

@@ -1,9 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><spring:message code="app.find.title"/></title>
     <link href = "/css/style_admin.css" type="text/css" rel = "stylesheet"/>
 </head>
 <body>
@@ -19,7 +20,7 @@
                     </form>
                 </c:forEach><br><br>
                 <form name="test" method="get" action="/admin">
-                    <button class='ghost-round full-width' type="submit">на главную</button>
+                    <button class='ghost-round full-width' type="submit"><spring:message code="app.to.main"/></button>
                 </form>
             </div>
         </div>

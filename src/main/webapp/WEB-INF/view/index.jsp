@@ -3,26 +3,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+    <title><spring:message code="app.index.title"/></title>
     <link href = "css/style.css" type="text/css" rel = "stylesheet"/>
 </head>
 <body>
 <form action="/login" method="post">
-<div class='bold-line'></div>
     <div class='container'>
         <div class='window'>
             <div class='overlay'>
                 <div class='content'>
-                    <div class='welcome'>Welcome to <br>Codewarts</div>
+                    <div class='welcome'><spring:message code="app.index.welcome"/><br>Codewarts</div>
                     ${msg}
                         <div class='input-fields'>
-                            <input type='text' placeholder="Login" name="login" class='input-line full-width'></input>
-                            <input type='text' placeholder='Password' name="pass" class='input-line full-width'></input>
+                            <spring:message code="app.login" var="login"></spring:message>
+                            <input type='text' placeholder="${login}" name="login" class='input-line full-width'></input>
+                            <spring:message code="app.pass" var="pass"></spring:message>
+                            <input type='text' placeholder='${pass}' name="pass" class='input-line full-width'></input>
                         </div>
                         <br><br>
-                    <div><button class='ghost-round full-width'>Login</button></div>
+                    <button class='ghost-round full-width'><spring:message code="app.index.enter"/></button>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </form>
 </body>
