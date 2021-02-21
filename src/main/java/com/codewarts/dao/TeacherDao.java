@@ -17,12 +17,19 @@ public class TeacherDao {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<ChildGroup> getAllGroupChild() {
-        return sessionFactory.getCurrentSession().createQuery("from ChildGroup", ChildGroup.class).list();
+    public List<ChildGroup> getAllGroupChild(Department department) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from ChildGroup ch where ch.department.id = :id", ChildGroup.class)
+                .setParameter("id", department.getId()).list();
     }
 
-    public List<Child> getAllChildByGroupAndDepartment() {
-        return sessionFactory.getCurrentSession().createQuery("from Child", Child.class).list();
+    public List<Child> getAllChildByGroupAndDepartment(Department department, int childGroup) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Child c where c.childGroup.id = :id and c.childGroup.department.id = :idDep",
+                        Child.class)
+                .setParameter("id", childGroup)
+                .setParameter("idDep", department.getId())
+                .list();
     }
 
     public List<Theme> getAllTheme() {
@@ -42,7 +49,9 @@ public class TeacherDao {
         sessionFactory.getCurrentSession().save(new Accounting(date, childGroup, staff, them));
     }
 
-    public List<Accounting> getAllAccounting() {
-        return sessionFactory.getCurrentSession().createQuery("from Accounting ", Accounting.class).list();
+    public List<Accounting> getAllAccounting(Integer childGroup) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Accounting a where a.childGroup.id = :id", Accounting.class)
+                .setParameter("id", childGroup).list();
     }
 }

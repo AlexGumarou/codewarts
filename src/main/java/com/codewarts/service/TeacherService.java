@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -21,15 +20,11 @@ public class TeacherService {
     }
 
     public List<ChildGroup> getAllGroupChild(Department department){
-        return teacherDao.getAllGroupChild().stream().filter(s->s.getDepartment().getId()==(department.getId()) &&
-                !s.getChild().isEmpty())
-                .collect(Collectors.toList());
+        return teacherDao.getAllGroupChild(department);
     }
 
     public List<Child> getAllChildByGroupAndDepartment(Department department, int childGroup) {
-        return teacherDao.getAllChildByGroupAndDepartment().stream().filter(s->s.getChildGroup()
-                .getId()==childGroup && s.getChildGroup().getDepartment().getId()==department.getId())
-                .collect(Collectors.toList());
+        return teacherDao.getAllChildByGroupAndDepartment(department,childGroup);
     }
 
     public List<Theme> getAllTheme() {
@@ -48,12 +43,10 @@ public class TeacherService {
 
     public boolean checkDoubleClick(Integer group_id) {
         LocalDate date = LocalDate.now();
-        return teacherDao.getAllAccounting().stream().anyMatch(s->s.getDate().equals(date)
-                && s.getChildGroup().getId()==group_id);
+        return teacherDao.getAllAccounting(group_id).stream().anyMatch(s->s.getDate().equals(date));
     }
 
     public List<Accounting> getAllThemePast(Integer childGroup) {
-        return teacherDao.getAllAccounting().stream().filter(s->s.getChildGroup()
-                .getId()==childGroup).collect(Collectors.toList());
+        return teacherDao.getAllAccounting(childGroup);
     }
 }

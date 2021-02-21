@@ -21,7 +21,7 @@ public class SecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Staff staff = mainDao.getAllStaff().stream().filter(s->name.equals(s.getLogin())).findFirst().orElse(null);
+        Staff staff = mainDao.getAllStaff(name);
         if (staff == null) {
             throw new UsernameNotFoundException("User not found");
         }

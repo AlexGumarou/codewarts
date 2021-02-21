@@ -4,7 +4,6 @@ import com.codewarts.entity.Staff;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 @Repository
 public class MainDao {
@@ -15,7 +14,8 @@ public class MainDao {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<Staff> getAllStaff() {
-        return sessionFactory.getCurrentSession().createQuery("from Staff", Staff.class).getResultList();
+    public Staff getAllStaff(String login) {
+        return sessionFactory.getCurrentSession().createQuery("from Staff s where s.login = :login", Staff.class)
+                .setParameter("login", login).getSingleResult();
     }
 }

@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 public class MainService {
@@ -18,12 +16,8 @@ public class MainService {
         this.mainDao = mainDao;
     }
 
-    public List<Staff> getAllStaff() {
-        return mainDao.getAllStaff();
-    }
-
     public Staff getStaff(String login) {
-        return getAllStaff().stream().filter(s->login.equals(s.getLogin())).findFirst().orElse(null);
+        return mainDao.getAllStaff(login);
     }
 
 }

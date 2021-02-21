@@ -8,10 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -73,6 +70,8 @@ public class DirectorController {
                                     @ModelAttribute("department") Department department){
         if (dateFrom==null || dateTo == null){
             model.addAttribute("msg", "Введены не все данные");
+        } else if (dateFrom.isAfter(dateTo)){
+            model.addAttribute("msg", "Сначала должна быть более ранняя дата");
         } else {
             double hours = directorService.getAllHoursByTeacher(idTeacher, dateFrom, dateTo);
             int quantity = directorService.getAllQuantityByTeacher(idTeacher, dateFrom, dateTo);
@@ -100,6 +99,8 @@ public class DirectorController {
                            @ModelAttribute("department") Department department){
         if (dateFrom==null || dateTo == null) {
             model.addAttribute("msg", "Введены не все данные");
+        } else if (dateFrom.isAfter(dateTo)){
+            model.addAttribute("msg", "Сначала должна быть более ранняя дата");
         } else {
             model.addAttribute("msg", "За период с " + dateFrom.getDayOfMonth() + "." + dateFrom.getMonthValue() +
                     "." + dateFrom.getYear() + " и по " + dateTo.getDayOfMonth() + "." +dateTo.getMonthValue() + "." +

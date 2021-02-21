@@ -60,6 +60,10 @@ public class EditController {
         } else {
             model.addAttribute("msg", "Даты не соответствуют допустимому интервалу");
         }
+        model.addAttribute("listGroups", groupList);
+        model.addAttribute("child", adminService.getChildById(idChild));
+        model.addAttribute("listAttendance", adminService.getAllAttendanceByChild(idChild));
+        model.addAttribute("listPayments", adminService.getAllPaymentsByChild(idChild));
         return "admin/edit/childEdit";
     }
 
