@@ -23,6 +23,7 @@
                     <spring:message code="app.save" var="save"></spring:message>
                     <input class='ghost-round full-width' type="submit" value="${save}">
                 </form>
+                <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                 <form name="test" method="get" action="/admin">
                     <button class='ghost-round full-width' type="submit"><spring:message code="app.to.main"/></button>
                 </form>

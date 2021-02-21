@@ -55,7 +55,7 @@ public class DirectorController {
         } else {
             model.addAttribute("msg", "Пользователь с таким логином уже существует");
         }
-        return "director/director";
+        return "director/addStaf";
     }
 
     @GetMapping(value = "/director/teacherData")
@@ -72,17 +72,19 @@ public class DirectorController {
                                     @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo, Model model,
                                     @ModelAttribute("department") Department department){
         if (dateFrom==null || dateTo == null){
-            model.addAttribute("resultMsg", "Введены не все данные");
+            model.addAttribute("msg", "Введены не все данные");
         } else {
             double hours = directorService.getAllHoursByTeacher(idTeacher, dateFrom, dateTo);
             int quantity = directorService.getAllQuantityByTeacher(idTeacher, dateFrom, dateTo);
             int price = directorService.getPricePerHourByTeacher(idTeacher);
             double sum = hours * price;
-            model.addAttribute("resultMsg", "За период с " + dateFrom + " и по " + dateTo +
-                    " отработано занятий: " + quantity + "<br>" + "Сумма к оплате: " + (int) sum + " рублей");
+            model.addAttribute("msg", "За период с " + dateFrom.getDayOfMonth() + "." + dateFrom.getMonthValue() +
+                    "." + dateFrom.getYear() + " и по " + dateTo.getDayOfMonth() + "." + dateTo.getMonthValue() +
+                    "." + dateTo.getYear() + " отработано занятий: " + quantity + "<br>" + "Сумма к оплате: " +
+                    (int) sum + " рублей");
         }
         model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
-        return "director/director";
+        return "director/teacherData";
     }
 
     @GetMapping(value = "/director/payments")
@@ -97,13 +99,14 @@ public class DirectorController {
                            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo, Model model,
                            @ModelAttribute("department") Department department){
         if (dateFrom==null || dateTo == null) {
-            model.addAttribute("resultMsg", "Введены не все данные");
+            model.addAttribute("msg", "Введены не все данные");
         } else {
-            model.addAttribute("resultMsg", "За период с " + dateFrom + " и по " + dateTo + " получено платежей: "
-                    + directorService.getAllPayments(dateFrom, dateTo));
+            model.addAttribute("msg", "За период с " + dateFrom.getDayOfMonth() + "." + dateFrom.getMonthValue() +
+                    "." + dateFrom.getYear() + " и по " + dateTo.getDayOfMonth() + "." +dateTo.getMonthValue() + "." +
+                    dateTo.getYear() + " получено платежей: " + directorService.getAllPayments(dateFrom, dateTo));
         }
         model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
-        return "director/director";
+        return "director/payments";
     }
 
     @GetMapping(value = "/director/teacherPrice")
@@ -117,11 +120,11 @@ public class DirectorController {
                                        @RequestParam("sum") String pricePerHour,
                                        @ModelAttribute("department") Department department, Model model){
         if (directorService.changePricePerHour(idTeacher,pricePerHour)){
-            model.addAttribute("resultMsg", "Данные сохранены");
+            model.addAttribute("msg", "Данные сохранены");
         } else {
-            model.addAttribute("resultMsg", "Неверный формат суммы!");
+            model.addAttribute("msg", "Неверный формат суммы!");
         }
         model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
-        return "director/director";
+        return "director/teacherPrice";
     }
 }

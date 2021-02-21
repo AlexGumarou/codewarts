@@ -11,8 +11,7 @@
         <div class='overlay'>
             <div class='content'><br>
                 <h2 class='welcome'>Добро пожаловать, ${name}</h2>
-                <h2 class='welcome2' style="color: aqua"><em>${msg}</em></h2>
-                <h2 class='welcome2' style="color: aqua"><em>${resultMsg}</em></h2><br>
+                <h2 class='welcome2' style="color: aqua"><em>${msg}</em></h2><br>
                 <form  name="test" method="get" action="/director/addStaff">
                     <button class='ghost-round full-width' type="submit" >добавить персонал</button>
                 </form>

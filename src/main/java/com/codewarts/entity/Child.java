@@ -17,9 +17,7 @@ public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotEmpty(message = "Это поле не должно быть пустым")
     private String name;
-    @NotEmpty(message = "Это поле не должно быть пустым")
     private String surname;
     @Column(name = "birthday_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -41,7 +39,7 @@ public class Child {
     @JoinColumn(name = "child_group_id")
     private ChildGroup childGroup;
 
-    public Child(@NotEmpty String name, @NotEmpty String surname, LocalDate birthdayDate, Parent parent, ChildGroup childGroup) {
+    public Child(String name, String surname, LocalDate birthdayDate, Parent parent, ChildGroup childGroup) {
         this.name = name;
         this.surname = surname;
         this.birthdayDate = birthdayDate;
@@ -49,7 +47,7 @@ public class Child {
         this.childGroup = childGroup;
     }
 
-    public Child(@NotEmpty String name, @NotEmpty String surname, LocalDate birthdayDate, ChildGroup childGroup) {
+    public Child(String name, String surname, LocalDate birthdayDate, ChildGroup childGroup) {
         this.name = name;
         this.surname = surname;
         this.birthdayDate = birthdayDate;
@@ -59,7 +57,7 @@ public class Child {
     public Child() {
     }
 
-    public Child(int id, @NotEmpty String name, @NotEmpty String surname, LocalDate birthdayDate, List<Payment> payment, List<Attendance> attendance, Parent parent, ChildGroup childGroup) {
+    public Child(int id, String name, String surname, LocalDate birthdayDate, List<Payment> payment, List<Attendance> attendance, Parent parent, ChildGroup childGroup) {
         this.id = id;
         this.name = name;
         this.surname = surname;

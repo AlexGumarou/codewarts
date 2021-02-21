@@ -6,7 +6,6 @@ import com.codewarts.entity.Department;
 import com.codewarts.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,16 +39,14 @@ public class DeleteController {
     }
 
     @PostMapping(value = "/admin/delete/group")
-    public String deleteGroup(@RequestParam("button") int idChildGroup, Model model,
+    public String deleteGroup(@RequestParam("button") int idChildGroup,
                               @ModelAttribute("department") Department department){
         List<Child> list = adminService.getAllChildByGroupAndDepartment(department,idChildGroup);
         if (list.size() == 0) {
             adminService.deleteGroup(idChildGroup);
-            model.addAttribute("msg", "Данные успешно удалены!");
         } else {
-            model.addAttribute("msg", "Невозможно! Сначала нужно удалить всех учеников из группы");
+            return "redirect:/admin";
         }
-        model.addAttribute("listGroups", adminService.getAllGroupChild(department));
-        return "admin/admin";
+        return "redirect:/admin";
     }
 }

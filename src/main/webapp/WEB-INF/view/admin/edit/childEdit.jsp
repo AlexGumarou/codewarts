@@ -13,8 +13,8 @@
         <div class='overlay'>
             <div class='content'>
                 <form:form method="post" action="/admin/child/${child.id}" modelAttribute="child">
-                    <spring:message code="app.addChild.add.date" var="date"></spring:message>
-                    <input type="date" placeholder="${date}" name="date" value="${child.birthdayDate}" class='input-lineEdit full-width' required></input>
+                    <spring:message code="app.addChild.add.date" var="data"></spring:message>
+                    <input type="date" placeholder="${data}" name="birthdayDate" value="${child.birthdayDate}" class='input-lineEdit full-width' required></input>
                     <spring:message code="app.addChild.add.name" var="name"></spring:message>
                     <input type='text' placeholder="${name}" name="name" value="${child.name}" class='input-lineEdit full-width' required></input>
                     <spring:message code="app.addChild.add.surname" var="surname"></spring:message>
@@ -41,6 +41,10 @@
                     <spring:message code="app.save" var="save"></spring:message>
                     <input class='ghost-round full-width' type="submit" value="${save}">
                 </form:form>
+                    <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
+                    <form name="test" method="get" action="/admin">
+                        <button class='ghost-round full-width' type="submit"><spring:message code="app.to.main"/></button>
+                    </form>
                     <h3 class='welcome2'><spring:message code="app.child.edit.date.attendance"/>:</h3>
                     <select style="background: #8CA6DB" class='ghost-round full-width' name="selectAttendance">
                         <c:forEach items="${listAttendance}" var="item" >
@@ -48,7 +52,7 @@
                         </c:forEach>
                     </select>
                     <h3 class='welcome2'><spring:message code="app.child.edit.date.payments"/>:</h3>
-                    <form name="test" method="post" action="/admin/edit/editPayment">
+                    <form name="test" method="post" action="/admin/edit/editPayment/${child.id}">
                         <select style="background: #8CA6DB" class='ghost-round full-width' name="idPayment">
                             <c:forEach items="${listPayments}" var="item" >
                                 <option value="${item.id}">${item}</option>

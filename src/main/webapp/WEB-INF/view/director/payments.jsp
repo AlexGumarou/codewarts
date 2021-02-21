@@ -16,7 +16,11 @@
                     <input class='ghost-round full-width' type="date" name="dateFirst" size="40"/>
                     <h2 class='welcome2'>Выберите дату:</h2>
                     <input class='ghost-round full-width' type="date" name="dateLast" size="40"/><br><br>
+                    <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                     <button class='ghost-round full-width' type="submit" >найти</button>
+                </form>
+                <form name="test" method="get" action="/director">
+                    <button class='ghost-round full-width' type="submit">на главную</button>
                 </form>
             </div>
         </div>

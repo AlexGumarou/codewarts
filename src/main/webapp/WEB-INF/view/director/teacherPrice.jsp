@@ -19,6 +19,7 @@
                         </select><br><br>
                     <h2 class='welcome2'>Установить сумму за 1 час:</h2>
                         <input type="text" placeholder="введите сумму" name="sum" class='input-line full-width' required></input><br>
+                    <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                     <button class='ghost-round full-width' type="submit" >сохранить</button>
                 </form>
                 <form name="test" method="get" action="/director">

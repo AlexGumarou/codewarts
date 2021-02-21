@@ -14,8 +14,8 @@
             <div class='content'>
                 <div align="center">
                     <form:form method="post" action="/admin/addChild" modelAttribute="child" ><br><br><br>
-                        <spring:message code="app.addChild.add.date" var="date"></spring:message>
-                        <input type="date" placeholder="${date}" name="date" class='input-lineLeft full-width' required></input>
+                        <spring:message code="app.addChild.add.date" var="data"></spring:message>
+                        <input type="date" placeholder="${data}" name="birthdayDate" class='input-lineLeft full-width' required></input>
                         <spring:message code="app.addChild.add.name" var="name"></spring:message>
                         <input type='text' placeholder="${name}" name="name" class='input-lineLeft full-width' required></input>
                         <spring:message code="app.addChild.add.surname" var="surname"></spring:message>

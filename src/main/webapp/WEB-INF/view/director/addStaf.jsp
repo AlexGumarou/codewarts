@@ -35,6 +35,7 @@
                     </select>
                     <input class='ghost-round full-width' type="submit" value="добавить">
                 </form:form>
+                <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                     <form name="test" method="get" action="/director">
                         <button class='ghost-round full-width' type="submit">на главную</button>
                     </form>

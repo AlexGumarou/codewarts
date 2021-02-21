@@ -42,7 +42,7 @@ CREATE TABLE child(
                       FOREIGN KEY (child_group_id)  REFERENCES child_group (id),
                       FOREIGN KEY (parent_id)  REFERENCES parent (id));
 INSERT INTO child (name, surname, birthday_date, child_group_id, parent_id) VALUES
-('Семен','Иванов','2020-03-01','1','1'),
+('Семен','Иванов','2020-02-22','1','1'),
 ('Филипп','Петров','2020-02-16','2','2'),
 ('Кирилл','Сидоров','2020-02-15','3','3'),
 ('Иван','Козлов','2020-05-05','1','1'),
