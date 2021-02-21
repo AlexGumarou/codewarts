@@ -50,7 +50,7 @@ public class TeacherController {
         return "teacher/teacher";
     }
 
-    @PostMapping("/teacher/{childGroup}")
+    @RequestMapping("/teacher/{childGroup}")
     public String getChildByGroup(@PathVariable(name = "childGroup") int childGroup, Model model, HttpSession session){
         Department department = (Department) session.getAttribute("department");
         session.setAttribute("childGroup", childGroup);
