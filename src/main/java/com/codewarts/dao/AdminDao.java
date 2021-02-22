@@ -21,8 +21,18 @@ public class AdminDao {
         return sessionFactory.getCurrentSession().get(Child.class, editChild);
     }
 
-    public List<Child> getAllChild() {
-        return sessionFactory.getCurrentSession().createQuery("from Child ", Child.class).list();
+    public List<Child> getAllChild(Department department) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Child c where c.childGroup.department.id = :id", Child.class)
+                .setParameter("id", department.getId()).list();
+    }
+
+    public List<Child> getAllChild(Department department, int childGroup) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Child c where c.childGroup.department.id = :id " +
+                        "and c.childGroup.id = :idChildGroup", Child.class)
+                .setParameter("idChildGroup", childGroup)
+                .setParameter("id", department.getId()).list();
     }
 
     public List<Attendance> getAllAttendanceByChild(int idChild) {
@@ -35,8 +45,10 @@ public class AdminDao {
         return child.getPayment();
     }
 
-    public List<ChildGroup> getAllChildGroup() {
-        return sessionFactory.getCurrentSession().createQuery("from ChildGroup", ChildGroup.class).list();
+    public List<ChildGroup> getAllChildGroup(Department department) {
+        return sessionFactory.getCurrentSession()
+        .createQuery("from ChildGroup ch where ch.department.id = :id", ChildGroup.class)
+                .setParameter("id", department.getId()).list();
     }
 
     public ChildGroup getChildGroupById(int idChildGroup) {
@@ -119,8 +131,10 @@ public class AdminDao {
         sessionFactory.getCurrentSession().saveOrUpdate(new ChildGroup(name, lessonTime, department));
     }
 
-    public List<Child> findChildBySurname(String findChild) {
-        return sessionFactory.getCurrentSession().createQuery("from Child ch where ch.surname = :surname")
+    public List<Child> findChildBySurname(String findChild, Department department) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Child ch where ch.surname = :surname and ch.childGroup.department.id = :id")
+                .setParameter("id", department.getId())
                 .setParameter("surname", findChild).list();
     }
 

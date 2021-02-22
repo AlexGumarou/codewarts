@@ -96,4 +96,17 @@ public class EditController {
         model.addAttribute("paymentToEdit", adminService.getAllPaymentsByChildAndPayment(idPayment));
         return "admin/edit/editPayment";
     }
+
+    @PostMapping(value = "/admin/edit/editGroupSave")
+    public String editGroupsSave(@ModelAttribute("department") Department department,
+                                 @RequestParam("idGroup") int idChildGroup,
+                                 @RequestParam("nameGroup") String name, Model model) {
+        if (adminService.saveChildGroup(idChildGroup, name)){
+            model.addAttribute("msg", "Данные успешно сохранены");
+        } else {
+            model.addAttribute("msg", "Неверный формат вводных данных");
+        }
+        model.addAttribute("childGroup", adminService.getChildGroup(idChildGroup));
+        return "admin/edit/editGroup";
+    }
 }

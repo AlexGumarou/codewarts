@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -27,8 +26,7 @@ public class AdminService {
     }
 
     public List<ChildGroup> getAllGroupChild(Department department){
-        return adminDao.getAllChildGroup().stream().filter(s->s.getDepartment().getId()==(department.getId()))
-                .collect(Collectors.toList());
+        return adminDao.getAllChildGroup(department);
     }
 
     public boolean saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, String mother,
@@ -51,10 +49,7 @@ public class AdminService {
     public List<Child> findChildBySurname(String findChild, Department department) {
         if (!findChild.trim().equals("")){
             String surnameChild = findChild.substring(0, 1).toUpperCase() + findChild.substring(1).toLowerCase();
-            return adminDao.findChildBySurname(surnameChild)
-                    .stream()
-                    .filter(s->s.getChildGroup().getDepartment().getId() == (department.getId()))
-                    .collect(Collectors.toList());
+            return adminDao.findChildBySurname(surnameChild, department);
         } return null;
     }
 
@@ -81,17 +76,16 @@ public class AdminService {
     }
 
     public List<Child> getAllChild (Department department){
-        return adminDao.getAllChild()
-                .stream()
-                .filter(s->s.getChildGroup().getDepartment().getId()==department.getId())
-                .collect(Collectors.toList());
+        return adminDao.getAllChild(department);
     }
 
     public boolean addPayment(LocalDate date, String sum, int idChild) {
         try{
-            Integer.parseInt(sum);
-            adminDao.addPayment(date, sum, idChild);
-            return true;
+            if (Integer.parseInt(sum) > 0){
+                adminDao.addPayment(date, sum, idChild);
+                return true;
+            }
+            return false;
         } catch (NumberFormatException | IllegalFormatException e){
             return false;
         }
@@ -99,9 +93,8 @@ public class AdminService {
 
     public boolean addGroup(String name, Department department, String lessonTime) {
         String regExp = "^[а-яА-ЯёЁa-zA-Z0-9]+$";
-        List<ChildGroup> list = adminDao.getAllChildGroup();
-        if (name.trim().matches(regExp) && list.stream().noneMatch(s->s.getName().equals(name)
-                && s.getDepartment().getId()==department.getId())) {
+        List<ChildGroup> list = adminDao.getAllChildGroup(department);
+        if (name.trim().matches(regExp) && list.stream().noneMatch(s->s.getName().equals(name))) {
             adminDao.addGroup(name, department, lessonTime);
             return true;
         } return false;
@@ -138,11 +131,7 @@ public class AdminService {
     }
 
     public List<Child> getAllChildByGroupAndDepartment(Department department, int childGroup) {
-        return adminDao.getAllChild()
-                .stream()
-                .filter(s->s.getChildGroup().getId()==childGroup &&
-                        s.getChildGroup().getDepartment().getId()==department.getId())
-                .collect(Collectors.toList());
+        return adminDao.getAllChild(department, childGroup);
     }
 
     public List<Child> getAllChildBirthday(Department department) {
@@ -150,8 +139,7 @@ public class AdminService {
         int monthNow = date.getMonthValue();
         int dayNow = date.getDayOfMonth();
         List<Child> listFilter = new ArrayList<>();
-        List<Child> list = adminDao.getAllChild().stream()
-                .filter(s->s.getChildGroup().getDepartment().getId() == department.getId()).collect(Collectors.toList());
+        List<Child> list = adminDao.getAllChild(department);
         for(Child child : list){
             if (child.getBirthdayDate() != null){
                 if (child.getBirthdayDate().getMonthValue() == monthNow){
