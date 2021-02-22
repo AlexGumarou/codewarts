@@ -36,6 +36,10 @@ public class DirectorService {
         return directorDao.getAllDepartments();
     }
 
+    public Staff getStaff(String login) {
+        return directorDao.getAllStaff(login);
+    }
+
     public boolean addStaff(Staff staff, int idRole, int idDepartment) {
         staff.setPass(bCryptPasswordEncoder.encode(staff.getPassword()));
         try {

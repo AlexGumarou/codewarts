@@ -36,6 +36,11 @@ public class TeacherDao {
         return sessionFactory.getCurrentSession().createQuery("from Theme", Theme.class).list();
     }
 
+    public Staff getAllStaff(String login) {
+        return sessionFactory.getCurrentSession().createQuery("from Staff s where s.login = :login", Staff.class)
+                .setParameter("login", login).getSingleResult();
+    }
+
     public void saveChildAttendance(LocalDate date, String[] child) {
         for (String s : child) {
             Child ch = sessionFactory.getCurrentSession().get(Child.class, Integer.parseInt(s));

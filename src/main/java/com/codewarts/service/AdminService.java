@@ -67,6 +67,10 @@ public class AdminService {
         } return false;
     }
 
+    public Staff getStaff(String login) {
+        return adminDao.getAllStaff(login);
+    }
+
     public List<Attendance> getAllAttendanceByChild(int idChild) {
         return adminDao.getAllAttendanceByChild(idChild);
     }

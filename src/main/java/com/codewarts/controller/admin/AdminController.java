@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -21,8 +22,8 @@ public class AdminController {
     }
 
     @ModelAttribute(name = "department")
-    public Department getDepartment(HttpSession session){
-        return (Department) session.getAttribute("department");
+    public Department getDepartment(Principal principal){
+        return adminService.getStaff(principal.getName()).getDepartment();
     }
 
     @GetMapping(value = "/admin")

@@ -45,6 +45,11 @@ public class AdminDao {
         return child.getPayment();
     }
 
+    public Staff getAllStaff(String login) {
+        return sessionFactory.getCurrentSession().createQuery("from Staff s where s.login = :login", Staff.class)
+                .setParameter("login", login).getSingleResult();
+    }
+
     public List<ChildGroup> getAllChildGroup(Department department) {
         return sessionFactory.getCurrentSession()
         .createQuery("from ChildGroup ch where ch.department.id = :id", ChildGroup.class)

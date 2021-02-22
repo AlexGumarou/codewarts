@@ -9,8 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,8 +23,8 @@ public class EditController {
     }
 
     @ModelAttribute(name = "department")
-    public Department getDepartment(HttpSession session){
-        return (Department) session.getAttribute("department");
+    public Department getDepartment(Principal principal){
+        return adminService.getStaff(principal.getName()).getDepartment();
     }
 
     @ModelAttribute(name = "listGroups")

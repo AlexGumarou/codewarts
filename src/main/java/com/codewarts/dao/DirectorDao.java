@@ -25,6 +25,11 @@ public class DirectorDao {
         sessionFactory.getCurrentSession().saveOrUpdate(staff);
     }
 
+    public Staff getAllStaff(String login) {
+        return sessionFactory.getCurrentSession().createQuery("from Staff s where s.login = :login", Staff.class)
+                .setParameter("login", login).getSingleResult();
+    }
+
     public List<Department> getAllDepartments() {
         return sessionFactory.getCurrentSession().createQuery("from Department ", Department.class).list();
     }

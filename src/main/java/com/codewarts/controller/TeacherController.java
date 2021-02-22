@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @Controller
 public class TeacherController {
@@ -19,8 +20,8 @@ public class TeacherController {
     }
 
     @ModelAttribute(name = "department")
-    public Department getDepartment(HttpSession session){
-        return (Department) session.getAttribute("department");
+    public Department getDepartment(Principal principal){
+        return teacherService.getStaff(principal.getName()).getDepartment();
     }
 
     @GetMapping("/teacher")

@@ -27,6 +27,10 @@ public class TeacherService {
         return teacherDao.getAllChildByGroupAndDepartment(department,childGroup);
     }
 
+    public Staff getStaff(String login) {
+        return teacherDao.getAllStaff(login);
+    }
+
     public List<Theme> getAllTheme() {
         return teacherDao.getAllTheme();
     }

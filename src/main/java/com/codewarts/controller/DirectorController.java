@@ -3,6 +3,7 @@ package com.codewarts.controller;
 import com.codewarts.entity.Department;
 import com.codewarts.entity.Staff;
 import com.codewarts.service.DirectorService;
+import com.codewarts.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.time.LocalDate;
 
 @Controller
@@ -23,8 +25,8 @@ public class DirectorController {
     }
 
     @ModelAttribute(name = "department")
-    public Department getDepartment(HttpSession session){
-        return (Department) session.getAttribute("department");
+    public Department getDepartment(Principal principal){
+        return directorService.getStaff(principal.getName()).getDepartment();
     }
 
     @GetMapping(value = "/director")
