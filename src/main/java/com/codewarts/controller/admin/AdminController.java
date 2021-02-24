@@ -36,7 +36,6 @@ public class AdminController {
     @RequestMapping("/admin/{childGroup}")
     public String getChildByGroup(@PathVariable(name = "childGroup") int childGroup, Model model, HttpSession session){
         Department department = (Department) session.getAttribute("department");
-        session.setAttribute("childGroup", childGroup);
         List<Child> list = adminService.getAllChildByGroupAndDepartment(department,childGroup);
         if (list.isEmpty()){
             model.addAttribute("msg", "В данной группе нет ни одного ученика");

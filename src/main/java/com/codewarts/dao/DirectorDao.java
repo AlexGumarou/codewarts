@@ -39,7 +39,8 @@ public class DirectorDao {
     }
 
     public List<Staff> getAllTeachers(Department department) {
-        return sessionFactory.getCurrentSession().createQuery("from Staff s where s.department = :department and s.staffRole.role = :teacher")
+        return sessionFactory.getCurrentSession().createQuery("from Staff s join fetch s.department " +
+                "join fetch s.staffRole where s.department = :department and s.staffRole.role = :teacher")
                 .setParameter("department", department)
                 .setParameter("teacher", "TEACHER")
                 .list();

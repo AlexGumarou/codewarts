@@ -19,14 +19,15 @@ public class TeacherDao {
 
     public List<ChildGroup> getAllGroupChild(Department department) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from ChildGroup ch where ch.department.id = :id", ChildGroup.class)
+                .createQuery("from ChildGroup ch join fetch ch.department where ch.department.id = :id",
+                        ChildGroup.class)
                 .setParameter("id", department.getId()).list();
     }
 
     public List<Child> getAllChildByGroupAndDepartment(Department department, int childGroup) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Child c where c.childGroup.id = :id and c.childGroup.department.id = :idDep",
-                        Child.class)
+                .createQuery("from Child c join fetch c.childGroup where c.childGroup.id = :id " +
+                                "and c.childGroup.department.id = :idDep", Child.class)
                 .setParameter("id", childGroup)
                 .setParameter("idDep", department.getId())
                 .list();
@@ -37,7 +38,8 @@ public class TeacherDao {
     }
 
     public Staff getAllStaff(String login) {
-        return sessionFactory.getCurrentSession().createQuery("from Staff s where s.login = :login", Staff.class)
+        return sessionFactory.getCurrentSession().createQuery("from Staff s join fetch s.department " +
+                "join fetch s.staffRole where s.login = :login", Staff.class)
                 .setParameter("login", login).getSingleResult();
     }
 

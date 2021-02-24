@@ -23,14 +23,15 @@ public class AdminDao {
 
     public List<Child> getAllChild(Department department) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Child c where c.childGroup.department.id = :id", Child.class)
+                .createQuery("from Child c join fetch c.childGroup " +
+                        "where c.childGroup.department.id = :id", Child.class)
                 .setParameter("id", department.getId()).list();
     }
 
     public List<Child> getAllChild(Department department, int childGroup) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Child c where c.childGroup.department.id = :id " +
-                        "and c.childGroup.id = :idChildGroup", Child.class)
+                .createQuery("from Child c join fetch c.childGroup " +
+                        "where c.childGroup.department.id = :id and c.childGroup.id = :idChildGroup", Child.class)
                 .setParameter("idChildGroup", childGroup)
                 .setParameter("id", department.getId()).list();
     }
@@ -46,13 +47,15 @@ public class AdminDao {
     }
 
     public Staff getAllStaff(String login) {
-        return sessionFactory.getCurrentSession().createQuery("from Staff s where s.login = :login", Staff.class)
+        return sessionFactory.getCurrentSession().createQuery("from Staff s join fetch s.department " +
+                "join fetch s.staffRole where s.login = :login", Staff.class)
                 .setParameter("login", login).getSingleResult();
     }
 
     public List<ChildGroup> getAllChildGroup(Department department) {
         return sessionFactory.getCurrentSession()
-        .createQuery("from ChildGroup ch where ch.department.id = :id", ChildGroup.class)
+        .createQuery("from ChildGroup ch join fetch ch.department " +
+                "where ch.department.id = :id", ChildGroup.class)
                 .setParameter("id", department.getId()).list();
     }
 
@@ -138,7 +141,7 @@ public class AdminDao {
 
     public List<Child> findChildBySurname(String findChild, Department department) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Child ch where ch.surname = :surname and ch.childGroup.department.id = :id")
+                .createQuery("from Child ch join fetch ch.childGroup where ch.surname = :surname and ch.childGroup.department.id = :id")
                 .setParameter("id", department.getId())
                 .setParameter("surname", findChild).list();
     }

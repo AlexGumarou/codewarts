@@ -15,7 +15,9 @@ public class MainDao {
     }
 
     public Staff getAllStaff(String login) {
-        return sessionFactory.getCurrentSession().createQuery("from Staff s where s.login = :login", Staff.class)
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Staff s join fetch s.department join fetch s.staffRole where s.login = :login",
+                        Staff.class)
                 .setParameter("login", login).getSingleResult();
     }
 }

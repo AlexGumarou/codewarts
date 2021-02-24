@@ -110,9 +110,10 @@ public class AdminService {
 
     public boolean savePayment(int idPayment, LocalDate date, String sum) {
         try{
-            Integer.parseInt(sum);
-            adminDao.savePayment(idPayment, date, sum);
-            return true;
+            if (Integer.parseInt(sum)>0){
+                adminDao.savePayment(idPayment, date, sum);
+                return true;
+            } return false;
         } catch (NumberFormatException | IllegalFormatException e){
             return false;
         }

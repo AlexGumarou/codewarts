@@ -106,7 +106,8 @@ public class DirectorController {
         } else {
             model.addAttribute("msg", "За период с " + dateFrom.getDayOfMonth() + "." + dateFrom.getMonthValue() +
                     "." + dateFrom.getYear() + " и по " + dateTo.getDayOfMonth() + "." +dateTo.getMonthValue() + "." +
-                    dateTo.getYear() + " получено платежей: " + directorService.getAllPayments(dateFrom, dateTo));
+                    dateTo.getYear() + " платежей на сумму: " + directorService.getAllPayments(dateFrom, dateTo) +
+                    " рублей");
         }
         model.addAttribute("ListTeacher", directorService.getAllTeachers(department));
         return "director/payments";
