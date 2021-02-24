@@ -3,7 +3,8 @@ package com.codewarts.controller.admin;
 import com.codewarts.entity.Child;
 import com.codewarts.entity.ChildGroup;
 import com.codewarts.entity.Department;
-import com.codewarts.service.AdminService;
+import com.codewarts.service.AdminServiceImpl;
+import com.codewarts.service.MainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -15,37 +16,44 @@ import java.util.List;
 
 @Controller
 public class EditController {
-    private AdminService adminService;
+    private AdminServiceImpl adminServiceImpl;
+    private MainServiceImpl mainServiceImpl;
 
     @Autowired
-    public void setAdminService(AdminService adminService) {
-        this.adminService = adminService;
+    public void setAdminService(AdminServiceImpl adminServiceImpl) {
+        this.adminServiceImpl = adminServiceImpl;
+    }
+
+    @Autowired
+    public void setMainService(MainServiceImpl mainServiceImpl) {
+        this.mainServiceImpl = mainServiceImpl;
     }
 
     @ModelAttribute(name = "department")
     public Department getDepartment(Principal principal){
-        return adminService.getStaff(principal.getName()).getDepartment();
+        return mainServiceImpl.getStaff(principal.getName()).getDepartment();
     }
 
     @ModelAttribute(name = "listGroups")
     public List<ChildGroup> getListGroups(@ModelAttribute("department") Department department){
-        return adminService.getAllGroupChild(department);
+        return mainServiceImpl.getAllGroupChild(department);
     }
 
     @GetMapping("/admin/child/{editChild}")
     public String getChildAndEdit(@PathVariable(name = "editChild") int idChild, Model model,
                                   @ModelAttribute("listGroups") List<ChildGroup> groupList){
         model.addAttribute("listGroups", groupList);
-        model.addAttribute("child", adminService.getChildById(idChild));
-        model.addAttribute("listAttendance", adminService.getAllAttendanceByChild(idChild));
-        model.addAttribute("listPayments", adminService.getAllPaymentsByChild(idChild));
+        model.addAttribute("child", adminServiceImpl.getChildById(idChild));
+        model.addAttribute("listAttendance", adminServiceImpl.getAllAttendanceByChild(idChild));
+        model.addAttribute("listPayments", adminServiceImpl.getAllPaymentsByChild(idChild));
         return "admin/edit/childEdit";
     }
 
     @PostMapping(value = "/admin/child/{editChild}")
     public String adminEditAndSave(@PathVariable(name = "editChild") int idChild,
                                    @ModelAttribute("child") Child child, Model model,
-                                   @RequestParam(name = "birthdayDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
+                                   @RequestParam(name = "birthdayDate")
+                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
                                    @RequestParam(value = "mother") String mother,
                                    @RequestParam(value = "phoneMother") String phoneMother,
                                    @RequestParam(value = "father")String father,
@@ -53,16 +61,16 @@ public class EditController {
                                    @RequestParam(value = "selectGroup") int idGroup,
                                    @ModelAttribute("listGroups") List<ChildGroup> groupList){
         model.addAttribute("listGroups", groupList);
-        if (adminService.saveChild(idChild, date, child.getName(), child.getSurname(), idGroup, mother, phoneMother,
-                father, phoneFather)){
+        if (adminServiceImpl.saveChild(idChild, date, child.getName(), child.getSurname(), idGroup, mother,
+                phoneMother, father, phoneFather)){
             model.addAttribute("msg", "Данные успешно сохранены");
         } else {
-            model.addAttribute("msg", "Даты не соответствуют допустимому интервалу");
+            model.addAttribute("msg", "Неверный формат вводных данных");
         }
         model.addAttribute("listGroups", groupList);
-        model.addAttribute("child", adminService.getChildById(idChild));
-        model.addAttribute("listAttendance", adminService.getAllAttendanceByChild(idChild));
-        model.addAttribute("listPayments", adminService.getAllPaymentsByChild(idChild));
+        model.addAttribute("child", adminServiceImpl.getChildById(idChild));
+        model.addAttribute("listAttendance", adminServiceImpl.getAllAttendanceByChild(idChild));
+        model.addAttribute("listPayments", adminServiceImpl.getAllPaymentsByChild(idChild));
         return "admin/edit/childEdit";
     }
 
@@ -70,7 +78,7 @@ public class EditController {
     public String editPaymentPage(@PathVariable(name = "editChild") int idChild, Model model,
                                   @RequestParam(value = "idPayment", defaultValue = "0") int idPayment){
         if (idPayment != 0) {
-            model.addAttribute("paymentToEdit", adminService.getAllPaymentsByChildAndPayment(idPayment));
+            model.addAttribute("paymentToEdit", adminServiceImpl.getAllPaymentsByChildAndPayment(idPayment));
             return "admin/edit/editPayment";
         } else {
             return "redirect:/admin/child/" + idChild;
@@ -79,7 +87,7 @@ public class EditController {
 
     @GetMapping(value = "/admin/edit/editGroups")
     public String editGroups(@RequestParam("button") int idChildGroup, Model model){
-        model.addAttribute("childGroup", adminService.getChildGroup(idChildGroup));
+        model.addAttribute("childGroup", adminServiceImpl.getChildGroup(idChildGroup));
         return "admin/edit/editGroup";
     }
 
@@ -87,12 +95,12 @@ public class EditController {
     public String editPaymentPageSave(Model model, @RequestParam("idPayment") int idPayment,
                                       @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
                                       @RequestParam("sum") String sum){
-        if (adminService.savePayment(idPayment,date,sum)){
+        if (adminServiceImpl.savePayment(idPayment,date,sum)){
             model.addAttribute("msg", "Данные успешно сохранены");
         } else {
             model.addAttribute("msg", "Неверный формат вводных данных");
         }
-        model.addAttribute("paymentToEdit", adminService.getAllPaymentsByChildAndPayment(idPayment));
+        model.addAttribute("paymentToEdit", adminServiceImpl.getAllPaymentsByChildAndPayment(idPayment));
         return "admin/edit/editPayment";
     }
 
@@ -100,12 +108,12 @@ public class EditController {
     public String editGroupsSave(@ModelAttribute("department") Department department,
                                  @RequestParam("idGroup") int idChildGroup,
                                  @RequestParam("nameGroup") String name, Model model) {
-        if (adminService.saveChildGroup(idChildGroup, name)){
+        if (adminServiceImpl.saveChildGroup(idChildGroup, name, department)){
             model.addAttribute("msg", "Данные успешно сохранены");
         } else {
             model.addAttribute("msg", "Неверный формат вводных данных");
         }
-        model.addAttribute("childGroup", adminService.getChildGroup(idChildGroup));
+        model.addAttribute("childGroup", adminServiceImpl.getChildGroup(idChildGroup));
         return "admin/edit/editGroup";
     }
 }

@@ -1,7 +1,7 @@
 package com.codewarts.controller;
 
 import com.codewarts.entity.Staff;
-import com.codewarts.service.MainService;
+import com.codewarts.service.MainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +13,10 @@ import java.security.Principal;
 
 @Controller
 public class MainController {
-    private MainService service;
+    private MainServiceImpl service;
 
     @Autowired
-    public void setService(MainService service) {
+    public void setService(MainServiceImpl service) {
         this.service = service;
     }
 

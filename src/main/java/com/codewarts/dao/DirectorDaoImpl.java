@@ -1,5 +1,6 @@
 package com.codewarts.dao;
 
+import com.codewarts.dao.IDao.DirectorDao;
 import com.codewarts.entity.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class DirectorDao {
+public class DirectorDaoImpl implements DirectorDao {
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -23,11 +24,6 @@ public class DirectorDao {
         staff.setStaffRole(staffRole);
         staff.setDepartment(department);
         sessionFactory.getCurrentSession().saveOrUpdate(staff);
-    }
-
-    public Staff getAllStaff(String login) {
-        return sessionFactory.getCurrentSession().createQuery("from Staff s where s.login = :login", Staff.class)
-                .setParameter("login", login).getSingleResult();
     }
 
     public List<Department> getAllDepartments() {
@@ -47,8 +43,8 @@ public class DirectorDao {
     }
 
     public List<Accounting> getAllHoursByTeacher(int idTeacher, LocalDate dateFrom, LocalDate dateTo) {
-        return sessionFactory.getCurrentSession().createQuery("from Accounting a where a.staff.id = :id and a.date" +
-                " between :dateFrom and :dateTo")
+        return sessionFactory.getCurrentSession().createQuery("from Accounting a where a.staff.id = :id " +
+                "and a.date between :dateFrom and :dateTo")
                 .setParameter("id", idTeacher)
                 .setParameter("dateFrom", dateFrom)
                 .setParameter("dateTo", dateTo).list();
@@ -60,7 +56,8 @@ public class DirectorDao {
     }
 
     public List<Payment> getAllPayments(LocalDate dateFrom, LocalDate dateTo) {
-        return sessionFactory.getCurrentSession().createQuery("from Payment p where p.paymentDate between :dateFrom and :dateTo")
+        return sessionFactory.getCurrentSession().createQuery("from Payment p where p.paymentDate " +
+                "between :dateFrom and :dateTo")
                 .setParameter("dateFrom", dateFrom)
                 .setParameter("dateTo", dateTo)
                 .list();

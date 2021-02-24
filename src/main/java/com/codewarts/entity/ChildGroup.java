@@ -33,7 +33,8 @@ public class ChildGroup {
     public ChildGroup() {
     }
 
-    public ChildGroup(int id, String name, String lessonTime, List<Child> child, List<Accounting> accounting, Department department) {
+    public ChildGroup(int id, String name, String lessonTime, List<Child> child, List<Accounting> accounting,
+                      Department department) {
         this.id = id;
         this.name = name;
         this.lessonTime = lessonTime;

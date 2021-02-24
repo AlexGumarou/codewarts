@@ -1,15 +1,15 @@
 package com.codewarts.dao;
 
+import com.codewarts.dao.IDao.TeacherDao;
 import com.codewarts.entity.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class TeacherDao {
+public class TeacherDaoImpl implements TeacherDao {
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -17,30 +17,8 @@ public class TeacherDao {
         this.sessionFactory = sessionFactory;
     }
 
-    public List<ChildGroup> getAllGroupChild(Department department) {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from ChildGroup ch join fetch ch.department where ch.department.id = :id",
-                        ChildGroup.class)
-                .setParameter("id", department.getId()).list();
-    }
-
-    public List<Child> getAllChildByGroupAndDepartment(Department department, int childGroup) {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from Child c join fetch c.childGroup where c.childGroup.id = :id " +
-                                "and c.childGroup.department.id = :idDep", Child.class)
-                .setParameter("id", childGroup)
-                .setParameter("idDep", department.getId())
-                .list();
-    }
-
     public List<Theme> getAllTheme() {
         return sessionFactory.getCurrentSession().createQuery("from Theme", Theme.class).list();
-    }
-
-    public Staff getAllStaff(String login) {
-        return sessionFactory.getCurrentSession().createQuery("from Staff s join fetch s.department " +
-                "join fetch s.staffRole where s.login = :login", Staff.class)
-                .setParameter("login", login).getSingleResult();
     }
 
     public void saveChildAttendance(LocalDate date, String[] child) {

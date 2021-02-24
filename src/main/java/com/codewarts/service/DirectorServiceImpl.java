@@ -1,7 +1,8 @@
 package com.codewarts.service;
 
-import com.codewarts.dao.DirectorDao;
+import com.codewarts.dao.DirectorDaoImpl;
 import com.codewarts.entity.*;
+import com.codewarts.service.IService.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,13 @@ import java.util.List;
 
 @Service
 @Transactional
-public class DirectorService {
-    private DirectorDao directorDao;
+public class DirectorServiceImpl implements DirectorService {
+    private DirectorDaoImpl directorDaoImpl;
     private PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public void setDirectorDao(DirectorDao directorDao) {
-        this.directorDao = directorDao;
+    public void setDirectorDao(DirectorDaoImpl directorDaoImpl) {
+        this.directorDaoImpl = directorDaoImpl;
     }
 
     @Autowired
@@ -29,15 +30,11 @@ public class DirectorService {
     }
 
     public List<StaffRole> getAllStaffRoles(){
-        return directorDao.getAllStaffRoles();
+        return directorDaoImpl.getAllStaffRoles();
     }
 
     public List<Department> getAllDepartments(){
-        return directorDao.getAllDepartments();
-    }
-
-    public Staff getStaff(String login) {
-        return directorDao.getAllStaff(login);
+        return directorDaoImpl.getAllDepartments();
     }
 
     public boolean addStaff(Staff staff, int idRole, int idDepartment) {
@@ -46,10 +43,10 @@ public class DirectorService {
             if (!staff.getPricePerHour().equals("")) {
                 Integer.parseInt(staff.getPricePerHour());
             }
-            if (directorDao.getAllStaff().stream().anyMatch(s->s.getLogin().trim().equals(staff.getLogin().trim()))){
+            if (directorDaoImpl.getAllStaff().stream().anyMatch(s->s.getLogin().trim().equals(staff.getLogin().trim()))){
                 return false;
             }
-            directorDao.addStaff(staff, idRole, idDepartment);
+            directorDaoImpl.addStaff(staff, idRole, idDepartment);
             return true;
         } catch (NumberFormatException | IllegalFormatException e){
             return false;
@@ -57,11 +54,11 @@ public class DirectorService {
     }
 
     public List<Staff> getAllTeachers(Department department) {
-        return directorDao.getAllTeachers(department);
+        return directorDaoImpl.getAllTeachers(department);
     }
 
     public double getAllHoursByTeacher(int idTeacher, LocalDate dateFrom, LocalDate dateTo) {
-        List<Accounting> list = directorDao.getAllHoursByTeacher(idTeacher, dateFrom, dateTo);
+        List<Accounting> list = directorDaoImpl.getAllHoursByTeacher(idTeacher, dateFrom, dateTo);
         double count = 0;
         for (Accounting accounting : list){
             if (accounting.getChildGroup().getLessonTime().equals("1 час")){
@@ -73,22 +70,22 @@ public class DirectorService {
     }
 
     public int getAllQuantityByTeacher(int idTeacher, LocalDate dateFrom, LocalDate dateTo) {
-        return new ArrayList<>(directorDao.getAllHoursByTeacher(idTeacher, dateFrom, dateTo)).size();
+        return new ArrayList<>(directorDaoImpl.getAllHoursByTeacher(idTeacher, dateFrom, dateTo)).size();
     }
 
     public int getPricePerHourByTeacher(int idTeacher) {
-        return Integer.parseInt(directorDao.getPricePerHourByTeacher(idTeacher));
+        return Integer.parseInt(directorDaoImpl.getPricePerHourByTeacher(idTeacher));
     }
 
     public int getAllPayments(LocalDate dateFrom, LocalDate dateTo) {
-       return directorDao.getAllPayments(dateFrom, dateTo).stream().mapToInt(s-> Integer.parseInt(s.getSum())).sum();
+       return directorDaoImpl.getAllPayments(dateFrom, dateTo).stream().mapToInt(s-> Integer.parseInt(s.getSum())).sum();
     }
 
     public boolean changePricePerHour(int idTeacher, String pricePerHour) {
         try {
             int price = Integer.parseInt(pricePerHour);
             if (price > 0) {
-                directorDao.changePricePerHour(idTeacher, pricePerHour);
+                directorDaoImpl.changePricePerHour(idTeacher, pricePerHour);
                 return true;
             } else {
                 return false;

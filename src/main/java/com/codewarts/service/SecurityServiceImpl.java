@@ -1,6 +1,6 @@
 package com.codewarts.service;
 
-import com.codewarts.dao.MainDao;
+import com.codewarts.dao.MainDaoImpl;
 import com.codewarts.entity.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,17 +11,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service("securityService")
 @Transactional
-public class SecurityService implements UserDetailsService {
-    private MainDao mainDao;
+public class SecurityServiceImpl implements UserDetailsService {
+    private MainDaoImpl mainDaoImpl;
 
     @Autowired
-    public void setSecurityDao(MainDao mainDao) {
-        this.mainDao = mainDao;
+    public void setSecurityDao(MainDaoImpl mainDaoImpl) {
+        this.mainDaoImpl = mainDaoImpl;
     }
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        Staff staff = mainDao.getAllStaff(name);
+        Staff staff = mainDaoImpl.getAllStaff(name);
         if (staff == null) {
             throw new UsernameNotFoundException("User not found");
         }

@@ -3,7 +3,8 @@ package com.codewarts.controller.admin;
 import com.codewarts.entity.Child;
 import com.codewarts.entity.ChildGroup;
 import com.codewarts.entity.Department;
-import com.codewarts.service.AdminService;
+import com.codewarts.service.AdminServiceImpl;
+import com.codewarts.service.MainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,35 +16,41 @@ import java.util.List;
 
 @Controller
 public class DeleteController {
-    private AdminService adminService;
+    private AdminServiceImpl adminServiceImpl;
+    private MainServiceImpl mainServiceImpl;
 
     @Autowired
-    public void setAdminService(AdminService adminService) {
-        this.adminService = adminService;
+    public void setAdminService(AdminServiceImpl adminServiceImpl) {
+        this.adminServiceImpl = adminServiceImpl;
+    }
+
+    @Autowired
+    public void setMainService(MainServiceImpl mainServiceImpl) {
+        this.mainServiceImpl = mainServiceImpl;
     }
 
     @ModelAttribute(name = "department")
     public Department getDepartment(Principal principal){
-        return adminService.getStaff(principal.getName()).getDepartment();
+        return mainServiceImpl.getStaff(principal.getName()).getDepartment();
     }
 
     @ModelAttribute(name = "listGroups")
     public List<ChildGroup> getListGroups(@ModelAttribute("department") Department department){
-        return adminService.getAllGroupChild(department);
+        return mainServiceImpl.getAllGroupChild(department);
     }
 
     @PostMapping(value = "/admin/delete")
     public String deleteChild(@RequestParam(value = "idChild") int idChild){
-        adminService.deleteChild(idChild);
+        adminServiceImpl.deleteChild(idChild);
         return "redirect:/admin";
     }
 
     @PostMapping(value = "/admin/delete/group")
     public String deleteGroup(@RequestParam("button") int idChildGroup,
                               @ModelAttribute("department") Department department){
-        List<Child> list = adminService.getAllChildByGroupAndDepartment(department,idChildGroup);
+        List<Child> list = mainServiceImpl.getAllChildByGroupAndDepartment(department,idChildGroup);
         if (list.size() == 0) {
-            adminService.deleteGroup(idChildGroup);
+            adminServiceImpl.deleteGroup(idChildGroup);
         } else {
             return "redirect:/admin";
         }

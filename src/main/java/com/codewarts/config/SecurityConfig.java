@@ -1,6 +1,6 @@
 package com.codewarts.config;
 
-import com.codewarts.service.SecurityService;
+import com.codewarts.service.SecurityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -18,11 +18,11 @@ import org.springframework.stereotype.Controller;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final SecurityService securityService;
+    private final SecurityServiceImpl securityServiceImpl;
 
     @Autowired
-    public SecurityConfig(@Qualifier("securityService") SecurityService securityService) {
-        this.securityService = securityService;
+    public SecurityConfig(@Qualifier("securityService") SecurityServiceImpl securityServiceImpl) {
+        this.securityServiceImpl = securityServiceImpl;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/", "login", "/resources/**", "/h2/**", "/css/**").permitAll()
+                .antMatchers( "/", "/login", "/resources/**", "/h2/**", "/css/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/teacher/**").hasAuthority("TEACHER")
                 .antMatchers("/director/**").hasAuthority("DIRECTOR")
@@ -58,14 +58,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());
-        auth.userDetailsService(securityService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(securityServiceImpl).passwordEncoder(passwordEncoder());
     }
 
     @Bean
     protected DaoAuthenticationProvider daoAuthenticationProvider(){
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        daoAuthenticationProvider.setUserDetailsService(securityService);
+        daoAuthenticationProvider.setUserDetailsService(securityServiceImpl);
         return daoAuthenticationProvider;
     }
 }

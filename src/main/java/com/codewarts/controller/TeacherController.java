@@ -2,7 +2,8 @@ package com.codewarts.controller;
 
 import com.codewarts.entity.Department;
 import com.codewarts.entity.Staff;
-import com.codewarts.service.TeacherService;
+import com.codewarts.service.MainServiceImpl;
+import com.codewarts.service.TeacherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,20 +14,27 @@ import java.security.Principal;
 
 @Controller
 public class TeacherController {
-    private TeacherService teacherService;
+    private TeacherServiceImpl teacherServiceImpl;
+    private MainServiceImpl mainServiceImpl;
+
     @Autowired
-    public void setService(TeacherService teacherService) {
-        this.teacherService = teacherService;
+    public void setTeacherService(TeacherServiceImpl teacherServiceImpl) {
+        this.teacherServiceImpl = teacherServiceImpl;
+    }
+
+    @Autowired
+    public void setMainService(MainServiceImpl mainServiceImpl) {
+        this.mainServiceImpl = mainServiceImpl;
     }
 
     @ModelAttribute(name = "department")
     public Department getDepartment(Principal principal){
-        return teacherService.getStaff(principal.getName()).getDepartment();
+        return mainServiceImpl.getStaff(principal.getName()).getDepartment();
     }
 
     @GetMapping("/teacher")
     public String teacherPage(Model model, @ModelAttribute("department") Department department){
-        model.addAttribute("listGroups", teacherService.getAllGroupChild(department));
+        model.addAttribute("listGroups", mainServiceImpl.getAllGroupChild(department));
         return "teacher/teacher";
     }
 
@@ -35,19 +43,19 @@ public class TeacherController {
                                   @RequestParam(value = "child", defaultValue = "") String[] child,
                                   @ModelAttribute("department") Department department){
         Integer group_id = (Integer) session.getAttribute("childGroup");
-        if (teacherService.checkDoubleClick(group_id)) {
+        if (teacherServiceImpl.checkDoubleClick(group_id)) {
             model.addAttribute("msg", "НЕЛЬЗЯ дважды отмечать одну и ту же группу");
         } else {
             Staff staff = (Staff) session.getAttribute("staff");
             if (child.length != 0) {
-                teacherService.saveChildAttendance(child);
-                teacherService.saveTeacherAttendance(staff, group_id, theme);
+                teacherServiceImpl.saveChildAttendance(child);
+                teacherServiceImpl.saveTeacherAttendance(staff, group_id, theme);
                 model.addAttribute("msg", "Данные о посещении учеников внесены");
             } else {
                 model.addAttribute("msg", "Не отмечен ни один ребенок!");
             }
         }
-        model.addAttribute("listGroups", teacherService.getAllGroupChild(department));
+        model.addAttribute("listGroups", mainServiceImpl.getAllGroupChild(department));
         return "teacher/teacher";
     }
 
@@ -55,9 +63,9 @@ public class TeacherController {
     public String getChildByGroup(@PathVariable(name = "childGroup") int childGroup, Model model, HttpSession session){
         Department department = (Department) session.getAttribute("department");
         session.setAttribute("childGroup", childGroup);
-        model.addAttribute("listChild", teacherService.getAllChildByGroupAndDepartment(department,childGroup));
-        model.addAttribute("listTheme", teacherService.getAllTheme());
-        model.addAttribute("listThemePast", teacherService.getAllThemePast(childGroup));
+        model.addAttribute("listChild", mainServiceImpl.getAllChildByGroupAndDepartment(department,childGroup));
+        model.addAttribute("listTheme", teacherServiceImpl.getAllTheme());
+        model.addAttribute("listThemePast", teacherServiceImpl.getAllThemePast(childGroup));
         return "teacher/childGroup";
     }
 }

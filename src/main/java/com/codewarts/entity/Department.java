@@ -26,7 +26,8 @@ public class Department {
     public Department() {
     }
 
-    public Department(int id, String name, String address, String phone, List<ChildGroup> childGroup, List<Staff> staff) {
+    public Department(int id, String name, String address, String phone, List<ChildGroup> childGroup,
+                      List<Staff> staff) {
         this.id = id;
         this.name = name;
         this.address = address;

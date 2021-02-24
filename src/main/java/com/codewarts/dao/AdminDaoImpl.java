@@ -1,5 +1,6 @@
 package com.codewarts.dao;
 
+import com.codewarts.dao.IDao.AdminDao;
 import com.codewarts.entity.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public class AdminDao {
+public class AdminDaoImpl implements AdminDao {
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -28,14 +29,6 @@ public class AdminDao {
                 .setParameter("id", department.getId()).list();
     }
 
-    public List<Child> getAllChild(Department department, int childGroup) {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from Child c join fetch c.childGroup " +
-                        "where c.childGroup.department.id = :id and c.childGroup.id = :idChildGroup", Child.class)
-                .setParameter("idChildGroup", childGroup)
-                .setParameter("id", department.getId()).list();
-    }
-
     public List<Attendance> getAllAttendanceByChild(int idChild) {
         Child child = sessionFactory.getCurrentSession().get(Child.class,idChild);
         return child.getAttendance();
@@ -44,19 +37,6 @@ public class AdminDao {
     public List<Payment> getAllPaymentsByChild(int idChild) {
         Child child = sessionFactory.getCurrentSession().get(Child.class,idChild);
         return child.getPayment();
-    }
-
-    public Staff getAllStaff(String login) {
-        return sessionFactory.getCurrentSession().createQuery("from Staff s join fetch s.department " +
-                "join fetch s.staffRole where s.login = :login", Staff.class)
-                .setParameter("login", login).getSingleResult();
-    }
-
-    public List<ChildGroup> getAllChildGroup(Department department) {
-        return sessionFactory.getCurrentSession()
-        .createQuery("from ChildGroup ch join fetch ch.department " +
-                "where ch.department.id = :id", ChildGroup.class)
-                .setParameter("id", department.getId()).list();
     }
 
     public ChildGroup getChildGroupById(int idChildGroup) {
@@ -141,7 +121,8 @@ public class AdminDao {
 
     public List<Child> findChildBySurname(String findChild, Department department) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Child ch join fetch ch.childGroup where ch.surname = :surname and ch.childGroup.department.id = :id")
+                .createQuery("from Child ch join fetch ch.childGroup where ch.surname = :surname and" +
+                        " ch.childGroup.department.id = :id")
                 .setParameter("id", department.getId())
                 .setParameter("surname", findChild).list();
     }

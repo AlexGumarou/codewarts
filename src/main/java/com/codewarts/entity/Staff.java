@@ -5,8 +5,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,20 +14,12 @@ public class Staff implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotEmpty(message = "Это поле не должно быть пустым")
     private String name;
-    @NotEmpty(message = "Это поле не должно быть пустым")
     private String surname;
-    @NotEmpty(message = "Это поле не должно быть пустым")
     private String login;
-    @NotEmpty(message = "Это поле не должно быть пустым")
     private String pass;
-    @NotEmpty(message = "Это поле не должно быть пустым")
-    @Email(message = "Поле должно быть вида abc@mail.ru")
     private String email;
-    @NotEmpty(message = "Это поле не должно быть пустым")
     private String address;
-    @NotEmpty(message = "Это поле не должно быть пустым")
     private String phone;
     @Column(name = "phone_additional")
     private String phoneAdditional;
@@ -50,7 +40,9 @@ public class Staff implements UserDetails {
     public Staff() {
     }
 
-    public Staff(int id, @NotEmpty(message = "Это поле не должно быть пустым") String name, @NotEmpty(message = "Это поле не должно быть пустым") String surname, @NotEmpty(message = "Это поле не должно быть пустым") String login, @NotEmpty(message = "Это поле не должно быть пустым") String pass, @NotEmpty(message = "Это поле не должно быть пустым") @Email(message = "Поле должно быть вида abc@mail.ru") String email, @NotEmpty(message = "Это поле не должно быть пустым") String address, @NotEmpty(message = "Это поле не должно быть пустым") String phone, String phoneAdditional, String pricePerHour, Department department, StaffRole staffRole) {
+    public Staff(int id, String name, String surname, String login, String pass,String email, String address,
+                 String phone, String phoneAdditional, String pricePerHour, Department department,
+                 StaffRole staffRole) {
         this.id = id;
         this.name = name;
         this.surname = surname;
