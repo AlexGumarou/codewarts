@@ -29,8 +29,10 @@ public class AdminController {
     }
 
     @ModelAttribute(name = "department")
-    public Department getDepartment(Principal principal){
-        return mainServiceImpl.getStaff(principal.getName()).getDepartment();
+    public Department getDepartment(Principal principal, HttpSession session){
+        Department department = mainServiceImpl.getStaff(principal.getName()).getDepartment();
+        session.setAttribute("department", department);
+        return department;
     }
 
     @GetMapping(value = "/admin")

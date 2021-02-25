@@ -48,26 +48,9 @@ public class AdminDaoImpl implements AdminDao {
                 .setParameter("id", idPayment).list();
     }
 
-    public void saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, String mother,
-                          String father, String phoneFather, String phoneMother) {
+    public void saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, Parent parent) {
         Child child = sessionFactory.getCurrentSession().get(Child.class, idChild);
-        ChildGroup childGroup = sessionFactory.getCurrentSession().get(ChildGroup.class, idGroup);
-        Parent parent;
-        child.setChildGroup(childGroup);
-        child.setName(name);
-        child.setSurname(surname);
-        child.setBirthdayDate(date);
-        if (child.getParent()!=null){
-            int idParent = child.getParent().getId();
-            parent = sessionFactory.getCurrentSession().get(Parent.class, idParent);
-            parent.setFather(father);
-            parent.setMother(mother);
-            parent.setPhoneFather(phoneFather);
-            parent.setPhoneMother(phoneMother);
-        } else {
-            parent = new Parent(mother, father, phoneMother, phoneFather);
-        }
-        sessionFactory.getCurrentSession().saveOrUpdate(parent);
+        saveChild(idChild, date, name,surname,idGroup);
         child.setParent(parent);
         sessionFactory.getCurrentSession().saveOrUpdate(child);
     }
@@ -95,10 +78,8 @@ public class AdminDaoImpl implements AdminDao {
         sessionFactory.getCurrentSession().saveOrUpdate(childGroup);
     }
 
-    public void addChild(LocalDate date, String name, String surname, String mother, String father, String phoneMother,
-                         String phoneFather, int idGroup) {
+    public void addChild(LocalDate date, String name, String surname, Parent parent, int idGroup) {
         ChildGroup childGroup = sessionFactory.getCurrentSession().get(ChildGroup.class, idGroup);
-        Parent parent = new Parent(mother, father, phoneMother, phoneFather);
         sessionFactory.getCurrentSession().saveOrUpdate(parent);
         Child child = new Child(name,surname,date,parent,childGroup);
         sessionFactory.getCurrentSession().saveOrUpdate(child);

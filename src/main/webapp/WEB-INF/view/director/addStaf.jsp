@@ -14,32 +14,30 @@
             <div class='content'>
                 <form:form method="post" action="/director/addStaff" modelAttribute="staff">
                     <spring:message code="app.director.add.staff.login" var="login"></spring:message>
-                    <input type='text' placeholder="${login}" name="login" class='input-lineLeft full-width'
-                           required></td>
+                    <form:input path="login" placeholder="${login}"  class='input-lineLeft full-width'/>
+                    <form:errors cssStyle="color: red" path="login" cssClass="error"/>
                     <spring:message code="app.director.add.staff.pass" var="pass"></spring:message>
-                    <input type='text' placeholder="${pass}" name="pass" class='input-lineLeft full-width'
-                           required></td>
+                    <input type="password" placeholder="${pass}" name="pass"
+                           class='input-lineLeft full-width' required>
                     <spring:message code="app.director.add.staff.name" var="name"></spring:message>
-                    <input type='text' placeholder="${name}" name="name" class='input-lineLeft full-width'
-                           required></td>
+                    <form:input path="name" placeholder="${name}"  class='input-lineLeft full-width'/>
+                    <form:errors cssStyle="color: red" path="name" cssClass="error"/>
                     <spring:message code="app.director.add.staff.surname" var="surname"></spring:message>
-                    <input type='text' placeholder="${surname}" name="surname" class='input-lineLeft full-width'
-                           required></td>
+                    <form:input path="surname" placeholder="${surname}"  class='input-lineLeft full-width'/>
+                    <form:errors cssStyle="color: red" path="surname" cssClass="error"/>
                     <spring:message code="app.director.add.staff.address" var="address"></spring:message>
-                    <input type='text' placeholder="${address}" name="address" class='input-lineLeft full-width'
-                           required></td>
+                    <form:input path="address" placeholder="${address}"  class='input-lineLeft full-width'/>
+                    <form:errors cssStyle="color: red" path="address" cssClass="error"/>
                     <spring:message code="app.director.add.staff.email" var="email"></spring:message>
-                    <input type='email' placeholder="${email}" name="email" class='input-lineLeft full-width'
-                           required></td>
+                    <form:input path="email" placeholder="${email}"  class='input-lineLeft full-width'/>
+                    <form:errors cssStyle="color: red" path="email" cssClass="error"/>
                     <spring:message code="app.director.add.staff.phone" var="phone"></spring:message>
-                    <input type='text' placeholder="${phone}" name="phone" class='input-lineLeft full-width'
-                           required></td>
+                    <form:input path="phone" placeholder="${phone}"  class='input-lineLeft full-width'/>
+                    <form:errors cssStyle="color: red" path="phone" cssClass="error"/>
                     <spring:message code="app.director.add.staff.phoneadd" var="phoneadd"></spring:message>
-                    <input type='text' placeholder="${phoneadd}" name="phoneAdditional" class='input-lineLeft
-                    full-width'></td>
+                    <form:input path="phoneAdditional" placeholder="${phoneadd}"  class='input-lineLeft full-width'/>
                     <spring:message code="app.director.add.staff.price" var="price"></spring:message>
-                    <input type='text' placeholder="${price}" name="pricePerHour" class='input-lineLeft
-                    full-width'></td>
+                    <form:input path="pricePerHour" placeholder="${price}"  class='input-lineLeft full-width'/>
                     <h3 class='welcome2'><spring:message code="app.director.add.staff.role"/>:</h3>
                     <select style="background: #8CA6DB" class='ghost-round full-width' name="role">
                         <c:forEach items="${listRoles}" var="item" >

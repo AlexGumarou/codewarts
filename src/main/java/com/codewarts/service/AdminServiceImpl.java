@@ -34,26 +34,26 @@ public class AdminServiceImpl implements AdminService {
         return adminDaoImpl.getChildById(editChild);
     }
 
-    public boolean saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, String mother,
-                          String phoneMother, String father, String phoneFather) {
+    public boolean saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, Parent parent) {
         if(checkBeforeSave(date, name, surname)) {
-            if (mother.equals("") && father.equals("") && phoneMother.equals("") && phoneFather.equals("")) {
+            if (parent.getMother().equals("") && parent.getFather().equals("") && parent.getPhoneMother().equals("")
+                    && parent.getPhoneFather().equals("")) {
                 adminDaoImpl.saveChild(idChild, date, name, surname, idGroup);
             } else {
-                adminDaoImpl.saveChild(idChild, date, name, surname, idGroup, mother, father, phoneFather, phoneMother);
+                adminDaoImpl.saveChild(idChild, date, name, surname, idGroup, parent);
             }
             return true;
         } return false;
     }
 
-    public boolean addChild(LocalDate date, String name, String surname, String mother, String father,
-                            String phoneMother, String phoneFather, int idGroup) {
-        if(checkBeforeSave(date, name, surname)){
-            String surnameRight = surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase();
-            if (mother.equals("") && father.equals("") && phoneMother.equals("") && phoneFather.equals("")) {
-                adminDaoImpl.addChild(date,name, surnameRight, idGroup);
+    public boolean addChild(LocalDate date, Child child, Parent parent, int idGroup) {
+        if(checkBeforeSave(date, child.getName(), child.getSurname())){
+            String surnameRight = child.getSurname().substring(0, 1).toUpperCase() +
+                    child.getSurname().substring(1).toLowerCase();
+            if (parent.getMother().trim().equals("") || parent.getFather().trim().equals("")) {
+                adminDaoImpl.addChild(date,child.getName(), surnameRight, idGroup);
             } else {
-                adminDaoImpl.addChild(date,name, surnameRight, mother, father, phoneMother, phoneFather, idGroup);
+                adminDaoImpl.addChild(date,child.getName(), surnameRight, parent, idGroup);
             }
             return true;
         } return false;

@@ -28,20 +28,22 @@ public class TeacherController {
     }
 
     @ModelAttribute(name = "department")
-    public Department getDepartment(Principal principal){
-        return mainServiceImpl.getStaff(principal.getName()).getDepartment();
+    public Department getDepartment(Principal principal, HttpSession session){
+        Department department = mainServiceImpl.getStaff(principal.getName()).getDepartment();
+        session.setAttribute("department", department);
+        return department;
     }
 
     @GetMapping("/teacher")
-    public String teacherPage(Model model, @ModelAttribute("department") Department department){
+    public String teacherPage(Model model, @ModelAttribute("department") Department department, HttpSession session){
         model.addAttribute("listGroups", mainServiceImpl.getAllGroupChild(department));
         return "teacher/teacher";
     }
 
     @PostMapping("/teacher")
     public String teacherPagePost(Model model, HttpSession session, @RequestParam("themeName") String theme,
-                                  @RequestParam(value = "child", defaultValue = "") String[] child,
-                                  @ModelAttribute("department") Department department){
+                                  @RequestParam(value = "child", defaultValue = "") String[] child){
+        Department department = (Department) session.getAttribute("department");
         Integer group_id = (Integer) session.getAttribute("childGroup");
         if (teacherServiceImpl.checkDoubleClick(group_id)) {
             model.addAttribute("msg", "НЕЛЬЗЯ дважды отмечать одну и ту же группу");

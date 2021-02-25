@@ -18,10 +18,8 @@ public interface AdminService {
     boolean addGroup(String name, Department department, String lessonTime);
     boolean savePayment(int idPayment, LocalDate date, String sum);
     boolean saveChildGroup(int idChildGroup, String name, Department department);
-    boolean addChild(LocalDate date, String name, String surname, String mother, String father,
-                     String phoneMother, String phoneFather, int idGroup);
-    boolean saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, String mother,
-                      String phoneMother, String father, String phoneFather);
+    boolean addChild(LocalDate date, Child child, Parent parent, int idGroup);
+    boolean saveChild(int idChild, LocalDate date, String name, String surname, int idGroup, Parent parent);
     void deleteGroup(int idChildGroup);
     void deleteChild(int idChild);
 

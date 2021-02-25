@@ -17,7 +17,9 @@ public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotEmpty(message = "{child.name.empty}")
     private String name;
+    @NotEmpty(message = "{child.surname.empty}")
     private String surname;
     @Column(name = "birthday_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

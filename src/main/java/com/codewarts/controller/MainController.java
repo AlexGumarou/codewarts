@@ -35,12 +35,9 @@ public class MainController {
         if (principal == null){
             return "index";
         }
-        String msg = "Неверный логин или пароль";
-        String login = principal.getName();
-        Staff staff = service.getStaff(login);
+        Staff staff = service.getStaff(principal.getName());
         session.setAttribute("staff", staff);
         session.setAttribute("name", staff.getName());
-        session.setAttribute("department", staff.getDepartment());
         switch (staff.getStaffRole().getRole()) {
             case "ADMIN":
                 return "redirect:/admin";
@@ -49,7 +46,6 @@ public class MainController {
             case "DIRECTOR":
                 return "redirect:/director";
             default:
-                model.addAttribute("msg", msg);
                 return "error";
         }
     }

@@ -5,6 +5,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,12 +16,20 @@ public class Staff implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotEmpty(message = "{child.name.empty}")
     private String name;
+    @NotEmpty(message = "{child.surname.empty}")
     private String surname;
+    @NotEmpty(message = "{staff.login.empty}")
     private String login;
+    @NotEmpty(message = "{staff.pass.empty}")
     private String pass;
+    @NotEmpty(message = "{staff.email.empty}")
+    @Email(message = "{staff.email.email}")
     private String email;
+    @NotEmpty(message = "{staff.address.empty}")
     private String address;
+    @NotEmpty(message = "{staff.phone.empty}")
     private String phone;
     @Column(name = "phone_additional")
     private String phoneAdditional;

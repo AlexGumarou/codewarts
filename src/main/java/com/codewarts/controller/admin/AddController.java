@@ -3,6 +3,7 @@ package com.codewarts.controller.admin;
 import com.codewarts.entity.Child;
 import com.codewarts.entity.ChildGroup;
 import com.codewarts.entity.Department;
+import com.codewarts.entity.Parent;
 import com.codewarts.service.AdminServiceImpl;
 import com.codewarts.service.MainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,27 +47,22 @@ public class AddController {
     }
 
     @GetMapping(value = "/admin/addChild")
-    public String addChildGet(Model model, @ModelAttribute("listGroups") List<ChildGroup> groupList, Child child){
+    public String addChildGet(Model model, @ModelAttribute("listGroups") List<ChildGroup> groupList,
+                              Child child, Parent parent){
         model.addAttribute("listGroups", groupList);
         return "admin/add/addChild";
     }
 
     @PostMapping(value = "/admin/addChild")
-    public String addChildPost(Model model,
-                               @ModelAttribute("child") @Valid Child child,
-                               BindingResult result,
-                               @RequestParam(name = "birthdayDate", defaultValue = "")
+    public String addChildPost(Model model, @ModelAttribute("child") @Valid Child child,
+                               BindingResult result, @RequestParam(name = "birthdayDate", defaultValue = "")
                                @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-                               @RequestParam(value = "mother") String mother,
-                               @RequestParam(value = "phoneMother") String phoneMother,
-                               @RequestParam(value = "father")String father,
-                               @RequestParam(value = "phoneFather") String phoneFather,
+                               @ModelAttribute("parent") Parent parent,
                                @RequestParam(value = "selectGroup") int idGroup){
         if (result.hasErrors()){
             return "admin/add/addChild";
         }
-        if (adminServiceImpl.addChild(date, child.getName(), child.getSurname(), mother, father, phoneMother,
-                phoneFather, idGroup)){
+        if (adminServiceImpl.addChild(date, child, parent, idGroup)){
             model.addAttribute("msg", "Данные успешно добавлены!");
         } else {
             model.addAttribute("msg", "Введены некорректные данные");

@@ -14,13 +14,13 @@
                 <div class='content'>
                     <div class='welcome'><spring:message code="app.index.welcome"/><br>Codewarts</div>
                     ${msg}
-                        <div class='input-fields'>
-                            <spring:message code="app.login" var="login"></spring:message>
-                            <input type='text' placeholder="${login}" name="login" class='input-line full-width'></input>
-                            <spring:message code="app.pass" var="pass"></spring:message>
-                            <input type='text' placeholder='${pass}' name="pass" class='input-line full-width'></input>
-                        </div>
-                        <br><br>
+                    <div class='input-fields'>
+                        <spring:message code="app.login" var="login"></spring:message>
+                        <input type='text' placeholder="${login}" name="login" class='input-line full-width'></input>
+                        <spring:message code="app.pass" var="pass"></spring:message>
+                        <input type='text' placeholder='${pass}' name="pass" class='input-line full-width'></input>
+                    </div>
+                    <br><br>
                     <button class='ghost-round full-width'><spring:message code="app.index.enter"/></button>
                 </div>
             </div>

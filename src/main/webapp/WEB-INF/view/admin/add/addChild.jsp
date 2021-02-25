@@ -15,19 +15,24 @@
                 <div align="center">
                     <form:form method="post" action="/admin/addChild" modelAttribute="child" ><br><br><br>
                         <spring:message code="app.addChild.add.date" var="data"></spring:message>
-                        <input type="date" placeholder="${data}" name="birthdayDate" class='input-lineLeft full-width' required></input>
+                        <input type="date" placeholder="${data}" name="birthdayDate"
+                               class='input-lineLeft full-width' required>
                         <spring:message code="app.addChild.add.name" var="name"></spring:message>
-                        <input type='text' placeholder="${name}" name="name" class='input-lineLeft full-width' required></input>
+                        <form:input path="name" placeholder="${name}"  class='input-lineLeft full-width'/>
+                        <form:errors cssStyle="color: red" path="name" cssClass="error"/>
                         <spring:message code="app.addChild.add.surname" var="surname"></spring:message>
-                        <input type='text' placeholder="${surname}" name="surname" class='input-lineLeft full-width' required></input>
+                        <form:input path="surname" placeholder="${surname}"  class='input-lineLeft full-width'/>
+                        <form:errors cssStyle="color: red" path="surname" cssClass="error"/>
+                        <form:form method="post" modelAttribute="parent" >
                         <spring:message code="app.addChild.add.mother" var="mother"></spring:message>
-                        <input type='text' placeholder="${mother}" name="mother" class='input-lineLeft full-width'></input>
+                            <form:input path="mother" placeholder="${mother}"  class='input-lineLeft full-width'/>
                         <spring:message code="app.addChild.add.phone" var="phone"></spring:message>
-                        <input type='text' placeholder="${phone}" name="phoneMother" class='input-lineLeft full-width'></input>
+                            <form:input path="phoneMother" placeholder="${phone}"  class='input-lineLeft full-width'/>
                         <spring:message code="app.addChild.add.father" var="father"></spring:message>
-                        <input type='text' placeholder="${father}" name="father" class='input-lineLeft full-width'></input>
+                            <form:input path="father" placeholder="${father}"  class='input-lineLeft full-width'/>
                         <spring:message code="app.addChild.add.father.phone" var="phoneFather"></spring:message>
-                        <input type='text' placeholder="${phoneFather}" name="phoneFather" class='input-lineLeft full-width'></input>
+                            <form:input path="phoneFather" placeholder="${phoneFather}"
+                                        class='input-lineLeft full-width'/>
                         <h3 class='welcome2'><spring:message code="app.addChild.group.number"/></h3>
                         <select style="background: #8CA6DB" class='ghost-round full-width' name="selectGroup">
                             <c:forEach items="${listGroups}" var="item" >
@@ -39,11 +44,12 @@
                             <spring:message code="app.addChild.add" var="add"></spring:message>
                             <input class='ghost-round full-width' type="submit" size="100" value="${add}">
                         </div>
-
+                        </form:form>
                     </form:form>
                             <div align="center">
                                 <form name="test" method="get" action="/admin">
-                                    <button class='ghost-round full-width' type="submit"><spring:message code="app.to.main"/></button>
+                                    <button class='ghost-round full-width' type="submit">
+                                        <spring:message code="app.to.main"/></button>
                                 </form>
                             </div>
                         </div>

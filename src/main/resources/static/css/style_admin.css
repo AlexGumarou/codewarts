@@ -116,7 +116,7 @@ button:focus {
 }
 .input-lineLeft {
     background: none;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     line-height: 2.0em;
     text-align: left;
     color: #fff;

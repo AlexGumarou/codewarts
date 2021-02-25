@@ -3,13 +3,17 @@ package com.codewarts.controller.admin;
 import com.codewarts.entity.Child;
 import com.codewarts.entity.ChildGroup;
 import com.codewarts.entity.Department;
+import com.codewarts.entity.Parent;
 import com.codewarts.service.AdminServiceImpl;
 import com.codewarts.service.MainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
@@ -41,7 +45,8 @@ public class EditController {
 
     @GetMapping("/admin/child/{editChild}")
     public String getChildAndEdit(@PathVariable(name = "editChild") int idChild, Model model,
-                                  @ModelAttribute("listGroups") List<ChildGroup> groupList){
+                                  @ModelAttribute("listGroups") List<ChildGroup> groupList,
+                                  Child child, Parent parent){
         model.addAttribute("listGroups", groupList);
         model.addAttribute("child", adminServiceImpl.getChildById(idChild));
         model.addAttribute("listAttendance", adminServiceImpl.getAllAttendanceByChild(idChild));
@@ -51,18 +56,20 @@ public class EditController {
 
     @PostMapping(value = "/admin/child/{editChild}")
     public String adminEditAndSave(@PathVariable(name = "editChild") int idChild,
-                                   @ModelAttribute("child") Child child, Model model,
+                                   @ModelAttribute("child") @Valid Child child, BindingResult result, Model model,
                                    @RequestParam(name = "birthdayDate")
                                        @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-                                   @RequestParam(value = "mother") String mother,
-                                   @RequestParam(value = "phoneMother") String phoneMother,
-                                   @RequestParam(value = "father")String father,
-                                   @RequestParam(value = "phoneFather") String phoneFather,
+                                   @ModelAttribute("parent") Parent parent,
                                    @RequestParam(value = "selectGroup") int idGroup,
                                    @ModelAttribute("listGroups") List<ChildGroup> groupList){
-        model.addAttribute("listGroups", groupList);
-        if (adminServiceImpl.saveChild(idChild, date, child.getName(), child.getSurname(), idGroup, mother,
-                phoneMother, father, phoneFather)){
+        if (result.hasErrors()){
+            model.addAttribute("listGroups", groupList);
+            model.addAttribute("child", adminServiceImpl.getChildById(idChild));
+            model.addAttribute("listAttendance", adminServiceImpl.getAllAttendanceByChild(idChild));
+            model.addAttribute("listPayments", adminServiceImpl.getAllPaymentsByChild(idChild));
+            return "admin/edit/childEdit";
+        }
+        if (adminServiceImpl.saveChild(idChild, date, child.getName(), child.getSurname(), idGroup, parent)){
             model.addAttribute("msg", "Данные успешно сохранены");
         } else {
             model.addAttribute("msg", "Неверный формат вводных данных");
