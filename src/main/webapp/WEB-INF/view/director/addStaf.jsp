@@ -17,8 +17,8 @@
                     <form:input path="login" placeholder="${login}"  class='input-lineLeft full-width'/>
                     <form:errors cssStyle="color: red" path="login" cssClass="error"/>
                     <spring:message code="app.director.add.staff.pass" var="pass"></spring:message>
-                    <input type="password" placeholder="${pass}" name="pass"
-                           class='input-lineLeft full-width' required>
+                    <form:password path="pass" placeholder="${pass}" class='input-lineLeft full-width' />
+                    <form:errors cssStyle="color: red" path="pass" cssClass="error"/>
                     <spring:message code="app.director.add.staff.name" var="name"></spring:message>
                     <form:input path="name" placeholder="${name}"  class='input-lineLeft full-width'/>
                     <form:errors cssStyle="color: red" path="name" cssClass="error"/>

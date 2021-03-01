@@ -32,8 +32,14 @@ public class DirectorController {
     }
 
     @ModelAttribute(name = "department")
-    public Department getDepartment(Principal principal){
+    public Department setDepartment(Principal principal){
         return mainServiceImpl.getStaff(principal.getName()).getDepartment();
+    }
+
+    @ModelAttribute
+    public void setName(Principal principal, HttpSession session){
+        Staff staff = mainServiceImpl.getStaff(principal.getName());
+        session.setAttribute("name", staff.getName());
     }
 
     @GetMapping(value = "/director")
@@ -106,7 +112,7 @@ public class DirectorController {
                            @RequestParam(value = "dateLast", defaultValue = "")
                            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateTo, Model model,
                            @ModelAttribute("department") Department department){
-        if (dateFrom==null || dateTo == null) {
+        if (dateFrom == null || dateTo == null) {
             model.addAttribute("msg", "Введены не все данные");
         } else if (dateFrom.isAfter(dateTo)){
             model.addAttribute("msg", "Сначала должна быть более ранняя дата");

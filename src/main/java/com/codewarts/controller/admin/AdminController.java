@@ -2,6 +2,7 @@ package com.codewarts.controller.admin;
 
 import com.codewarts.entity.Child;
 import com.codewarts.entity.Department;
+import com.codewarts.entity.Staff;
 import com.codewarts.service.AdminServiceImpl;
 import com.codewarts.service.MainServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,16 @@ public class AdminController {
     }
 
     @ModelAttribute(name = "department")
-    public Department getDepartment(Principal principal, HttpSession session){
+    public Department setDepartment(Principal principal, HttpSession session){
         Department department = mainServiceImpl.getStaff(principal.getName()).getDepartment();
         session.setAttribute("department", department);
         return department;
+    }
+
+    @ModelAttribute
+    public void setName(Principal principal, HttpSession session){
+        Staff staff = mainServiceImpl.getStaff(principal.getName());
+        session.setAttribute("name", staff.getName());
     }
 
     @GetMapping(value = "/admin")

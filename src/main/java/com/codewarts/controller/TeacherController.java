@@ -28,10 +28,17 @@ public class TeacherController {
     }
 
     @ModelAttribute(name = "department")
-    public Department getDepartment(Principal principal, HttpSession session){
+    public Department setDepartment(Principal principal, HttpSession session){
         Department department = mainServiceImpl.getStaff(principal.getName()).getDepartment();
         session.setAttribute("department", department);
         return department;
+    }
+
+    @ModelAttribute
+    public void setNameAndStaff(Principal principal, HttpSession session){
+        Staff staff = mainServiceImpl.getStaff(principal.getName());
+        session.setAttribute("staff", staff);
+        session.setAttribute("name", staff.getName());
     }
 
     @GetMapping("/teacher")

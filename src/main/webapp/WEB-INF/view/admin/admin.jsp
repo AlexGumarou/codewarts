@@ -15,9 +15,11 @@
                 <div align="center">
                     <br><h2 class='welcome'><spring:message code="app.admin.welcome"/>, ${name}</h2>
                     <c:forEach items="${listBirthday}" var="item" >
-                    <h3 class='welcome2' style="color: aqua" ><em>${item.birthdayDate.getDayOfMonth()}.
-                            ${item.birthdayDate.getMonthValue()} <spring:message code="app.admin.birthday"/>
-                            ${item.name} ${item.surname}</em></h3>
+                    <h3 class='welcome2' style="color: aqua" ><em>
+                            ${item.birthdayDate.getDayOfMonth()}.0${item.birthdayDate.getMonthValue()}
+                            ${item.name} ${item.surname}
+                                <spring:message code="app.admin.birthday"/>
+                    </em></h3>
                     </c:forEach>
                     <h3 class='welcome2' style="color: aqua" ><em>${msg}</em></h3>
                     <form name="test" method="post" action="/admin/search">
