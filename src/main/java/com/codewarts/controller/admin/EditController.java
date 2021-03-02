@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class EditController {
     private AdminServiceImpl adminServiceImpl;
     private MainServiceImpl mainServiceImpl;
@@ -43,7 +44,7 @@ public class EditController {
         return mainServiceImpl.getAllGroupChild(department);
     }
 
-    @GetMapping("/admin/child/{editChild}")
+    @GetMapping("/child/{editChild}")
     public String getChildAndEdit(@PathVariable(name = "editChild") int idChild, Model model,
                                   @ModelAttribute("listGroups") List<ChildGroup> groupList,
                                   Child child, Parent parent){
@@ -54,7 +55,7 @@ public class EditController {
         return "admin/edit/childEdit";
     }
 
-    @PostMapping(value = "/admin/child/{editChild}")
+    @PostMapping("/child/{editChild}")
     public String adminEditAndSave(@PathVariable(name = "editChild") int idChild,
                                    @ModelAttribute("child") @Valid Child child, BindingResult result, Model model,
                                    @RequestParam(name = "birthdayDate")
@@ -81,7 +82,7 @@ public class EditController {
         return "admin/edit/childEdit";
     }
 
-    @PostMapping(value = "/admin/edit/editPayment/{editChild}")
+    @PostMapping("/edit/editPayment/{editChild}")
     public String editPaymentPage(@PathVariable(name = "editChild") int idChild, Model model,
                                   @RequestParam(value = "idPayment", defaultValue = "0") int idPayment){
         if (idPayment != 0) {
@@ -92,13 +93,13 @@ public class EditController {
         }
     }
 
-    @GetMapping(value = "/admin/edit/editGroups")
+    @GetMapping("/edit/editGroups")
     public String editGroups(@RequestParam("button") int idChildGroup, Model model){
         model.addAttribute("childGroup", adminServiceImpl.getChildGroup(idChildGroup));
         return "admin/edit/editGroup";
     }
 
-    @RequestMapping(value = "/admin/edit/editPaymentSave")
+    @RequestMapping("/edit/editPaymentSave")
     public String editPaymentPageSave(Model model, @RequestParam("idPayment") int idPayment,
                                       @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
                                       @RequestParam("sum") String sum){
@@ -111,7 +112,7 @@ public class EditController {
         return "admin/edit/editPayment";
     }
 
-    @PostMapping(value = "/admin/edit/editGroupSave")
+    @PostMapping("/edit/editGroupSave")
     public String editGroupsSave(@ModelAttribute("department") Department department,
                                  @RequestParam("idGroup") int idChildGroup,
                                  @RequestParam("nameGroup") String name, Model model) {

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
+@RequestMapping("/teacher")
 public class TeacherController {
     private TeacherServiceImpl teacherServiceImpl;
     private MainServiceImpl mainServiceImpl;
@@ -41,13 +42,13 @@ public class TeacherController {
         session.setAttribute("name", staff.getName());
     }
 
-    @GetMapping("/teacher")
+    @GetMapping
     public String teacherPage(Model model, @ModelAttribute("department") Department department, HttpSession session){
         model.addAttribute("listGroups", mainServiceImpl.getAllGroupChild(department));
         return "teacher/teacher";
     }
 
-    @PostMapping("/teacher")
+    @PostMapping
     public String teacherPagePost(Model model, HttpSession session, @RequestParam("themeName") String theme,
                                   @RequestParam(value = "child", defaultValue = "") String[] child){
         Department department = (Department) session.getAttribute("department");
@@ -68,7 +69,7 @@ public class TeacherController {
         return "teacher/teacher";
     }
 
-    @RequestMapping("/teacher/{childGroup}")
+    @RequestMapping("/{childGroup}")
     public String getChildByGroup(@PathVariable(name = "childGroup") int childGroup, Model model, HttpSession session){
         Department department = (Department) session.getAttribute("department");
         session.setAttribute("childGroup", childGroup);

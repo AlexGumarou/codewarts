@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class DeleteController {
     private AdminServiceImpl adminServiceImpl;
     private MainServiceImpl mainServiceImpl;
@@ -39,13 +41,13 @@ public class DeleteController {
         return mainServiceImpl.getAllGroupChild(department);
     }
 
-    @PostMapping(value = "/admin/delete")
+    @PostMapping("/delete")
     public String deleteChild(@RequestParam(value = "idChild") int idChild){
         adminServiceImpl.deleteChild(idChild);
         return "redirect:/admin";
     }
 
-    @PostMapping(value = "/admin/delete/group")
+    @PostMapping("/delete/group")
     public String deleteGroup(@RequestParam("button") int idChildGroup,
                               @ModelAttribute("department") Department department){
         List<Child> list = mainServiceImpl.getAllChildByGroupAndDepartment(department,idChildGroup);

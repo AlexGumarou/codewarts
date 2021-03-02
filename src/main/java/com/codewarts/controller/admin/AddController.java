@@ -11,10 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -22,6 +19,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class AddController {
     private AdminServiceImpl adminServiceImpl;
     private MainServiceImpl mainServiceImpl;
@@ -46,14 +44,14 @@ public class AddController {
         return mainServiceImpl.getAllGroupChild(department);
     }
 
-    @GetMapping(value = "/admin/addChild")
+    @GetMapping("/addChild")
     public String addChildGet(Model model, @ModelAttribute("listGroups") List<ChildGroup> groupList,
                               Child child, Parent parent){
         model.addAttribute("listGroups", groupList);
         return "admin/add/addChild";
     }
 
-    @PostMapping(value = "/admin/addChild")
+    @PostMapping("/addChild")
     public String addChildPost(Model model, @ModelAttribute("child") @Valid Child child,
                                BindingResult result, @RequestParam(name = "birthdayDate", defaultValue = "")
                                @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
@@ -70,14 +68,14 @@ public class AddController {
         return "admin/add/addChild";
     }
 
-    @GetMapping(value = "/admin/addPayment")
+    @GetMapping("/addPayment")
     public String addPaymentGet(Model model, @ModelAttribute("department") Department department){
         model.addAttribute("now", LocalDate.now());
         model.addAttribute("listChild", adminServiceImpl.getAllChild(department));
         return "admin/add/addPayment";
     }
 
-    @PostMapping(value = "/admin/addPayment")
+    @PostMapping("/addPayment")
     public String addPaymentGet(Model model, @RequestParam(name = "date")
     @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
                                 @RequestParam(value = "sum") String sum,
@@ -93,12 +91,12 @@ public class AddController {
         return "admin/add/addPayment";
     }
 
-    @GetMapping(value = "/admin/addGroup")
+    @GetMapping("/addGroup")
     public String makeNewGroup(){
         return "admin/add/addGroup";
     }
 
-    @PostMapping(value = "/admin/addGroup")
+    @PostMapping("/addGroup")
     public String makeNewGroupPost(Model model, @ModelAttribute("department") Department department,
                                    @RequestParam("name")String name, @RequestParam("lessonTime") String lessonTime){
         if (adminServiceImpl.addGroup(name, department, lessonTime)){

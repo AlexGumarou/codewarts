@@ -17,6 +17,7 @@ import java.security.Principal;
 import java.time.LocalDate;
 
 @Controller
+@RequestMapping("/director")
 public class DirectorController {
     private DirectorServiceImpl directorServiceImpl;
     private MainServiceImpl mainServiceImpl;
@@ -42,20 +43,20 @@ public class DirectorController {
         session.setAttribute("name", staff.getName());
     }
 
-    @GetMapping(value = "/director")
+    @GetMapping
     public String directorPage(Model model, @ModelAttribute("department") Department department){
         model.addAttribute("ListTeacher", directorServiceImpl.getAllTeachers(department));
         return "director/director";
     }
 
-    @GetMapping(value = "/director/addStaff")
+    @GetMapping("/addStaff")
     public String addStaffGet(HttpSession session, Staff staff){
         session.setAttribute("listRoles", directorServiceImpl.getAllStaffRoles());
         session.setAttribute("listDepartment", directorServiceImpl.getAllDepartments());
         return "director/addStaf";
     }
 
-    @PostMapping(value = "/director/addStaff")
+    @PostMapping("/addStaff")
     public String addStaffPost(Model model, @ModelAttribute("staff") @Valid Staff staff,
                                BindingResult result, @RequestParam("role") int idRole,
                                @RequestParam("dep") int idDepartment){
@@ -70,13 +71,13 @@ public class DirectorController {
         return "director/addStaf";
     }
 
-    @GetMapping(value = "/director/teacherData")
+    @GetMapping("/teacherData")
     public String teacherAccountingGet(Model model, @ModelAttribute("department") Department department){
         model.addAttribute("ListTeacher", directorServiceImpl.getAllTeachers(department));
         return "director/teacherData";
     }
 
-    @PostMapping(value = "/director/teacherData")
+    @PostMapping("/teacherData")
     public String teacherAccounting(@RequestParam("ListTeacher") int idTeacher,
                                     @RequestParam(value = "dateFirst", defaultValue = "")
                                     @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
@@ -101,12 +102,12 @@ public class DirectorController {
         return "director/teacherData";
     }
 
-    @GetMapping(value = "/director/payments")
+    @GetMapping("/payments")
     public String paymentsGet(){
         return "director/payments";
     }
 
-    @PostMapping(value = "/director/payments")
+    @PostMapping("/payments")
     public String payments(@RequestParam(value = "dateFirst", defaultValue = "")
                            @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dateFrom,
                            @RequestParam(value = "dateLast", defaultValue = "")
@@ -126,13 +127,13 @@ public class DirectorController {
         return "director/payments";
     }
 
-    @GetMapping(value = "/director/teacherPrice")
+    @GetMapping("/teacherPrice")
     public String teacherPriceNewValueGet(Model model, @ModelAttribute("department") Department department){
         model.addAttribute("ListTeacher", directorServiceImpl.getAllTeachers(department));
         return "director/teacherPrice";
     }
 
-    @PostMapping(value = "/director/teacherPrice")
+    @PostMapping("/teacherPrice")
     public String teacherPriceNewValue(@RequestParam("ListTeacher") int idTeacher,
                                        @RequestParam("sum") String pricePerHour,
                                        @ModelAttribute("department") Department department, Model model){

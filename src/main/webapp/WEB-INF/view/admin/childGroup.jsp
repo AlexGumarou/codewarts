@@ -29,10 +29,12 @@
                     <button class='ghost-round full-width' type="submit" name="button"
                             value="${idChildGroup}"><spring:message code="app.childGroup.change.group.name"/></button>
                 </form>
+                <c:if test="${listChild.isEmpty()}">
                 <form name="test" method="post" action="/admin/delete/group">
                     <button class='ghost-round full-width' type="submit" name="button"
                             value="${idChildGroup}"><spring:message code="app.childGroup.remove.group"/></button>
                 </form>
+                </c:if>
                 <form name="test" method="get" action="/admin">
                     <button class='ghost-round full-width' type="submit"><spring:message code="app.to.main"/></button>
                 </form>

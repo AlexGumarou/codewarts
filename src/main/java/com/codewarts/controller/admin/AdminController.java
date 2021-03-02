@@ -15,6 +15,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
     private AdminServiceImpl adminServiceImpl;
     private MainServiceImpl mainServiceImpl;
@@ -42,27 +43,26 @@ public class AdminController {
         session.setAttribute("name", staff.getName());
     }
 
-    @GetMapping(value = "/admin")
+    @GetMapping()
     public String adminPage(Model model, @ModelAttribute("department") Department department){
         model.addAttribute("listBirthday", adminServiceImpl.getAllChildBirthday(department));
         model.addAttribute("listGroups", mainServiceImpl.getAllGroupChild(department));
         return "admin/admin";
     }
 
-    @RequestMapping("/admin/{childGroup}")
+    @RequestMapping("/{childGroup}")
     public String getChildByGroup(@PathVariable(name = "childGroup") int childGroup, Model model, HttpSession session){
         Department department = (Department) session.getAttribute("department");
         List<Child> list = mainServiceImpl.getAllChildByGroupAndDepartment(department,childGroup);
         if (list.isEmpty()){
             model.addAttribute("msg", "В данной группе нет ни одного ученика");
-        } else {
-            model.addAttribute("listChild", list);
         }
+        model.addAttribute("listChild", list);
         model.addAttribute("idChildGroup", childGroup);
         return "admin/childGroup";
     }
 
-    @PostMapping(value = "/admin/search")
+    @PostMapping("/search")
     public String searchChildBySurname(@RequestParam(value = "findChild", defaultValue = "") String findChild,
                                        Model model, @ModelAttribute("department") Department department){
         List<Child> list = adminServiceImpl.findChildBySurname(findChild, department);
