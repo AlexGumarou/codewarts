@@ -12,9 +12,9 @@ You can watch demo on https://crmeducation.herokuapp.com/
 Description:
 
 Teacher interface allows you:
-- to mark student visits
-- to mark teacher attendance
-- to see past topics and to choose lesson topic
+- to mark students visits
+- to mark teachers attendance
+- to see past topics and to choose lessons topics
 
 Director interface allows you:
 - to get summary by teacher (working hours, sum to pay)
@@ -24,7 +24,6 @@ Director interface allows you:
 Admin interface allows you:
 - to add, modify children data
 - to manage payments, groups
-
 
 
 In this project I have used:
