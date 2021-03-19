@@ -69,6 +69,14 @@ public class DirectorServiceImpl implements DirectorService {
         } return count;
     }
 
+    public List<Staff> getAllStaff(){
+        return directorDaoImpl.getAllStaff();
+    }
+
+    public void deleteStaff(int idStaff) {
+        directorDaoImpl.deleteStaff(idStaff);
+    }
+
     public int getAllQuantityByTeacher(int idTeacher, LocalDate dateFrom, LocalDate dateTo) {
         return new ArrayList<>(directorDaoImpl.getAllHoursByTeacher(idTeacher, dateFrom, dateTo)).size();
     }

@@ -16,6 +16,9 @@
                 <form  name="test" method="get" action="/director/addStaff">
                     <button class='ghost-round full-width' type="submit" ><spring:message code="app.director.add.staff"/></button>
                 </form>
+                <form  name="test" method="get" action="/director/removeStaff">
+                    <button class='ghost-round full-width' type="submit" ><spring:message code="app.director.remove.staff"/></button>
+                </form>
                 <form  name="test" method="get" action="/director/teacherData">
                     <button class='ghost-round full-width' type="submit" ><spring:message code="app.director.time"/></button>
                 </form>

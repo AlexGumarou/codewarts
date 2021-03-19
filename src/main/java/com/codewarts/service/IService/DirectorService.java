@@ -17,4 +17,5 @@ public interface DirectorService {
     int getPricePerHourByTeacher(int idTeacher);
     int getAllPayments(LocalDate dateFrom, LocalDate dateTo);
     double getAllHoursByTeacher(int idTeacher, LocalDate dateFrom, LocalDate dateTo);
+    void deleteStaff(int idStaff);
 }

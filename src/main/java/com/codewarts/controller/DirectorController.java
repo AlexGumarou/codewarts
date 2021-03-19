@@ -84,6 +84,20 @@ public class DirectorController {
         return "director/addStaf";
     }
 
+    @GetMapping("/removeStaff")
+    public String removeStaffGet(Model model){
+        model.addAttribute("listStaff", directorServiceImpl.getAllStaff());
+        return "director/removeStaff";
+    }
+
+    @PostMapping("/removeStaff")
+    public String removeStaffPost(@RequestParam("listStaff") int idStaff, Model model){
+        directorServiceImpl.deleteStaff(idStaff);
+        model.addAttribute("listStaff", directorServiceImpl.getAllStaff());
+        model.addAttribute("msg", "Данные удалены");
+        return "director/removeStaff";
+    }
+
     @GetMapping("/teacherData")
     public String teacherAccountingGet(Model model, @ModelAttribute("department") Department department){
         model.addAttribute("ListTeacher", directorServiceImpl.getAllTeachers(department));

@@ -26,6 +26,11 @@ public class DirectorDaoImpl implements DirectorDao {
         sessionFactory.getCurrentSession().saveOrUpdate(staff);
     }
 
+    public void deleteStaff(int idStaff) {
+        Staff staff = sessionFactory.getCurrentSession().get(Staff.class, idStaff);
+        sessionFactory.getCurrentSession().delete(staff);
+    }
+
     public List<Department> getAllDepartments() {
         return sessionFactory.getCurrentSession().createQuery("from Department ", Department.class).list();
     }

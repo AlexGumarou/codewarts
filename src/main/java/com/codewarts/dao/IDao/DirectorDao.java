@@ -15,4 +15,5 @@ public interface DirectorDao {
     List<Payment> getAllPayments(LocalDate dateFrom, LocalDate dateTo);
     void changePricePerHour(int idTeacher, String pricePerHour);
     void addStaff(Staff staff, int idRole, int idDepartment);
+    void deleteStaff(int idStaff);
 }
