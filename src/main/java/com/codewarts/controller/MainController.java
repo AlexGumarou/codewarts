@@ -32,14 +32,15 @@ public class MainController {
         if (principal == null){
             return "index";
         }
-        if (service.getStaff(principal.getName()).getStaffRole().getRole().equals("ADMIN")){
-            return "redirect:/admin";
-        } else if (service.getStaff(principal.getName()).getStaffRole().getRole().equals("TEACHER")){
-            return "redirect:/teacher";
-        } else if (service.getStaff(principal.getName()).getStaffRole().getRole().equals("DIRECTOR")) {
-            return "redirect:/director";
-        } else {
-            return "error";
+        switch (service.getStaff(principal.getName()).getStaffRole().getRole()) {
+            case "ADMIN":
+                return "redirect:/admin";
+            case "TEACHER":
+                return "redirect:/teacher";
+            case "DIRECTOR":
+                return "redirect:/director";
+            default:
+                return "error";
         }
     }
 }

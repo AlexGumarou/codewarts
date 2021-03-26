@@ -22,16 +22,18 @@ public class MainDaoImpl implements MainDao {
 
     public Staff getAllStaff(String login) {
         return sessionFactory.getCurrentSession()
-                .createQuery("from Staff s join fetch s.department join fetch s.staffRole where s.login = :login",
-                        Staff.class)
-                .setParameter("login", login).getSingleResult();
+                .createQuery("from Staff s join fetch s.department join fetch s.staffRole " +
+                                "where s.login = :login", Staff.class)
+                .setParameter("login", login)
+                .getSingleResult();
     }
 
     public List<ChildGroup> getAllChildGroup(Department department) {
         return sessionFactory.getCurrentSession()
                 .createQuery("from ChildGroup ch join fetch ch.department " +
                         "where ch.department.id = :id", ChildGroup.class)
-                .setParameter("id", department.getId()).list();
+                .setParameter("id", department.getId())
+                .list();
     }
 
     public List<Child> getAllChildByGroupAndDepartment(Department department, int childGroup) {
